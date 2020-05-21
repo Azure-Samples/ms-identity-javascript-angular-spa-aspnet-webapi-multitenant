@@ -42,6 +42,17 @@ Please refer to each chapter's subfolder for prerequisities.
 
 ## Setup
 
+Using a command line interface such as VS Code integrated terminal, clone or download this repository
+
+```console
+git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
+```
+
+> [!NOTE]
+> Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
+
+### Step 2
+
 Please refer to each chapter's subfolder for setup instructions.
 
 ## Discussion
@@ -54,9 +65,9 @@ An application is said to be **multi-tenant** when users from tenant **A** can a
 
 To give an overview, in order to make your app **multi-tenant**, you'll have to:
 
-1. Update your application registration to be multi-tenant
-2. Update your code to send requests to the `/common` (or `/organizations`) endpoint
-3. Implement a mechanism in your app for providing **admin-consent**
+1. Update your application registration to be multi-tenant.
+2. Update your code to send requests to the `/common` (or `/organizations`) endpoint.
+3. Implement a mechanism in your app for providing **admin-consent**.
 
 These steps will be discussed in more detail in **chapter 1** and **chapter 2**. In carrying out these steps, remember the ultimate goal: **provisioning your application** to another tenant. In order to understand **application provisioning**, you first need to understand what is meant by **application**.
 

@@ -36,10 +36,8 @@ In order to grasp the important aspects of **multitenancy** in this sample, plea
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
-| `ReadmeFiles` | Sample readme files.                          |
-| `TodoListAPI` | Source code of the TodoList API.  |
-| `TodoListSPA` | Source code of the TodoList client SPA.  |
+| `TodoListAPI` | Source code of the TodoList API.               |
+| `TodoListSPA` | Source code of the TodoList client SPA.        |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `README.md`       | This README file.                          |
@@ -59,23 +57,14 @@ In order to grasp the important aspects of **multitenancy** in this sample, plea
 
 Using a command line interface such as VS Code integrated terminal, follow the steps below:
 
-### Step 1. Clone or download this repository
-
-```console
-git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
-```
-
-> [!NOTE]
-> Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
-
-### Step 2. Install .NET Core API dependencies
+### Step 1. Install .NET Core API dependencies
 
 ```console
 cd TodoListAPI
 dotnet restore
 ```
 
-### Step 3. Trust development certificates
+### Step 2. Trust development certificates
 
 ```console
 dotnet dev-certs https --clean
@@ -84,7 +73,7 @@ dotnet dev-certs https --trust
 
 Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/aspnet/core/security/enforcing-ssl).
 
-### Step 4. Install Angular SPA dependencies
+### Step 3. Install Angular SPA dependencies
 
 ```console
 cd ../
@@ -92,7 +81,7 @@ cd TodoListSPA
 npm install
 ```
 
-## Register the sample applications with your Azure Active Directory tenant
+### Register the application
 
 There are two projects in this sample. Each needs to be registered separately in your Azure AD tenant.
 
@@ -137,7 +126,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListSPA`.
    - Under **Supported account types**, select **Accounts in any organizational directory and personal Microsoft accounts**.
-   - In the **Redirect URI (optional)** section, select **Web** in the combo-box and enter the following redirect URI: `http://localhost:4200/`.
+   - In the **Redirect URI** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200/`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
@@ -201,10 +190,12 @@ Learn more about using [.NET Core with Visual Studio Code](https://docs.microsof
 
 ![login](../Misc/ch2_login.png)
 
-1. Click on the "Get my tasks" button to access your todo list. If you have not provided **admin-consent** yet, you will get the following screen:
+1. Click on the "Get my tasks" button to access your todo list.
 
-![error](../Misc/ch2_error_screen.png)
-
+> If you have not provided **admin-consent** yet, you will get the following screen:
+>
+> ![error](../Misc/ch2_error_screen.png)
+>
 > To provide **admin-consent**, navigate to the consent page by clicking on the "Admin" button on the top-right corner.
 >
 >![admin](../Misc/ch2_admin_consent_page.png)
@@ -219,11 +210,13 @@ Here we discuss some of the more peculiar aspects of multi-tenant application su
 
 ### Consenting to Applications with Distributed Topology
 
-From the perspective of **multitenancy**, the main challenge with such applications is with providing admin-consent. This is due to the fact that some of their components, such as a web API or a background microservice, do not have a front-end, and as such, has no user-interaction capability. The solution for this is to
+From the perspective of **multitenancy**, the main challenge with such applications is with providing admin-consent. This is due to the fact that some of their components, such as a web API or a background microservice, do not have a front-end, and as such, has no user-interaction capability. The solution for this is to allow the user (in this case, an admin-user) to consent to web API at the same they consent to the front-end application i.e. give a **combined consent**. In **chapter 1**, we have seen that the `/.default` scope can be used to this effect, allowing you to consent to many different scopes at one step. However, unlike **chapter 1**, our application suite here has a back-end/web API component. But how could the web API know that the consent comes from a recognized front-end application, as opposed to some foreign application? The answer is the **KnownClientApplications** attribute.
 
-> #### KnownClientApplications**
+> #### KnownClientApplications
 >
-> **KnownClientApplications** is a attribute in **application manifest**. It is used for bundling consent if you have a solution that contains two parts: a client app and a custom web API app. If you enter the appID of the client app into this value, the user will only have to consent once to the client app. Azure AD will know that consenting to the client means implicitly consenting to the web API. It will automatically provision service principals for both the client and web API at the same time. Both the client and the web API app must be registered in the same tenant.
+> **KnownClientApplications** is an attribute in **application manifest**. It is used for bundling consent if you have a solution that contains two parts: a client app and a custom web API app. If you enter the `appID` of the client app into this value, the user will only have to consent once to the client app. Azure AD will know that consenting to the client means implicitly consenting to the web API. It will automatically provision service principals for both the client and web API at the same time. Both the client and the web API app must be registered in the same tenant.
+
+If you remember the last step of the registration for the client app (TodoListSPA), you were instructed to find the `KnownClientApplications` in application manifest, and add the Application (client) ID of the `TodoListSPA` application `KnownClientApplications: [ "your-client-id-for-TodoListSPA" ]`. Once you do that, your web API will be able to correctly identify your front-end and the combined consent will be succesfully carried out.
 
 > [!NOTE]
 > Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
