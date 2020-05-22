@@ -46,7 +46,11 @@ In order to grasp the important aspects of **multitenancy** in this sample, plea
 
 ## Setup
 
-1. On the command line, navigate to the root of the repository, and run `npm install` to install the project dependencies via **npm**.
+On the command line, navigate to the root of the repository, and install the project dependencies via **npm**.
+
+```console
+npm install
+```
 
 ## Running the sample
 

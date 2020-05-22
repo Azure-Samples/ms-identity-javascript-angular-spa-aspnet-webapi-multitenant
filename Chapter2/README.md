@@ -81,7 +81,7 @@ cd TodoListSPA
 npm install
 ```
 
-### Register the application
+## Registration
 
 There are two projects in this sample. Each needs to be registered separately in your Azure AD tenant.
 
@@ -115,7 +115,7 @@ The first thing that we need to do is to declare the unique [resource](https://d
 Open the project in your IDE (like Visual Studio) to configure the code.
 >In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
-1. Open the `TodoListAPI\appsettings.json` file
+1. Open the `TodoListAPI\appsettings.json` file.
 1. Find the app key `Domain` and replace the existing value with your Azure AD tenant name.
 1. Find the app key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the Azure portal.
 

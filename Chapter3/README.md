@@ -62,7 +62,7 @@ cd TodoListSPA
 npm install
 ```
 
-### Register the application
+## Registration
 
 ### Register the service app (TodoListAPI)
 
@@ -80,7 +80,7 @@ We will deploy our web API on [Azure App Services](https://azure.microsoft.com/s
 
 Using a command line interface such as VS Code integrated terminal, follow the steps below:
 
-### Step 1. Initialize a local Git
+#### Step 1. Initialize a local Git
 
 ```console
 git init
@@ -88,11 +88,17 @@ git init
 
 Once initalization is done. Commit all your files to your local Git.
 
-### Step 2. Deploy your app
+#### Step 2. Deploy your app
 
-### Step 3. Modify your appsettings.json
+Click on the Azure icon on the left bar in VS Code.
 
-### Enable Azure AD Authentication
+#### Step 3. Modify your launchSettings.json
+
+1. Open the `TodoListAPI\Properties\launchSettings.json` file.
+2. Find all app keys `applicationUrl` and replace it with the base address of your web api e.g. `my-web-api.azurewebsites.net`.
+3. Find the app key `launchUrl` and replace it with the api endpoint of your web api e.g. `my-web-api.azurewebsites.net/api/todolist`.
+
+#### Step 4. Enable Azure AD Authentication
 
 ### TodoListSPA
 
@@ -100,13 +106,13 @@ Since TodoListSPA is a single-page application, we will deploy it as a **static 
 
 Using a command line interface such as VS Code integrated terminal, follow the steps below:
 
-### Step 1. Build your app
+#### Step 1. Build your app
 
 ```console
 ng build --prod
 ```
 
-### Step 2. Deploy your app
+#### Step 2. Deploy your app
 
 ```console
 ng run angular9-todo-app:deploy
@@ -118,14 +124,14 @@ You may be prompted you to sign in to Azure, providing a link to open in your br
 see your deployed site at https://angular9-todo-app52.z22.web.core.windows.net/
 ```
 
-### Step 3. Register your new address as a redirect uri
+#### Step 3. Register your new address as a redirect uri
 
 You now need to go back to your Azure AD **app registration** for `TodoListSPA`:
 
    1. Click on the **Authentication** blade.
    2. Add your website's address (e.g. `https://angular9-todo-app52.z22.web.core.windows.net/`) as a new **Redirect URI**.
 
-### Step 4. Modify app-config.json
+#### Step 4. Modify app-config.json
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
 1. Find the key `redirectUri` and replace the existing value with the **redirect uri** that you've just registered in the previous step.
