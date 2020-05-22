@@ -18,7 +18,7 @@ urlFragment: ms-identity-javascript-angular-spa-aspnet-webapi-multitenant-chapte
 
 # Deploying a multi-tenant Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
 
-In this sample, we will deploy our project on Azure Services.
+In this sample, we will deploy our project components, **TodoListAPI** and **TodoListSPA**, to Azure Cloud. For **TodoListAPI**, we will use **Azure App Services**, while for **TodoListSPA**, we will generate a static website and upload it to **Azure Stroge**.
 
 ## Contents
 
@@ -66,11 +66,11 @@ npm install
 
 ### Register the service app (TodoListAPI)
 
-Use the same app registration credentials you have obtained during **chapter 2**.
+Use the same app registration credentials that you've obtained during **chapter 2**.
 
 ### Register the client app (TodoListSPA)
 
-Use the same app registration credentials you have obtained during **chapter 2**.
+Use the same app registration credentials that you've obtained during **chapter 2**.
 
 ## Deployment
 
@@ -90,7 +90,7 @@ Once initalization is done. Commit all your files to your local Git.
 
 #### Step 2. Deploy your app
 
-Click on the Azure icon on the left bar in VS Code.
+Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to **App Service** section and you will see an upward-facing arrow icon. Click on it publish your local files to **Azure App Services**
 
 #### Step 3. Modify your launchSettings.json
 
@@ -99,6 +99,8 @@ Click on the Azure icon on the left bar in VS Code.
 3. Find the app key `launchUrl` and replace it with the api endpoint of your web api e.g. `my-web-api.azurewebsites.net/api/todolist`.
 
 #### Step 4. Enable Azure AD Authentication
+
+Screenshot
 
 ### TodoListSPA
 
@@ -155,10 +157,6 @@ You should now be able to authenticate to your SPA and call your web API.
 Here we discuss some of the more peculiar aspects of deploying multi-tenant application suites.
 
 ### CORS Configuration
-
-### Managed Identity
-
-### Key Vault
 
 > [!NOTE]
 > Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
