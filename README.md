@@ -27,8 +27,8 @@ The aim of this tutorial is for you to understand aspects of **multi-tenancy** i
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
 | `Chapter1`        | Multitenant vanillaJS SPA calling MS Graph API. |
-| `Chapter2`        | Multitenant Angular SPA with .NET Core Web API. |
-| `Chapter3`        | Deployment with Azure App Services and Managed Identity. |
+| `Chapter2`        | Multitenant Angular SPA calling MS Graph API and .NET Core web API. |
+| `Chapter3`        | Deployment with Azure App Services and Azure Storage. |
 | `Misc`            | Contains screenshots and illustrations.    |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
@@ -49,8 +49,7 @@ Using a command line interface such as VS Code integrated terminal, clone or dow
 git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
 ```
 
-> [!NOTE]
-> Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
+> [!NOTE] Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
 
 ### Step 2
 
@@ -131,7 +130,6 @@ In this tutorial we focus on delegated permissions. Some permissions can be cons
 Whether a permission requires admin consent is determined by the developer that published the resource, and can be found in the documentation for the resource. The [permissions documentation](https://docs.microsoft.com/graph/permissions-reference) for the **Microsoft Graph API** indicate which permissions require **admin*consent**.
 
 To see how to provide **admin-consent**, continue to review the sample in [chapter 1](./chapter1).
-
 
 ## More information
 

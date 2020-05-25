@@ -38,7 +38,7 @@ In this sample, we will deploy our project components, **TodoListAPI** and **Tod
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
 - *At least* **two** Azure Active Directory (Azure AD) tenants. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 - On each tenant, *at least* **one** admin account and **one** non-admin/user account for testing purposes.
-- An **Azure subscription** with sufficient credits. This sample uses **Azure App Services** and **Azure Storage**.
+- An **Azure subscription**. This sample uses **Azure App Services** and **Azure Storage**.
 - A modern Browser. This sample uses **ES6** conventions and will not run on **Internet Explorer**.
 - We recommend [VS Code](https://code.visualstudio.com/download) for running and debugging this cross-platform application.
 - We recommend [Azure Tools for VS Code Extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-node-azure-pack) for interacting with Azure services directly within VS Code.
@@ -86,11 +86,13 @@ Using a command line interface such as VS Code integrated terminal, follow the s
 git init
 ```
 
-Once initalization is done. Commit all your files to your local Git.
+Once the initalization is done. Commit all your files to your local Git.
 
 #### Step 2. Deploy your app
 
 Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to **App Service** section and you will see an upward-facing arrow icon. Click on it publish your local files to **Azure App Services**
+
+![publish](../Misc/ch3_publish.png)
 
 #### Step 3. Modify your launchSettings.json
 
@@ -98,13 +100,25 @@ Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to *
 2. Find all app keys `applicationUrl` and replace it with the base address of your web api e.g. `my-web-api.azurewebsites.net`.
 3. Find the app key `launchUrl` and replace it with the api endpoint of your web api e.g. `my-web-api.azurewebsites.net/api/todolist`.
 
-#### Step 4. Enable Azure AD Authentication
+#### Step 4. Configure your app
 
-Screenshot
+On the **App Services** portal, click on the **Configuration** blade and set the **stack** property to **.NET Core**.
+
+![config](../Misc/ch3_config.png)
+
+#### Step 5. Enable Azure AD authentication
+
+Still on the **App Services** portal, click on the **Authentication/Authorization** blade. There, enable the App Services Authentication, then select Azure AD from the list below.  
+
+![auth1](../Misc/ch3_auth.png)
+
+Remember we already have an **app registration** for our **TodoListAPI** from the **chapter 2**. Here we will simply configure the **App Services** to use it. Hit on the **Advanced** mode and enter your `clientID` for **TodoListAPI**.
+
+![auth2](../Misc/ch3_auth2.png)
 
 ### TodoListSPA
 
-Since TodoListSPA is a single-page application, we will deploy it as a **static website** on [Azure Storage](https://azure.microsoft.com/services/storage/). To do so, we will **build** our Angular sample to create a `dist` folder with compiled resources. We wil also make use of the [@azure/ng-deploy](https://www.npmjs.com/package/@azure/ng-deploy) for deployment.
+Since TodoListSPA is a single-page application, we will deploy it as a **static website** on [Azure Storage](https://azure.microsoft.com/services/storage/). To do so, we will **build** our Angular sample to create a `dist` folder with compiled resources. Then we will make use of the [@azure/ng-deploy](https://www.npmjs.com/package/@azure/ng-deploy) for deployment.
 
 Using a command line interface such as VS Code integrated terminal, follow the steps below:
 
@@ -136,9 +150,9 @@ You now need to go back to your Azure AD **app registration** for `TodoListSPA`:
 #### Step 4. Modify app-config.json
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
-1. Find the key `redirectUri` and replace the existing value with the **redirect uri** that you've just registered in the previous step.
-1. Find the key `resourceScope` and replace the existing value with the **redirect uri** that you've just obtained in deploying TodoListAPI (e.g. my-web-api.azurewebsites.net)
-1. Rebuild and redeploy your files:
+1. Find the key `todoListApi.redirectUri` and replace the existing value with the **redirect uri** that you've just registered in the previous step.
+1. Find the key `todoListApi.resourceScope` and replace the existing value with the **redirect uri** that you've just obtained in deploying TodoListAPI (e.g. my-web-api.azurewebsites.net)
+1. Re-build and re-deploy your files:
 
 ```console
 ng build --prod
@@ -158,8 +172,41 @@ Here we discuss some of the more peculiar aspects of deploying multi-tenant appl
 
 ### CORS Configuration
 
-> [!NOTE]
-> Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+We have setup our own [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) configuration in the **TodoListAPI** (`TodoListAPI/Startup.cs`) in the previous chapter:
+
+```csharp
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // Allowing CORS for all domains and methods for the purpose of sample
+            services.AddCors(o => o.AddPolicy("default", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+        }
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        {
+            app.UseCors("default");
+        }
+```
+
+> [!NOTE] In a real-world scenario, you should be selective with allowed origins i.e. you should allow only recognized domains.
+
+If you like, you could delegate the control of **CORS** policy to **Azure App Services**. To do so, navigate to **App Services** portal, and then click on the **CORS** blade:
+
+![cors](../Misc/ch3_cors.png)
+
+Then, you can add the domain of your single-page application as an **Allowed Origin**. Of course, if you follow this approach, don't forget to remove the CORS configuration in the `TodoListAPI/Startup.cs` (i.e. the code snipped above), as you no longer need it once you set up **Azure App Services** to enforce the **CORS** policy.
+
+> [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+
+## More information
+
+- [Quickstart: Create an ASP.NET Core web app in Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-dotnet)
+- [Tutorial: Authenticate and authorize users end-to-end in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-auth-aad)
+- [Authentication and authorization in Azure App Service and Azure Functions](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization)
+- [Configure your App Service or Azure Functions app to use Azure AD login](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad)
 
 ## Contributing
 

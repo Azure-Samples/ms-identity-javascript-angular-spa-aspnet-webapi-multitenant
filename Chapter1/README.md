@@ -14,7 +14,7 @@ urlFragment: ms-identity-javascript-angular-spa-aspnet-webapi-multitenant-chapte
 
 A multi-tenant vanilla JavaScript single-page application which demonstrates how to configure [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) to login, consent, provision, and acquire access tokens for a protected resource such as [Microsoft Graph API](https://developer.microsoft.com/graph).
 
-In order to grasp the important aspects of **multitenancy** in this sample, please follow the [discussion](##discussion) section below.
+In order to grasp the important aspects of **multi-tenancy** in this sample, please follow the [discussion](##discussion) section below.
 
 ## Contents
 
@@ -46,9 +46,10 @@ In order to grasp the important aspects of **multitenancy** in this sample, plea
 
 ## Setup
 
-On the command line, navigate to the root of the repository, and install the project dependencies via **npm**.
+Using a command line interface such as VS Code integrated terminal, install the project dependencies via **npm**.
 
 ```console
+cd chapter1
 npm install
 ```
 
@@ -84,7 +85,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 >In the steps below, "clientId" is the same as "Application ID" or "AppId".
 
-1. Open the `authConfig.js` file
+1. Open the `App/authConfig.js` file
 1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the `multitenant-spa` application copied from the Azure portal.
 
 ### Explore the sample
@@ -228,8 +229,7 @@ Now try changing it into the following:
 
 Here, the consent prompt will appear during token request, instead of login. In other words, users can authenticate, but cannot optain an access token. If you want to test this, you need to delete your service principals on each tenant, and try to login again with a non-admin account.
 
-> [!NOTE]
-> Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+> [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
 ## Contributing
 
