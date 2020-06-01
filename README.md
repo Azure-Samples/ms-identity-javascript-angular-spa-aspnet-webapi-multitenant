@@ -14,9 +14,9 @@ description: "An incremental multi-tenancy tutorial demonstrating how to setup a
 urlFragment: ms-identity-javascript-angular-spa-aspnet-webapi-multitenant
 ---
 
-# Microsoft Identity Platform Multi-tenant Applications Tutorial
+# Developing Multi-tenant applications with Microsoft Identity Platform tutorial
 
-An incremental **multi-tenancy** tutorial demonstrating how to setup and configure your app, provide consent as admin to make it accessible for users in your tenant and deploy it on **Azure App Services**.
+This is an incremental chapter-wise tutorial that teaches you how to develop a  [multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps) application using the Microsoft Identity Platform. It'll demonstrate how to setup and configure your app, provision it in customer's tenant using admin consent and make it accessible for users. We will also cover the steps to deploy it on [Azure App Services](https://azure.microsoft.com/services/app-service/).
 
 ## How to Use this tutorial
 
@@ -26,10 +26,9 @@ The aim of this tutorial is for you to understand aspects of **multi-tenancy** i
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `Chapter1`        | Multitenant vanillaJS SPA calling MS Graph API. |
-| `Chapter2`        | Multitenant Angular SPA calling MS Graph API and .NET Core web API. |
+| `Chapter1`        | Multi-tenant vanillaJS SPA calling MS Graph API. |
+| `Chapter2`        | Multi-tenant Angular SPA calling MS Graph API and .NET Core web API. |
 | `Chapter3`        | Deployment with Azure App Services and Azure Storage. |
-| `Misc`            | Contains screenshots and illustrations.    |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `README.md`       | This README file.                          |
@@ -39,7 +38,13 @@ The aim of this tutorial is for you to understand aspects of **multi-tenancy** i
 
 Please refer to each chapter's subfolder for prerequisities.
 
-> [!Note] We highly recommend getting familiar with *regular* samples first, in particular with [this](https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2) and [this](https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi), in order to fully grasp the naunces of the **multi-tenant** case.
+We highly recommend getting familiar with the following *basic sign-In* examples and documents first in order to easily grasp the naunces that the **multi-tenant** app development scenario will present:
+
+1. [A  JavaScript SPA calling the Microsoft Graph using msal.js](https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2) 
+1. [An Angular SPA that signs-in  users with Azure AD and calls a protected ASP.NET Core web API](https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi)
+1. [Tenancy in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)
+1. [Application and service principal objects in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
+1. [Azure Active Directory consent framework](https://docs.microsoft.com/azure/active-directory/develop/consent-framework)
 
 ## Setup
 
@@ -53,81 +58,20 @@ git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-as
 
 ### Step 2
 
-Please refer to each chapter's subfolder for setup instructions.
+Please refer to each chapter's sub-folder for setup instructions.
 
-## Discussion
+### Overview
 
-### Understanding Tenancy in Azure AD
+When it comes to developing apps, developers can choose to configure their app to be either single-tenant or multi-tenant during app registration in the [Azure portal](https://portal.azure.com).
 
-Azure Active Directory (Azure AD) organizes objects like users and apps into groups called tenants. Tenants allow an administrator to set policies on the users within the organization and the apps that the organization owns to meet their security and operational policies.
+- `Single-tenant` apps are only available in the tenant they were registered in, also known as their home tenant.
+- `Multi-tenant` apps are available to users in both their home tenant and other tenants where they are provisioned. Apps that allow users to sign-in using their personal accounts that they use to sign into services like Xbox and Skype are also multi-tenant apps.
 
-An application is said to be **multi-tenant** when users from tenant **A** can access and use an application created on tenant **B**. Once your application is **multi-tenant**, users in any Azure AD tenant will be able to sign in to your application after they (and their **tenant-admin**) consent to use their account with your application.
+For more information about apps and tenancy, see [Tenancy in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)
 
-To give an overview, in order to make your app **multi-tenant**, you'll have to:
+> A recording of a Microsoft Identity Platform developer session that covered this topic of developing a multi-tenant app with Azure Active Directory is available at [Develop multi-tenant applications with Microsoft identity platform](https://www.youtube.com/watch?v=B416AxHoMJ4).
 
-1. Update your application registration to be multi-tenant.
-2. Update your code to send requests to the `/common` (or `/organizations`) endpoint.
-3. Implement a mechanism in your app for providing **admin-consent**.
-
-These steps will be discussed in more detail in **chapter 1** and **chapter 2**. In carrying out these steps, remember the ultimate goal: **provisioning your application** to another tenant. In order to understand **application provisioning**, you first need to understand what is meant by **application**.
-
-### Applications and Service Principals
-
-The meaning of the term "application" can be misunderstood when used in the context of Azure Active Directory (Azure AD). An application that has been integrated with Azure AD has implications that go beyond the software aspect. "Application" is frequently used as a conceptual term, referring to not only the application software, but also its Azure AD registration and role in authentication/authorization "conversations" at runtime.
-
-An Azure AD application is defined by its one and only **application object**, which resides in the Azure AD tenant where the application was registered, known as the application's "home" tenant. The Microsoft Graph [Application entity](https://docs.microsoft.com/graph/api/resources/application) defines the schema for an application object's properties.
-
-To access resources that are secured by an Azure AD tenant, an application that requires access must be represented by a **service principal**. The service principal defines the access policy and permissions for the application in the Azure AD tenant. This enables core features such as authentication of the user/application during sign-in, and authorization during resource access. When an application is given permission to access resources in a tenant (upon registration or consent), a [service principal object](https://docs.microsoft.com/graph/api/resources/serviceprincipal) is created.
-
-> #### Relationship between Applications and Service Principals
->
->Consider the application object as the *global representation* of your application for use across all tenants, and the service principal as the *local representation* for use in a specific tenant. The application object serves as the template from which common and default properties are derived for use in creating corresponding service principal objects. An application object therefore has a **1:1 relationship** with the software application, and a **1:many relationships** with its corresponding service principal object(s).
->
->A service principal must be created in each tenant where the application is used, enabling it to establish an identity for sign-in and/or access to resources being secured by the tenant. A single-tenant application has only one service principal (in its home tenant), created and consented for use during application registration. A multi-tenant application also has a service principal created in each tenant where a user from that tenant has consented to its use.
-
-### Audiences and Account Types
-
-Applications registered in an Azure Active Directory (Azure AD) tenant are, by default, available to all users of the tenant who authenticate successfully. Similarly, in case of a multi-tenant app, all users in the Azure AD tenant where this app is provisioned will be able to access this application once they successfully authenticate in their respective tenant.
-
-When registering an application with the Microsoft identity platform for developers, you are asked to select which account types your application supports. The options include the following:
-
-| **Audience** | **Single/multi-tenant** | **Who can sign in** |
-|----------|---------------------| --------------- |
-| Accounts in this directory only | Single tenant | All user and guest accounts in your directory can use your application or API. *Use this option if your target audience is internal to your organization.* |
-| Accounts in any Azure AD directory | Multi-tenant | All users and guests with a work or school account from Microsoft can use your application or API. This includes schools and businesses that use Office 365. *Use this option if your target audience is business or educational customers.* |
-| Accounts in any Azure AD directory and personal Microsoft accounts (such as Skype, Xbox, Outlook.com) | Multi-tenant | All users with a work or school, or personal Microsoft account can use your application or API. It includes schools and businesses that use Office 365 as well as personal accounts that are used to sign in to services like Xbox and Skype. *Use this option to target the widest set of Microsoft accounts.* |
-
-Your MSAL configuration will reflect your choice audience in the `authority` parameter. For instance, an application that targets  **accounts in this directory only** will have a configuration similar to:
-
-```JavaScript
-const msalConfig = {
-  auth: {
-    clientId: "<your-client-id>",
-    authority: "https://login.microsoftonline.com/<your-tenant-id>",
-    redirectUri: "http://localhost:3000/",
-  }
-}
-```
-
-On the other hand, an application that targets **accounts in any Azure AD directory** will have its authority parameter set to `https://login.microsoftonline.com/organizations`, while for an application that targets **Accounts in any Azure AD directory and personal Microsoft accounts (such as Skype, Xbox, Outlook.com)** it will be `https://login.microsoftonline.com/common`. Here `/organizations` and `/common` are not real tenants, they are just **multiplexers**.
-
-### Permissions and Admin Consent
-
-For a user to sign in to an application in Azure AD, the application must be represented in the user’s tenant. For a multi-tenant application, the initial registration for the application lives in the Azure AD tenant used by the developer. When a user from a different tenant signs in to the application for the first time, Azure AD asks them to consent to the permissions requested by the application. If they consent, then a representation of the application called a service principal is created in the user’s tenant, and sign-in can continue. A delegation is also created in the directory that records the user’s consent to the application.
-
-![screenshot](./Misc/consent_flow.svg)
-
-This consent experience is affected by the permissions requested by the application. Microsoft identity platform supports two kinds of permissions, app-only and delegated.
-
-- A **delegated permission** grants an application the ability to act as a signed in user for a subset of the things the user can do. For example, you can grant an application the delegated permission to read the signed in user’s calendar.
-
-- An **app-only permission** is granted directly to the identity of the application. For example, you can grant an application the app-only permission to read the list of users in a tenant, regardless of who is signed in to the application.
-
-In this tutorial we focus on delegated permissions. Some permissions can be consented to by a regular user, while others require a tenant administrator’s consent. For example, the ability to write back to Azure AD as the signed in user requires a tenant administrator’s consent. If an ordinary user tries to sign in to an application that requests a delegated permission that requires administrator consent, your application receives an error.
-
-![screenshot](./Misc/ch1_need_admin_approval.png)
-
-Whether a permission requires admin consent is determined by the developer that published the resource, and can be found in the documentation for the resource. The [permissions documentation](https://docs.microsoft.com/graph/permissions-reference) for the **Microsoft Graph API** indicate which permissions require **admin*consent**.
+![Sign in with Azure AD](ReadmeFiles/topology.png)
 
 To see how to provide **admin-consent**, continue to review the sample in [chapter 1](./chapter1).
 
@@ -171,4 +115,4 @@ provided by the bot. You will only need to do this once across all repos using o
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments
