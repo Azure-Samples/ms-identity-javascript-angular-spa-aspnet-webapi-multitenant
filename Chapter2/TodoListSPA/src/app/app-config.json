@@ -1,6 +1,6 @@
 {
   "auth": {
-    "clientId": "83e25852-6522-49a8-a651-1c0765c27d37",
+    "clientId": "7775c957-eca0-402a-aa35-2824c10f8cde",
     "authority": "https://login.microsoftonline.com/common",
     "validateAuthority": true,
     "redirectUri": "http://localhost:4200",
@@ -16,7 +16,7 @@
     "resources": {
       "todoListApi": {
         "resourceUri": "https://localhost:44351/api/todolist/",
-        "resourceScope": "api://de7ef676-c5e2-4f4f-9bfd-3e53eaea597b/access_as_user"
+        "resourceScope": "api://d6b80918-8b16-43fa-8a06-53d2c1a1f9bb/access_as_user"
       },
       "graphApi": {
         "resourceUri": "https://graph.microsoft.com/v1.0/users",

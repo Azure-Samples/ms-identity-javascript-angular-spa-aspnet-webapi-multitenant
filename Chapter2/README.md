@@ -136,14 +136,19 @@ Open the project in your IDE (like Visual Studio) to configure the code.
      sign-in the user, and call an API.
 
 1. Select **Save** to save your changes.
-1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
+1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the APIs that your application needs.
    - Click the **Add a permission** button and then,
-   - Ensure that the **My APIs** tab is selected.
-   - In the list of APIs, select the API `TodoListAPI`.
-   - In the **Delegated permissions** section, select the **access_as_user** in the list. Use the search box if necessary.
-   - Click on the **Add permissions** button at the bottom.
+     - Ensure that the **Microsoft APIs** tab is selected
+     - In the list of APIs, select the API **Microsoft Graph**.
+     - In the **Delegated permissions** section, select the **User.Read.All** in the list. Use the search box if necessary.
+     - Click on the **Add permissions** button at the bottom.
+   - Click the **Add a permission** button again and then,
+     - Ensure that the **My APIs** tab is selected.
+     - In the list of APIs, select the API `TodoListAPI`.
+     - In the **Delegated permissions** section, select the **access_as_user** in the list. Use the search box if necessary.
+     - Click on the **Add permissions** button at the bottom.
 
-1. Now you need to leave the registration for `TodoListSPA` and go back to your app registration for `TodoListAPI`.
+2. Now you need to leave the registration for `TodoListSPA` and go back to your app registration for `TodoListAPI`.
    - From the app's Overview page, select the Manifest section.
    - Find the entry for `KnownClientApplications`, and add the Application (client) ID of the `TodoListSPA` application copied from the Azure portal. i.e. `KnownClientApplications: [ "your-client-id-for-TodoListSPA" ]`
 
@@ -212,7 +217,7 @@ Here we discuss some of the more peculiar aspects of multi-tenant application su
 
 Consider the application suite in this chapter: **TodoListAPI** and **TodoListSPA**. From one perspective, they are two different applications (two different projects), each represented with their own **app registration** on Azure AD, but from another perspective, they really constitute one application together i.e. a todo list application. In practice, an application can have a many such components: one component for the front-end, another for a REST API, another for a database and etc. While these components should have their own separate representation on Azure AD, they should also somehow know one another.
 
-From the perspective of **multi-tenancy**, the main challenge with such applications is with providing admin-consent. This is due to the fact that some of their components, such as a web API or a background microservice, do not have a front-end, and as such, has no user-interaction capability. The solution for this is to allow the user (in this case, an admin-user) to consent to web API at the same they consent to the front-end application i.e. give a **combined consent**. In **chapter 1**, we have seen that the `/.default` scope can be used to this effect, allowing you to consent to many different scopes at one step. However, unlike **chapter 1**, our application suite here has a back-end/web API component. But how could the web API know that the consent comes from a recognized front-end application, as opposed to some foreign application? The answer is the **KnownClientApplications** attribute.
+From the perspective of **multi-tenancy**, the main challenge with such applications is with providing admin-consent. This is due to the fact that some of their components, such as a web API or a background microservice, do not have a front-end, and as such, has no user-interaction capability. The solution for this is to allow the user (in this case, an admin-user) to consent to web API at the same time they consent to the front-end application i.e. give a **combined consent**. In **chapter 1**, we have seen that the `/.default` scope can be used to this effect, allowing you to consent to many different scopes at one step. However, unlike **chapter 1**, our application suite here has a back-end/web API component. But how could the web API know that the consent comes from a recognized front-end application, as opposed to some foreign application? The answer is the **KnownClientApplications** attribute.
 
 > #### KnownClientApplications
 >
