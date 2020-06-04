@@ -90,6 +90,12 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 ### Explore the sample
 
+1. Using a command line interface such as VS Code integrated terminal, run the sample:
+
+```console
+npm start
+```
+
 1. Open your browser and navigate to `http://localhost:3000`.
 
 ![index.html](../Misc/ch1_login_screen.png)
