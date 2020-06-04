@@ -96,9 +96,6 @@ namespace TodoListAPI.Controllers
         {
             HttpContext.VerifyUserHasAnyAcceptedScope(scopeRequiredByApi);
 
-            var random = new Random();
-            todoItem.Id = random.Next();
-
             todoItem.Status = false;
             todoItem.TenantId = User.GetTenantId();
 
