@@ -12,24 +12,13 @@ products:
 - microsoft-graph-api
 - azure-app-services
 - azure-storage
-description: "This sample demonstrates how to deploy an Angular single-page application calling a .NET Core Web API secured with Azure Active Directory to Azure App Services and Azure Storage"
+description: "demonstrates how to deploy an Angular application calling a .NET Core Web API secured with Azure AD to Azure App Services and Storage"
 urlFragment: ms-identity-javascript-angular-spa-aspnet-webapi-multitenant-chapter3
 ---
 
 # Deploying a multi-tenant Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
 
 In this sample, we will deploy our project components, **TodoListAPI** and **TodoListSPA**, to Azure Cloud. For **TodoListAPI**, we will use **Azure App Services**, while for **TodoListSPA**, we will generate a static website and upload it to **Azure Stroge**.
-
-## Contents
-
-| File/folder       | Description                                |
-|-------------------|--------------------------------------------|
-| `TodoListAPI`     | Source code of the TodoList API.           |
-| `TodoListSPA`     | Source code of the TodoList client SPA.    |
-| `CHANGELOG.md`    | List of changes to the sample.             |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
-| `LICENSE`         | The license for the sample.                |
 
 ## Prerequisites
 

@@ -6,8 +6,8 @@ languages:
 products:
 - azure-active-directory
 - microsoft-graph-api
-description: "A simple JavaScript single-page application calling Microsoft Graph API using msal.js (w/ AAD v2 endpoint)"
-urlFragment: ms-identity-javascript-angular-spa-aspnet-webapi-multitenant-chapter1
+description: "A multi-tenant JavaScript single-page application calling Microsoft Graph API using msal.js (w/ AAD v2 endpoint)"
+urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1"
 ---
 
 # A Multitenant JavaScript Single-Page Application calling MS Graph API
@@ -29,7 +29,6 @@ In order to grasp the important aspects of **multi-tenancy** in this sample, ple
 | `index.html`      |  Contains the UI of the sample.            |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CODE_OF_CONDUCT.md` | Code of Conduct information.            |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `LICENSE`         | The license for the sample.                |
 | `package.json`    | Package manifest for npm.                  |
 | `README.md`       | This README file.                          |
@@ -53,7 +52,37 @@ Using a command line interface such as VS Code integrated terminal, install the 
   npm install
 ```
 
-## Running the sample
+## Registration
+
+To register this project, you can:
+
+- either follow the steps below for manual registration,
+- or use PowerShell scripts that:
+  - **automatically** creates the Azure AD applications and related objects (passwords, permissions, dependencies) for you.
+  - modify the configuration files.
+
+<details>
+  <summary>Expand this section if you want to use this automation:</summary>
+
+1. On Windows, run PowerShell and navigate to the root of the cloned directory
+2. In PowerShell run:
+
+   ```PowerShell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
+   ```
+
+3. Run the script to create your Azure AD application and configure the code of the sample application accordingly.
+4. In PowerShell run:
+
+   ```PowerShell
+   cd .\AppCreationScripts\
+   .\Configure.ps1
+   ```
+
+   > Other ways of running the scripts are described in [App Creation Scripts](./AppCreationScripts/AppCreationScripts.md)
+   > The scripts also provide a guide to automated application registration, configuration and removal which can help in your CI/CD scenarios.
+
+</details>
 
 ### Register the application
 
@@ -88,19 +117,13 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. Open the `App/authConfig.js` file
 1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the `multitenant-spa` application copied from the Azure portal.
 
-### Explore the sample
+## Explore the sample
 
 1. Using a command line interface such as VS Code integrated terminal, run the sample:
 
-<<<<<<< Updated upstream
-    ```console
-    npm start
-    ```
-=======
 ```console
   npm start
 ```
->>>>>>> Stashed changes
 
 1. Open your browser and navigate to `http://localhost:3000`.
 
@@ -239,7 +262,7 @@ Now try changing it into the following:
     };
 ```
 
-Here, the consent prompt will appear during token request, instead of login. In other words, users can authenticate, but cannot optain an access token. If you want to test this, you need to delete your service principals on each tenant, and try to login again with a non-admin account.
+Here, the consent prompt will appear during token request, instead of login. In other words, users can authenticate, but cannot obtain an access token. If you want to test this, you need to delete your service principals on each tenant, and try to login again with a non-admin account.
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 

@@ -1,0 +1,40 @@
+{
+    "Sample": {
+      "Title": "A multi-tenant JavaScript single-page application calling Microsoft Graph API using msal.js (w/ AAD v2 endpoint)",
+      "Level": 100,
+      "Client": "SinglePageApplication",
+      "Service": "Microsoft Graph",
+      "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1",
+      "Endpoint": "AAD v2.0"
+    },
+
+    "AADApps": [
+      {
+        "Id": "spa",
+        "Name": "multitenant-spa",
+        "Kind" :  "SinglePageApplication",
+        "HomePage": "http://localhost:3000/",
+        "ReplyUrls":"http://localhost:3000/",
+        "RequiredResourcesAccess": [
+          {
+            "Resource": "Microsoft Graph",
+            "DelegatedPermissions": [ "User.Read", "User.Read.All" ]
+          }
+        ]
+      }
+    ],
+  
+    "CodeConfiguration": [
+      {
+        "App": "spa",
+        "SettingKind": "Replace",
+        "SettingFile": "\\..\\App\\authConfig.js",
+        "Mappings": [
+          {
+            "key": "Enter_the_Application_Id_Here",
+            "value": ".AppId"
+          }
+        ]
+      }
+    ]
+  }

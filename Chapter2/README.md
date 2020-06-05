@@ -10,8 +10,8 @@ products:
 - dotnet
 - azure-active-directory
 - microsoft-graph-api
-description: "This sample demonstrates an Angular single-page application calling a .NET Core Web API secured with Azure Active Directory"
-urlFragment: ms-identity-javascript-angular-spa-aspnet-webapi-multitenant-chapter2
+description: "Demonstrates a multi-tenant Angular single-page application calling a .NET Core Web API secured with Azure Active Directory"
+urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter2"
 ---
 
 # A Multi-tenant Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core Web API
@@ -83,7 +83,35 @@ Learn more about [HTTPS in .NET Core](https://docs.microsoft.com/aspnet/core/sec
 
 ## Registration
 
-There are two projects in this sample. Each needs to be registered separately in your Azure AD tenant.
+There are two projects in this sample. Each needs to be separately registered in your Azure AD tenant. To register these projects, you can:
+
+- either follow the steps below for manual registration,
+- or use PowerShell scripts that:
+  - **automatically** creates the Azure AD applications and related objects (passwords, permissions, dependencies) for you.
+  - modify the configuration files.
+
+<details>
+  <summary>Expand this section if you want to use this automation:</summary>
+
+1. On Windows, run PowerShell and navigate to the root of the cloned directory
+2. In PowerShell run:
+
+   ```PowerShell
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
+   ```
+
+3. Run the script to create your Azure AD application and configure the code of the sample application accordingly.
+4. In PowerShell run:
+
+   ```PowerShell
+   cd .\AppCreationScripts\
+   .\Configure.ps1
+   ```
+
+   > Other ways of running the scripts are described in [App Creation Scripts](./AppCreationScripts/AppCreationScripts.md)
+   > The scripts also provide a guide to automated application registration, configuration and removal which can help in your CI/CD scenarios.
+
+</details>
 
 ### Register the service app (TodoListAPI)
 

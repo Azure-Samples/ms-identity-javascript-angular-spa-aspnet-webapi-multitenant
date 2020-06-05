@@ -7,32 +7,32 @@ import * as config from './app-config.json';
   providedIn: 'root'
 })
 export class TodoService {
-  url = config.resources.todoListApi.resourceUri;
-  url2 = config.resources.graphApi.resourceUri;
+  apiUri = config.resources.todoListApi.resourceUri;
+  graphUri = config.resources.graphApi.resourceUri;
 
   constructor(private http: HttpClient) { }
 
   getUsers() {
-    return this.http.get<string[]>(this.url2);
+    return this.http.get<string[]>(this.graphUri);
   }
 
   getTodos() { 
-    return this.http.get<Todo[]>(this.url);
+    return this.http.get<Todo[]>(this.apiUri);
   }
 
   getTodo(id) { 
-    return this.http.get<Todo>(this.url + id);
+    return this.http.get<Todo>(this.apiUri + '/' + id);
   }
   
   postTodo(todo) { 
-    return this.http.post<Todo>(this.url, todo);
+    return this.http.post<Todo>(this.apiUri, todo);
   }
 
   deleteTodo(id) {
-    return this.http.delete(this.url + id);
+    return this.http.delete(this.apiUri + '/' + id);
   }
 
   editTodo(todo) { 
-    return this.http.put<Todo>(this.url + todo.id, todo);
+    return this.http.put<Todo>(this.apiUri + '/' + todo.id, todo);
   }
 }
