@@ -92,21 +92,21 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 1. Using a command line interface such as VS Code integrated terminal, run the sample:
 
-```console
-npm start
-```
+    ```console
+    npm start
+    ```
 
 1. Open your browser and navigate to `http://localhost:3000`.
 
-![index.html](../Misc/ch1_login_screen.png)
+    ![index.html](../Misc/ch1_login_screen.png)
 
 1. Sign-in using the button on top-right. If you haven't provided admin-consent yet, you will not be able to sign-in with a non-admin account from another tenant.
 
-![need-consent](../Misc/ch1_need_admin_approval.png)
+    ![need-consent](../Misc/ch1_need_admin_approval.png)
 
 1. Click on the `who's in?` button at the center to see the other users in your tenant.
 
-![success](../Misc/ch1_success.png)
+    ![success](../Misc/ch1_success.png)
 
 ## Discussion
 
