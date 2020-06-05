@@ -46,7 +46,6 @@ In order to grasp the important aspects of **multitenancy** in this sample, plea
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/) must be installed to run this sample.
-- [Angular-cli](https://cli.angular.io/) must be installed to run this sample.
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
 - *At least* **two** Azure Active Directory (Azure AD) tenants. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 - On each tenant, *at least* **one** admin account and **one** non-admin/user account for testing purposes.

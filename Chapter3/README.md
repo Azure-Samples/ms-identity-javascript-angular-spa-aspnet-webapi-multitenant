@@ -13,7 +13,7 @@ products:
 - azure-app-services
 - azure-storage
 description: "demonstrates how to deploy an Angular application calling a .NET Core Web API secured with Azure AD to Azure App Services and Storage"
-urlFragment: ms-identity-javascript-angular-spa-aspnet-webapi-multitenant-chapter3
+urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter3"
 ---
 
 # Deploying a multi-tenant Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
@@ -23,7 +23,6 @@ In this sample, we will deploy our project components, **TodoListAPI** and **Tod
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/download/) must be installed to run this sample.
-- [Angular-cli](https://cli.angular.io/) must be installed to run this sample.
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
 - *At least* **two** Azure Active Directory (Azure AD) tenants. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 - On each tenant, *at least* **one** admin account and **one** non-admin/user account for testing purposes.

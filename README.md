@@ -11,7 +11,7 @@ products:
 - azure-active-directory
 - microsoft-graph-api
 description: "An incremental multi-tenancy tutorial demonstrating how to setup and configure your app, provide consent as admin and deploy it on Azure App Services"
-urlFragment: ms-identity-javascript-angular-spa-aspnet-webapi-multitenant
+urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant"
 ---
 
 # Developing Multi-tenant applications with Microsoft Identity Platform tutorial
@@ -40,11 +40,11 @@ Please refer to each chapter's subfolder for prerequisites.
 
 We highly recommend getting familiar with the following *basic sign-In* examples and documents first in order to easily grasp the naunces that the **multi-tenant** app development scenario will present:
 
-1. [A  JavaScript SPA calling the Microsoft Graph using msal.js](https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2) 
+1. [A JavaScript SPA calling the Microsoft Graph using msal.js](https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2) 
 1. [An Angular SPA that signs-in  users with Azure AD and calls a protected ASP.NET Core web API](https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi)
 1. [Tenancy in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)
-1. [Application and service principal objects in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
-1. [Azure Active Directory consent framework](https://docs.microsoft.com/azure/active-directory/develop/consent-framework)
+1. [Applications and Service Principals](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
+1. [Azure Active Directory Consent Framework](https://docs.microsoft.com/azure/active-directory/develop/consent-framework)
 
 ## Setup
 
@@ -75,17 +75,15 @@ For more information about apps and tenancy, see [Tenancy in Azure Active Direct
 
 ![Sign in with Azure AD](ReadmeFiles/topology.png)
 
-To see how to provide **admin-consent**, continue to review the sample in [chapter 1](./chapter1).
+To see how to provide **admin-consent**, continue to review the sample in [chapter 1](./Chapter1).
 
 ## More information
 
 For more information, visit the following links:
 
 - Articles about the Microsoft identity platform are at [http://aka.ms/aaddevv2](http://aka.ms/aaddevv2), with a focus on:
-  - [Permissions and Consent](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent)
-  - [Applications and Service Principals](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
-  - [Tenancy in Azure AD](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)
   - [Converting an Application to Multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant)
+  - [Permissions and Consent](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent)
 
 - To lean more about the application registration, visit:
   - [Quickstart: Set up a tenant](https://docs.microsoft.com/azure/active-directory/develop/quickstart-create-new-tenant)
