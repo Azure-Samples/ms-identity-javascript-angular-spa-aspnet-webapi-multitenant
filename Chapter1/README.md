@@ -6,15 +6,15 @@ languages:
 products:
 - azure-active-directory
 - microsoft-graph-api
-description: "A multi-tenant JavaScript single-page application calling Microsoft Graph API using msal.js (w/ AAD v2 endpoint)"
+description: "A multi-tenant JavaScript Single-page Application calling Microsoft Graph API using MSAL.js"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1"
 ---
 
-# A Multitenant JavaScript Single-Page Application calling MS Graph API
+# A Multi-tenant (SaaS) JavaScript Single-Page Application (SPA) using MSAL.js to sign-in users and calling MS Graph API
 
-A multi-tenant vanilla JavaScript single-page application which demonstrates how to configure [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) to login, consent, provision, and acquire access tokens for a protected resource such as [Microsoft Graph API](https://developer.microsoft.com/graph).
+A multi-tenant vanilla JavaScript single-page application (SPA) which demonstrates how to use [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) to sign-in, consent, provision, and acquire [Access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for a protected resource like [Microsoft Graph API](https://developer.microsoft.com/graph).
 
-In order to grasp the important aspects of **multi-tenancy** in this sample, please follow the [discussion](##discussion) section below.
+In order to grasp the important aspects of **multi-tenancy** in this sample, please read up the [discussion](##discussion) section below.
 
 ## Contents
 
@@ -24,7 +24,7 @@ In order to grasp the important aspects of **multi-tenancy** in this sample, ple
 | `auth.js`         | Main authentication logic resides here.    |
 | `authConfig.js`   | Contains configuration parameters for the sample. |
 | `graph.js`        | Provides a helper function for calling MS Graph API. |
-| `graphConfig.js`  | Contains API endpoints for MS Graph.       |
+| `graphConfig.js`  | Configures API endpoints for MS Graph.       |
 | `ui.js`           | Contains UI logic.                         |
 | `index.html`      |  Contains the UI of the sample.            |
 | `CHANGELOG.md`    | List of changes to the sample.             |
@@ -38,9 +38,9 @@ In order to grasp the important aspects of **multi-tenancy** in this sample, ple
 ## Prerequisites
 
 - [Node](https://nodejs.org/en/) must be installed to run this sample.
-- *At least* **two** Azure Active Directory (Azure AD) tenants. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
-- On each tenant, *at least* **one** admin account and **one** non-admin/user account for testing purposes.
-- A modern Browser. This sample uses **ES6** conventions and will not run on **Internet Explorer**.
+- You would need *at least* **two** Azure Active Directory (Azure AD) tenants to successfully run this sample. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
+- On each tenant, *at least* **one** admin account and **one** non-admin/user account should be present for testing purposes.
+- A modern browser. This sample uses **ES6** conventions and will not run on **Internet Explorer**.
 - We recommend [VS Code](https://code.visualstudio.com/download) for running and debugging this cross-platform application.
 
 ## Setup
@@ -112,7 +112,7 @@ To register this project, you can:
 
 Open the project in your IDE (like Visual Studio) to configure the code.
 
->In the steps below, "clientId" is the same as "Application ID" or "AppId".
+> In the steps below, "clientId" is the same as "Application ID" or "AppId".
 
 1. Open the `App/authConfig.js` file
 1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the `multitenant-spa` application copied from the Azure portal.
@@ -139,11 +139,13 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 ## Discussion
 
-Here we discuss some of the more peculiar aspects of multi-tenant single-page applications.
+Here we discuss some of the more important aspects of multi-tenant single-page applications.
+
+### /common Endpoint
 
 ### Testing the Application
 
-To properly test this application, you need *at least* **2** tenants, and on each tenant, *at least* **1** administrator and a **1** non-administrator account.
+To properly test this application, you need *at least* **2** tenants, and on each tenant, *at least* **1** administrator and **1** non-administrator account.
 
 Before each test, you should delete your **service principal** for the tenant you are about to test, in order to remove any previously given consents and start the **provisioning process** from scratch.
 
@@ -161,11 +163,14 @@ Before each test, you should delete your **service principal** for the tenant yo
 
 ### Ways of providing admin consent
 
-There are a number of ways to provide admin consent for an application, and the choice depends on your application needs and preferences.
+A service principal of your multi-tenant app is created via one of the following ways.
+
+1. When the first user signs-in your app for the first time in a tenant
+2. Manually or programmatically created by a tenant admin using the [`/adminconsent` endpoint](https://docs.microsoft.com/azure/active-directory/develop/v2-admin-consent) or [using the PowerShell command](https://docs.microsoft.com/powershell/azure/create-azure-service-principal-azureps).
 
 - **Consent on sign-in:**
 
-This method requires the most minimal setup. The only thing needed is a sign-in by an admin account and clicking on the "consent on behalf of your organization" in the EVO screen below:
+This method requires the most minimal setup. The only thing needed is a sign-in by an admin account and clicking on the "consent on behalf of your organization" in the AAD sign-in screen below:
 
 ![consent](../Misc/ch1_consent_onbehalf.png)
 
@@ -176,7 +181,7 @@ This method provides a programmatic control over the consent process. To be able
 1. Determine the `tenantId` of the signed-in user.
 2. Redirect the user to the correct `/adminconsent` endpoint (which is why you need the `tenantId`).
 
-A call to the `/adminconsent` endpoint looks like the following:
+In your app, to send a tenant admin to the `/adminconsent` endpoint you would construct a URL as explained below:
 
 ```HTML
     // Line breaks are for legibility only.
@@ -213,7 +218,7 @@ This is demonstrated in the code snippet below:
 >
 > Did you notice the scope here is set to `https://graph.microsoft.com/.default`, as opposed to `https://graph.microsoft.com/User.Read.All` (or just `User.Read.All` for short)? This is a built-in scope for every application that refers to the static list of permissions configured on the application registration. Basically, it *bundles* all the permissions in one scope. The /.default scope can be used in any OAuth 2.0 flow, but is necessary when using the v2 admin consent endpoint to request application permissions.
 
-When you redirect to the `/adminconsent` endpoint, you will see:
+When redirected to the `/adminconsent` endpoint, the tenant admin will see:
 
 ![consent](../Misc/ch1_admin_redirect.png)
 
@@ -221,15 +226,11 @@ After you choose an admin account, it will lead to the following prompt:
 
 ![consent](../Misc/ch1_admin_consent.png)
 
-- **Pre-consent through API Permissions**
+Once it finishes, your application service principal will be provisioned in that tenant.
 
-This method provides a way of providing admin consent without any user interaction.
+### Scopes and Sign-in Differences
 
-![pre-consent](../Misc/ch1_grant_admin_permission.png)
-
-### Scopes and Login Differences
-
-The main scope of interest in this sample is `User.Read.All`. This is a MS Graph API scope, and it allows a user to see every user on the tenant against which the scope is called for. This scope requires **admin-consent**
+The main scope of interest in this sample is `User.Read.All`. This is a MS Graph API scope, and it allows a user to read every user in the tenant. This scope requires a tenant admin to consent.
 
 Remember that the first time you were not able to sign-in with a non-admin account before providing admin consent for that tenant.
 To see why this was so, notice, in `App/authConfig.js`, the current request objects:
@@ -246,23 +247,7 @@ To see why this was so, notice, in `App/authConfig.js`, the current request obje
     };
 ```
 
-This means that the user will be prompted for consent during login. However, since only an admin can consent to the scope `User.Read.All`, a non-admin account will simply not be able to login! Depending on your application needs and prefences, you may or may not desire this behavior.
-
-Now try changing it into the following:
-
-```JavaScript
-    // Scopes you add here will be consented once the user authenticates
-    const loginRequest = {
-      scopes: ["openid", "profile"]
-    };
-
-    // Add here scopes for access token to be used at MS Graph API endpoint.
-    const tokenRequest = {
-      scopes: ["User.Read.All"]
-    };
-```
-
-Here, the consent prompt will appear during token request, instead of login. In other words, users can authenticate, but cannot obtain an access token. If you want to test this, you need to delete your service principals on each tenant, and try to login again with a non-admin account.
+This means that the user will be prompted for consent during sign-in. However, since only an admin can consent to the scope `User.Read.All`, a non-admin account will simply not be able to login ))(unless consented prior by a tenant admin)! For best end-user experience, please have the tenant admin consent your app before a user from the tenant tries to sign-in.
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 

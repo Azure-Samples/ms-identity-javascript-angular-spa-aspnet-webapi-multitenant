@@ -10,7 +10,7 @@ products:
 - angular
 - azure-active-directory
 - microsoft-graph-api
-description: "An incremental multi-tenancy tutorial demonstrating how to setup and configure your app, provide consent as admin and deploy it on Azure App Services"
+description: "An incremental multi-tenant tutorial demonstrating how to develop and configure your app, provision using consent and deploy it on Azure App Services"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant"
 ---
 
@@ -21,6 +21,8 @@ This is an incremental chapter-wise tutorial that teaches you how to develop a  
 ## How to Use this tutorial
 
 The aim of this tutorial is for you to understand aspects of **multi-tenancy** in Azure Active Directory from an *app developer perspective*. The assumption is that you will follow each chapter in a successive fashion, as the concepts involved are built on top of each other and explanations may not be repeated. Before proceeding to **chapter 1**, read the [discussion below](##-discussion) to get familiar with some basic terminology.
+
+> A recording of a Microsoft Identity Platform developer session that covered this topic of developing a multi-tenant app with Azure Active Directory is available at [Develop multi-tenant applications with Microsoft identity platform](https://www.youtube.com/watch?v=B416AxHoMJ4).
 
 ## Contents
 
