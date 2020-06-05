@@ -36,7 +36,7 @@ The aim of this tutorial is for you to understand aspects of **multi-tenancy** i
 
 ## Prerequisites
 
-Please refer to each chapter's subfolder for prerequisities.
+Please refer to each chapter's subfolder for prerequisites.
 
 We highly recommend getting familiar with the following *basic sign-In* examples and documents first in order to easily grasp the naunces that the **multi-tenant** app development scenario will present:
 
@@ -53,7 +53,7 @@ We highly recommend getting familiar with the following *basic sign-In* examples
 Using a command line interface such as VS Code integrated terminal, clone or download this repository:
 
 ```console
-git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
+  git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
 ```
 
 > [!NOTE] Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
@@ -66,7 +66,7 @@ Please refer to each chapter's sub-folder for setup instructions.
 
 When it comes to developing apps, developers can choose to configure their app to be either single-tenant or multi-tenant during app registration in the [Azure portal](https://portal.azure.com).
 
-- `Single-tenant` apps are only available in the tenant they were registered in, also known as their home tenant.
+- `Single tenant` apps are only available in the tenant they were registered in, also known as their home tenant.
 - `Multi-tenant` apps are available to users in both their home tenant and other tenants where they are provisioned. Apps that allow users to sign-in using their personal accounts that they use to sign into services like Xbox and Skype are also multi-tenant apps.
 
 For more information about apps and tenancy, see [Tenancy in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)

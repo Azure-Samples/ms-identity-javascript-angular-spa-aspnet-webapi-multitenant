@@ -49,8 +49,8 @@ In order to grasp the important aspects of **multi-tenancy** in this sample, ple
 Using a command line interface such as VS Code integrated terminal, install the project dependencies via **npm**.
 
 ```console
-cd chapter1
-npm install
+  cd chapter1
+  npm install
 ```
 
 ## Running the sample
@@ -92,9 +92,15 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 1. Using a command line interface such as VS Code integrated terminal, run the sample:
 
+<<<<<<< Updated upstream
     ```console
     npm start
     ```
+=======
+```console
+  npm start
+```
+>>>>>>> Stashed changes
 
 1. Open your browser and navigate to `http://localhost:3000`.
 
@@ -239,7 +245,13 @@ Here, the consent prompt will appear during token request, instead of login. In 
 
 ## Contributing
 
-If you'd like to contribute to this sample, see [CONTRIBUTING.MD](./CONTRIBUTING.md).
+This project welcomes contributions and suggestions.  Most contributions require you to agree to a
+Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
+the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+
+When you submit a pull request, a CLA bot will automatically determine whether you need to provide
+a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
+provided by the bot. You will only need to do this once across all repos using our CLA.
 
 ## Code of Conduct
 

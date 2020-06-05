@@ -50,16 +50,16 @@ Using a command line interface such as VS Code integrated terminal, follow the s
 ### Step 1. Install .NET Core API dependencies
 
 ```console
-cd TodoListAPI
-dotnet restore
+    cd TodoListAPI
+    dotnet restore
 ```
 
 ### Step 2. Install Angular SPA dependencies
 
 ```console
-cd ../
-cd TodoListSPA
-npm install
+    cd ../
+    cd TodoListSPA
+    npm install
 ```
 
 ## Registration
@@ -83,10 +83,10 @@ Using a command line interface such as VS Code integrated terminal, follow the s
 #### Step 1. Initialize a local Git
 
 ```console
-git init
+    git init
 ```
 
-Once the initalization is done. Commit all your files to your local Git.
+Once the initialization is done, commit all your files to your local Git. On Visual Studio Code, you can use the **Source Control** panel on the left bar for this.
 
 #### Step 2. Deploy your app
 
@@ -125,19 +125,19 @@ Using a command line interface such as VS Code integrated terminal, follow the s
 #### Step 1. Build your app
 
 ```console
-ng build --prod
+    ng build --prod
 ```
 
 #### Step 2. Deploy your app
 
 ```console
-ng run angular9-todo-app:deploy
+    ng run angular9-todo-app:deploy
 ```
 
-You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page. Once you login, you will see an output **similar** to the following.
+You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page. Once you login, you will see an output *similar* to the following.
 
 ```console
-see your deployed site at https://angular9-todo-app52.z22.web.core.windows.net/
+    see your deployed site at https://angular9-todo-app52.z22.web.core.windows.net/
 ```
 
 #### Step 3. Register your new address as a redirect uri
@@ -150,18 +150,18 @@ You now need to go back to your Azure AD **app registration** for `TodoListSPA`:
 #### Step 4. Modify app-config.json
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
-1. Find the key `todoListApi.redirectUri` and replace the existing value with the **redirect uri** that you've just registered in the previous step.
-1. Find the key `todoListApi.resourceScope` and replace the existing value with the **redirect uri** that you've just obtained in deploying TodoListAPI (e.g. my-web-api.azurewebsites.net)
+1. Find the key `todoListApi.redirectUri` and replace the existing value with the **Redirect Uri** that you've just registered in the previous step.
+1. Find the key `todoListApi.resourceScope` and replace the existing value with the **Redirect Uri** that you've just obtained in deploying TodoListAPI (e.g. my-web-api.azurewebsites.net)
 1. Re-build and re-deploy your files:
 
 ```console
-ng build --prod
+    ng build --prod
 ```
 
 and finally:
 
 ```console
-ng run angular9-todo-app:deploy
+    ng run angular9-todo-app:deploy
 ```
 
 You should now be able to authenticate to your SPA and call your web API.
@@ -191,7 +191,7 @@ We have setup our own [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource
         }
 ```
 
-> [!NOTE] In a real-world scenario, you should be selective with allowed origins i.e. you should allow only recognized domains.
+> [!NOTE] In a real-world scenario, you should be selective with allowed origins i.e. you should allow only trusted domains.
 
 If you like, you could delegate the control of **CORS** policy to **Azure App Services**. To do so, navigate to **App Services** portal, and then click on the **CORS** blade:
 
@@ -203,14 +203,10 @@ Then, you can add the domain of your single-page application as an **Allowed Ori
 
 ## More information
 
-- [Quickstart: Create an ASP.NET Core web app in Azure](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-get-started-dotnet)
-- [Tutorial: Authenticate and authorize users end-to-end in Azure App Service](https://docs.microsoft.com/en-us/azure/app-service/app-service-web-tutorial-auth-aad)
-- [Authentication and authorization in Azure App Service and Azure Functions](https://docs.microsoft.com/en-us/azure/app-service/overview-authentication-authorization)
-- [Configure your App Service or Azure Functions app to use Azure AD login](https://docs.microsoft.com/en-us/azure/app-service/configure-authentication-provider-aad)
-
-## Contributing
-
-If you'd like to contribute to this sample, see [CONTRIBUTING.MD](./CONTRIBUTING.md).
+- [Quickstart: Create an ASP.NET Core web app in Azure](https://docs.microsoft.com/azure/app-service/app-service-web-get-started-dotnet)
+- [Tutorial: Authenticate and authorize users end-to-end in Azure App Service](https://docs.microsoft.com/azure/app-service/app-service-web-tutorial-auth-aad)
+- [Authentication and authorization in Azure App Service and Azure Functions](https://docs.microsoft.com/azure/app-service/overview-authentication-authorization)
+- [Configure your App Service or Azure Functions app to use Azure AD login](https://docs.microsoft.com/azure/app-service/configure-authentication-provider-aad)
 
 ## Code of Conduct
 
