@@ -48,6 +48,8 @@ We highly recommend getting familiar with the following *basic sign-In* examples
 
 ## Setup
 
+### Step 1
+
 Using a command line interface such as VS Code integrated terminal, clone or download this repository:
 
 ```console
