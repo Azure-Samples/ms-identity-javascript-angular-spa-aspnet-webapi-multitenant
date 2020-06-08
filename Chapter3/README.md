@@ -12,13 +12,13 @@ products:
 - microsoft-graph-api
 - azure-app-services
 - azure-storage
-description: "demonstrates how to deploy an Angular application calling a .NET Core Web API secured with Azure AD to Azure App Services and Storage"
+description: "Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates Users with Azure AD and Calls a Protected ASP.NET Core web API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter3"
 ---
 
-# Deploying a multi-tenant Angular single-page application that authenticates users with Azure AD and calls a protected ASP.NET Core web API
+# Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates Users with Azure AD and Calls a Protected ASP.NET Core web API
 
-In this sample, we will deploy our project components, **TodoListAPI** and **TodoListSPA**, to Azure Cloud. For **TodoListAPI**, we will use **Azure App Services**, while for **TodoListSPA**, we will generate a static website and upload it to **Azure Stroge**.
+In this guide, we will deploy our project components, **TodoListAPI** and **TodoListSPA**, to Azure Cloud. For **TodoListAPI**, we will use **Azure App Services**, while for **TodoListSPA**, we will generate a static website and upload it to **Azure Storage**.
 
 ## Prerequisites
 
@@ -156,11 +156,11 @@ You should now be able to authenticate to your SPA and call your web API.
 
 ## Discussion
 
-Here we discuss some of the more peculiar aspects of deploying multi-tenant application suites.
+Here we discuss some of the more important aspects of deploying multi-tenant application suites.
 
 ### CORS Configuration
 
-We have setup our own [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) configuration in the **TodoListAPI** (`TodoListAPI/Startup.cs`) in the previous chapter:
+In the previous chapter, we have set up our own [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) configuration in the **TodoListAPI** (`TodoListAPI/Startup.cs`):
 
 ```csharp
         public void ConfigureServices(IServiceCollection services)
@@ -179,7 +179,7 @@ We have setup our own [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource
         }
 ```
 
-> [!NOTE] In a real-world scenario, you should be selective with allowed origins i.e. you should allow only trusted domains.
+> [!NOTE] In a real-world scenario, you should be selective with allowed origins i.e. you should allow only trusted domains. For production, you would specify the url of the production client app: for instance, if your client app is hosted at "http://example.com" then the configuration would be: `builder.WithOrigins("http://example.com")`
 
 If you like, you could delegate the control of **CORS** policy to **Azure App Services**. To do so, navigate to **App Services** portal, and then click on the **CORS** blade:
 

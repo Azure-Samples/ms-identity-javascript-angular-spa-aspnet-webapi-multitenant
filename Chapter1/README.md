@@ -6,7 +6,7 @@ languages:
 products:
 - azure-active-directory
 - microsoft-graph-api
-description: "A multi-tenant JavaScript Single-page Application calling Microsoft Graph API using MSAL.js"
+description: "A Multi-tenant (SaaS) JavaScript Single-Page Application (SPA) using MSAL.js to sign-in users and calling MS Graph API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1"
 ---
 
@@ -141,7 +141,31 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 Here we discuss some of the more important aspects of multi-tenant single-page applications.
 
-### /common Endpoint
+### Usage of `/common` endpoint
+
+When registering an application with the Microsoft identity platform for developers, you are asked to select which account types your application supports. The options include the following:
+
+| **Audience** | **Single/multi-tenant** | **Who can sign in** |
+|----------|---------------------| --------------- |
+| Accounts in this directory only | Single tenant | All user and guest accounts in your directory can use your application or API. *Use this option if your target audience is internal to your organization.* |
+| Accounts in any Azure AD directory | Multi-tenant | All users and guests with a work or school account from Microsoft can use your application or API. This includes schools and businesses that use Office 365. *Use this option if your target audience is business or educational customers.* |
+| Accounts in any Azure AD directory and personal Microsoft accounts (such as Skype, Xbox, Outlook.com) | Multi-tenant | All users with a work or school, or personal Microsoft account can use your application or API. It includes schools and businesses that use Office 365 as well as personal accounts that are used to sign in to services like Xbox and Skype. *Use this option to target the widest set of Microsoft accounts.* |
+
+Your MSAL configuration will reflect your choice audience in the `authority` parameter. For instance, an application that targets  **accounts in this directory only** will have a configuration similar to:
+
+```JavaScript
+const msalConfig = {
+  auth: {
+    clientId: "<your-client-id>",
+    authority: "https://login.microsoftonline.com/<your-tenant-id>",
+    redirectUri: "http://localhost:3000/",
+  }
+}
+```
+
+On the other hand, an application that targets **accounts in any Azure AD directory** will have its authority parameter set to `https://login.microsoftonline.com/organizations`, while for an application that targets **Accounts in any Azure AD directory and personal Microsoft accounts (such as Skype, Xbox, Outlook.com)** it will be `https://login.microsoftonline.com/common`. Here `/organizations` and `/common` are not real tenants, they are just **multiplexers**.
+
+> Please note that if you sign-in guest users at the `/common` endpoint, they will be directed to their home tenant for signing-in. So, if your multi-tenant app cares about applying tenant specific conditional access policies, group assignments or app roles to be applied to the guest users, the app should sign-in the guest user on the **tenanted endpoint** (https://login.microsoftonline.com/{tenantId}) instead of the `/common` endpoint.
 
 ### Testing the Application
 
@@ -250,6 +274,16 @@ To see why this was so, notice, in `App/authConfig.js`, the current request obje
 This means that the user will be prompted for consent during sign-in. However, since only an admin can consent to the scope `User.Read.All`, a non-admin account will simply not be able to login ))(unless consented prior by a tenant admin)! For best end-user experience, please have the tenant admin consent your app before a user from the tenant tries to sign-in.
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+
+## Learn more
+
+To learn more about single and multi-tenant apps, see:
+- [National Clouds](https://docs.microsoft.com/azure/active-directory/develop/authentication-national-cloud)
+- [Endpoints](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols#endpoints)
+
+To learn more about admin consent experiences, see:
+- [Understanding Azure AD application consent experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
+- [Understand user and admin consent](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant#understand-user-and-admin-consent)
 
 ## Contributing
 
