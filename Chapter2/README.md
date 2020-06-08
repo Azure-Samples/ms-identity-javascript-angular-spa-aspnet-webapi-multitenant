@@ -14,23 +14,20 @@ description: "A Multi-tenant Angular Single-page Application (SPA) that Authenti
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter2"
 ---
 
-# A Multi-tenant Angular Single-page Application (SPA) that Authenticates Users with Azure AD and Calls a Protected ASP.NET Core Web API
+# A Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core Web API
 
-This sample demonstrates a multi-tenant, cross-platform application suite involving an Angular SPA (*TodoListSPA*) calling an ASP.NET Core Web API (*TodoListAPI*) secured with Azure Active Directory. Due to the topology of this application suite, additional steps are needed for making it available to users from other tenants.
+This sample demonstrates how to develop a multi-tenant, cross-platform application suite comprising of an Angular SPA (*TodoListSPA*) calling an ASP.NET Core Web API (*TodoListAPI*) secured with Azure Active Directory. Due to the topology of this application suite, additional steps are needed for making it available to users in other tenants.
 
-In order to grasp the important aspects of **multi-tenancy** in this sample, please follow the [discussion](##discussion) section below.
+In order to grasp the relevant aspects of **multi-tenant** covered in the sample, please follow the [discussion](##discussion) section below.
 
 ## Scenario
 
 - TodoListSPA uses [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) and [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
-- The app then obtains an [access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from Azure Active Directory (Azure AD) on behalf of the authenticated user.
-- The access token is then used to authorize the call to the TodoListAPI.
+- The app then obtains an [access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from Azure Active Directory (Azure AD) on behalf of the authenticated user for the TodoListAPI.
+- The access token is then used by the TodoListAPI to authorize the user.
 - TodoListAPI uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
 
 ![Topology](../Misc/ch2_topology.png)
-
-> [!NOTE]
-> This sample uses Angular 9 with .NET Core 3.1 and is configured to support sign-ins with **personal Microsoft accounts**.
 
 ## Contents
 
@@ -206,12 +203,6 @@ In a separate console window, execute the following commands
    dotnet run
 ```
 
-## Debugging the sample
-
-To debug the .NET Core Web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
-
-Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/dotnet/core/tutorials/with-visual-studio-code).
-
 ## Explore the sample
 
 1. Open your browser and navigate to `http://localhost:4200`.
@@ -236,23 +227,33 @@ Learn more about using [.NET Core with Visual Studio Code](https://docs.microsof
 
 ## Discussion
 
-Here we discuss some of the more peculiar aspects of multi-tenant application suites.
+We have just finished testing this deployment topology in our single-tenant. Now we will discuss what you need to do further to deploy (i.e. provision) the apps into another tenant and let the users from other tenants sign-in.
 
 ### Consenting to Applications with Distributed Topology
 
 Consider the application suite in this chapter: **TodoListAPI** and **TodoListSPA**. From one perspective, they are two different applications (two different projects), each represented with their own **app registration** on Azure AD, but from another perspective, they really constitute one application together i.e. a todo list application. In practice, an application can have a many such components: one component for the front-end, another for a REST API, another for a database and etc. While these components should have their own separate representation on Azure AD, they should also somehow know one another.
 
-From the perspective of **multi-tenancy**, the main challenge with such applications is with providing admin-consent. This is due to the fact that some of their components, such as a web API or a background micro-service, do not have a front-end, and as such, has no user-interaction capability. The solution for this is to allow the user (in this case, an admin-user) to consent to web API at the same time they consent to the front-end application i.e. give a **combined consent**. In **Chapter 1**, we have seen that the `/.default` scope can be used to this effect, allowing you to consent to many different scopes at one step. However, unlike **Chapter 1**, our application suite here has a back-end/web API component. But how could the web API know that the consent comes from a recognized front-end application, as opposed to some foreign application? The answer is the **KnownClientApplications** attribute.
+From the perspective of **multi-tenancy**, the main challenge with such applications is with providing admin-consent. This is due to the fact that some of their components, such as a web API or a background micro-service, do not have a front-end, and as such, has no user-interaction capability. The solution for this is to allow the user (in this case, an admin-user) to consent to web API at the same time they consent to the front-end application i.e. give a **combined consent**. In **Chapter 1**, we have seen that the `/.default` scope can be used to this effect, allowing you to consent to many different scopes at one step. However, unlike **Chapter 1**, our application suite here also has a back-end/web API component. But how could the web API know that the consent comes from a recognized front-end application, as opposed to some foreign application? The answer is to use the **KnownClientApplications** feature.
 
 > #### KnownClientApplications
 >
-> **KnownClientApplications** is an attribute in **application manifest**. It is used for bundling consent if you have a solution that contains two parts: a client app and a custom web API app. If you enter the `appID` of the client app into this value, the user will only have to consent once to the client app. Azure AD will know that consenting to the client means implicitly consenting to the web API. It will automatically provision service principals for both the client and web API at the same time. Both the client and the web API app must be registered in the same tenant.
+> **KnownClientApplications** is an attribute in **application manifest**. It is used for bundling consent if you have a solution that contains two parts: a client app and a custom web API. If you enter the `appID` (clientID) of the client app into this array, the user will only have to consent only once to the client app. Azure AD will know that consenting to the client means implicitly consenting to the web API. It will automatically provision service principals for both the client and web API at the same time. Both the client and the web API app must be registered in the same tenant.
 
-If you remember the last step of the registration for the client app (TodoListSPA), you were instructed to find the `KnownClientApplications` in application manifest, and add the Application (client) ID of the `TodoListSPA` application `KnownClienent witApplications: [ "your-client-id-for-TodoListSPA" ]`. Once you do that, your web API will be able to correctly identify your front-end and the combined consll be succesfully carried out.
+If you remember the last step of the registration for the client app (TodoListSPA), you were instructed to find the `KnownClientApplications` in application manifest, and add the Application (client) ID of the `TodoListSPA` application `KnownClient witApplications: [ "your-client-id-for-TodoListSPA" ]`. Once you do that, your web API will be able to correctly identify your front-end and the combined consent will be successfully carried out.
+
+### Provisioning your multi-tenant Apps in another Azure AD tenant
+
+Often the user based consent will be disabled in an Azure AD tenant or your application will be requesting permissions that requires a tenant-admin consent. In these scenarios, your application will need to utilize the admin-consent endpoint to provision both the TodoListSPA and the TodoListAPI before the users from that tenant are able to sign-in to your app.
+
+When provisioning, you have to take care of the dependency in the topology where the TodoListSPA is dependent on TodoListAPI. So you would provision the TodoListAPI before the TodoListSPA.
 
 ### Custom Token Validation Allowing only Registered Tenants
 
-To extend validation to only Azure AD tenants registered in the application database, the event handler `OnTokenValidated` was configured to grab the `tenantId` from the token claims and check if it has an entry on the database. If it doesn't, a custom exception `UnauthorizedTenantException` is thrown, canceling the authentication.
+By marking your application as multi-tenant, your application will be able to sign-in users from any Azure AD tenant out there. Now you would want to restrict the tenants you want to work with. For this, we will now extend token validation to only Azure AD tenants registered in the application database, the event handler `OnTokenValidated` was configured to grab the `tenantId` from the token claims and check if it has an entry on the database. If it doesn't, a custom exception `UnauthorizedTenantException` is thrown, canceling the authentication.
+
+To do this, we will implement token validation on both TodoListSPA and TodoListAPI
+
+// token validation for TodoListSPA
 
 ```csharp
    services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
@@ -271,12 +272,17 @@ To extend validation to only Azure AD tenants registered in the application data
 
          if (authorizedTenant == null)
                throw new UnauthorizedTenantException("This tenant is not authorized");
-
       };
    });
 ```
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+
+## Debugging the sample
+
+To debug the .NET Core Web API that comes with this sample, install the [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) for Visual Studio Code.
+
+Learn more about using [.NET Core with Visual Studio Code](https://docs.microsoft.com/dotnet/core/tutorials/with-visual-studio-code).
 
 ## Learn more
 

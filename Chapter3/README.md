@@ -12,11 +12,11 @@ products:
 - microsoft-graph-api
 - azure-app-services
 - azure-storage
-description: "Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates Users with Azure AD and Calls a Protected ASP.NET Core web API"
+description: "Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core web API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter3"
 ---
 
-# Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates Users with Azure AD and Calls a Protected ASP.NET Core web API
+# Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core web API
 
 In this guide, we will deploy our project components, **TodoListAPI** and **TodoListSPA**, to Azure Cloud. For **TodoListAPI**, we will use **Azure App Services**, while for **TodoListSPA**, we will generate a static website and upload it to **Azure Storage**.
 
@@ -24,7 +24,7 @@ In this guide, we will deploy our project components, **TodoListAPI** and **Todo
 
 - [Node.js](https://nodejs.org/en/download/) must be installed to run this sample.
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
-- *At least* **two** Azure Active Directory (Azure AD) tenants. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
+- *At least* **two** Azure Active Directory (Azure AD) tenants if you want to test deployment end-to-end. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 - On each tenant, *at least* **one** admin account and **one** non-admin/user account for testing purposes.
 - An **Azure subscription**. This sample uses **Azure App Services** and **Azure Storage**.
 - A modern Browser. This sample uses **ES6** conventions and will not run on **Internet Explorer**.
@@ -60,6 +60,8 @@ Use the same app registration credentials that you've obtained during **chapter 
 
 Use the same app registration credentials that you've obtained during **chapter 2**.
 
+> If you want to deploy just your SPA, you may also use the registration credentials that you've obtained during **chapter 1**
+
 ## Deployment
 
 ### TodoListAPI
@@ -85,8 +87,8 @@ Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to *
 #### Step 3. Modify your launchSettings.json
 
 1. Open the `TodoListAPI\Properties\launchSettings.json` file.
-2. Find all app keys `applicationUrl` and replace it with the base address of your web api e.g. `my-web-api.azurewebsites.net`.
-3. Find the app key `launchUrl` and replace it with the api endpoint of your web api e.g. `my-web-api.azurewebsites.net/api/todolist`.
+2. Find all app keys `applicationUrl` and replace it with the base address of your web API e.g. `my-web-api.azurewebsites.net`.
+3. Find the app key `launchUrl` and replace it with the API endpoint of your web API e.g. `my-web-api.azurewebsites.net/api/todolist`.
 
 #### Step 4. Configure your app
 
@@ -94,15 +96,11 @@ On the **App Services** portal, click on the **Configuration** blade and set the
 
 ![config](../Misc/ch3_config.png)
 
-#### Step 5. Enable Azure AD authentication
+#### Step 5. Disabling Azure AD authentication
 
-Still on the **App Services** portal, click on the **Authentication/Authorization** blade. There, enable the App Services Authentication, then select Azure AD from the list below.  
+Still on the **App Services** portal, click on the **Authentication/Authorization** blade. There, make sure that the App Services Authentication is switched off.  
 
 ![auth1](../Misc/ch3_auth.png)
-
-Remember we already have an **app registration** for our **TodoListAPI** from the **chapter 2**. Here we will simply configure the **App Services** to use it. Hit on the **Advanced** mode and enter your `clientID` for **TodoListAPI**.
-
-![auth2](../Misc/ch3_auth2.png)
 
 ### TodoListSPA
 

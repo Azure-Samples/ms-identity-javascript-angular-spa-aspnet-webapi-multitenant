@@ -273,6 +273,11 @@ To see why this was so, notice, in `App/authConfig.js`, the current request obje
 
 This means that the user will be prompted for consent during sign-in. However, since only an admin can consent to the scope `User.Read.All`, a non-admin account will simply not be able to login ))(unless consented prior by a tenant admin)! For best end-user experience, please have the tenant admin consent your app before a user from the tenant tries to sign-in.
 
+### Custom Token Validation Allowing only Registered Tenants
+
+Remark: In a real world scenario, you would hook your app to a database from which you get an allowed list of tenant Ids to compare...
+
+
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
 ## Learn more
