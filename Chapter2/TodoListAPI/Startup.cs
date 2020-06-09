@@ -1,13 +1,16 @@
 
+using System;
+using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using TodoListAPI.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace TodoListAPI
 {
@@ -26,6 +29,21 @@ namespace TodoListAPI
             // Setting configuration for protected web api
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddProtectedWebApi(Configuration);
+
+            services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+            {
+                options.Events.OnTokenValidated = async context =>
+                {
+                    string tenantId = ((JwtSecurityToken)context.SecurityToken).Claims.FirstOrDefault(x => x.Type == "tid" || x.Type == "http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+
+                    string[] allowedTenants = { "cbaf2168-de14-4c72-9d88-f5f05366dbef", "xxxxx"};
+
+                    if (!allowedTenants.Contains(tenantId))
+                    {
+                        throw new Exception("This tenant is not authorized");
+                    }
+                };
+            });
 
             // Creating policies that wraps the authorization requirements
             services.AddAuthorization();

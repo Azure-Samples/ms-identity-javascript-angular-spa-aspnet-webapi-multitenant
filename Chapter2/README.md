@@ -246,33 +246,25 @@ If you remember the last step of the registration for the client app (TodoListSP
 
 Often the user-based consent will be disabled in an Azure AD tenant or your application will be requesting permissions that requires a tenant-admin consent. In these scenarios, your application will need to utilize the `/adminconsent` endpoint to provision both the **TodoListSPA** and the **TodoListAPI** before the users from that tenant are able to sign-in to your app.
 
-When provisioning, you have to take care of the dependency in the topology where the **TodoListSPA** is dependent on **TodoListAPI**. So you would provision the **TodoListAPI** before the **TodoListSPA**.
+When provisioning, you have to take care of the dependency in the topology where the **TodoListSPA** is dependent on **TodoListAPI**. So in such a case, you would provision the **TodoListAPI** before the **TodoListSPA**.
 
 ### Custom Token Validation Allowing only Registered Tenants
 
-By marking your application as multi-tenant, your application will be able to sign-in users from any Azure AD tenant out there. Now you would want to restrict the tenants you want to work with. For this, we will now extend token validation to only those Azure AD tenants registered in the application database. Below, the event handler `OnTokenValidated` was configured to grab the `tenantId` from the token claims and check if it has an entry on the database. If it doesn't, a custom exception `UnauthorizedTenantException` is thrown, canceling the authentication.
-
-To do this, we will implement token validation on both TodoListSPA and TodoListAPI
-
-// token validation for TodoListSPA
+By marking your application as multi-tenant, your application will be able to sign-in users from any Azure AD tenant out there. Now you would want to restrict the tenants you want to work with. For this, we will now extend token validation to only those Azure AD tenants registered in the application database. Below, the event handler `OnTokenValidated` was configured to grab the `tenantId` from the token claims and check if it has an entry on the records. If it doesn't, an exception is thrown, canceling the authentication.
 
 ```csharp
    services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
    {
-      options.Events.OnTokenValidated = async context => 
+      options.Events.OnTokenValidated = async context =>
       {
-         string tenantId = context.SecurityToken.Claims.FirstOrDefault(x => x.Type == "tid" || x.Type == "http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+         string[] allowedTenants = { /* a list of IDs... */ };
 
-         if (string.IsNullOrWhiteSpace(tenantId))
-               throw new UnauthorizedAccessException("Unable to get tenantId from token.");
+         string tenantId = ((JwtSecurityToken)context.SecurityToken).Claims.FirstOrDefault(x => x.Type == "tid" || x.Type == "http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
 
-         // some database...
-         var dbContext = context.HttpContext.RequestServices.GetRequiredService<SampleDbContext>();
-
-         var authorizedTenant = await dbContext.AuthorizedTenants.FirstOrDefaultAsync(t => t.TenantId == tenantId);
-
-         if (authorizedTenant == null)
-               throw new UnauthorizedTenantException("This tenant is not authorized");
+         if (!allowedTenants.Contains(tenantId))
+         {
+               throw new Exception("This tenant is not authorized!");
+         }
       };
    });
 ```

@@ -275,7 +275,7 @@ This means that the user will be prompted for consent during sign-in. However, s
 
 ### Custom Token Validation Allowing only Registered Tenants
 
-Remark: In a real world scenario, you would hook your app to a database from which you get an allowed list of tenant Ids to compare...
+By marking your application as multi-tenant, your application will be able to sign-in users from **any** Azure AD tenant out there. Because of this, you may want to restrict the tenants you want to work with. That is, you need to check the `tenantId` in an ID token for a signed-in user, and see if it is one of the tenants you want to grant access to. Since a single-page application cannot or should not make this check securily, you would couple your SPA with a web API to carry out this in a real world scenario. In the next chapter, we cover this case.
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
