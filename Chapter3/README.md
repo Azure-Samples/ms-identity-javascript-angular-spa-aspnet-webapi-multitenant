@@ -60,7 +60,7 @@ Use the same app registration credentials that you've obtained during **chapter 
 
 Use the same app registration credentials that you've obtained during **chapter 2**.
 
-> If you want to deploy just your SPA, you may also use the registration credentials that you've obtained during **chapter 1**
+> If you want to deploy just your SPA, you may also use the registration credentials that you've obtained during **chapter 1**.
 
 ## Deployment
 
@@ -98,7 +98,7 @@ On the **App Services** portal, click on the **Configuration** blade and set the
 
 #### Step 5. Disabling Azure AD authentication
 
-Still on the **App Services** portal, click on the **Authentication/Authorization** blade. There, make sure that the App Services Authentication is switched off.  
+Still on the **App Services** portal, click on the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as we are using our own authentication logic.  
 
 ![auth1](../Misc/ch3_auth.png)
 
@@ -164,6 +164,7 @@ In the previous chapter, we have set up our own [CORS](https://en.wikipedia.org/
         public void ConfigureServices(IServiceCollection services)
         {
             // Allowing CORS for all domains and methods for the purpose of sample
+            // Note: this is not secure and shouldn't be used in production
             services.AddCors(o => o.AddPolicy("default", builder =>
             {
                 builder.AllowAnyOrigin()

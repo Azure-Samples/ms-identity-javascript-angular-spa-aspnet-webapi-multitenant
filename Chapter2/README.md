@@ -10,7 +10,7 @@ products:
 - dotnet
 - azure-active-directory
 - microsoft-graph-api
-description: "A Multi-tenant Angular Single-page Application (SPA) that Authenticates Users with Azure AD and Calls a Protected ASP.NET Core Web API"
+description: "A Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core Web API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter2"
 ---
 
@@ -18,7 +18,7 @@ urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapt
 
 This sample demonstrates how to develop a multi-tenant, cross-platform application suite comprising of an Angular SPA (*TodoListSPA*) calling an ASP.NET Core Web API (*TodoListAPI*) secured with Azure Active Directory. Due to the topology of this application suite, additional steps are needed for making it available to users in other tenants.
 
-In order to grasp the relevant aspects of **multi-tenant** covered in the sample, please follow the [discussion](##discussion) section below.
+In order to grasp the relevant aspects of **multi-tenancy** covered in the sample, please follow the [discussion](##discussion) section below.
 
 ## Scenario
 
@@ -179,7 +179,8 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 #### Configure the client app (TodoListSPA) to use your app registration
 
 Open the project in your IDE (like Visual Studio) to configure the code.
->In the steps below, "ClientID" is the same as "Application ID" or "AppId".
+
+> In the steps below, "ClientID" is the same as "Application ID" or "AppId".
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
 1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the `TodoListSPA` application copied from the Azure portal.
@@ -237,19 +238,19 @@ From the perspective of **multi-tenancy**, the main challenge with such applicat
 
 > #### KnownClientApplications
 >
-> **KnownClientApplications** is an attribute in **application manifest**. It is used for bundling consent if you have a solution that contains two parts: a client app and a custom web API. If you enter the `appID` (clientID) of the client app into this array, the user will only have to consent only once to the client app. Azure AD will know that consenting to the client means implicitly consenting to the web API. It will automatically provision service principals for both the client and web API at the same time. Both the client and the web API app must be registered in the same tenant.
+> **KnownClientApplications** is an attribute in **application manifest**. It is used for bundling consent if you have a solution that contains two (or more) parts: a client app and a custom web API. If you enter the `appID` (clientID) of the client app into this array, the user will only have to consent only once to the client app. Azure AD will know that consenting to the client means implicitly consenting to the web API. It will automatically provision service principals for both the client and web API at the same time. Both the client and the web API app must be registered in the same tenant.
 
-If you remember the last step of the registration for the client app (TodoListSPA), you were instructed to find the `KnownClientApplications` in application manifest, and add the Application (client) ID of the `TodoListSPA` application `KnownClient witApplications: [ "your-client-id-for-TodoListSPA" ]`. Once you do that, your web API will be able to correctly identify your front-end and the combined consent will be successfully carried out.
+If you remember the last step of the registration for the client app (TodoListSPA), you were instructed to find the `KnownClientApplications` in application manifest, and add the Application (client) ID of the `TodoListSPA` application `KnownClient witApplications: ["your-client-id-for-TodoListSPA"]`. Once you do that, your web API will be able to correctly identify your front-end and the combined consent will be successfully carried out.
 
-### Provisioning your multi-tenant Apps in another Azure AD tenant
+### Provisioning your Multi-tenant Apps in another Azure AD Tenant
 
-Often the user based consent will be disabled in an Azure AD tenant or your application will be requesting permissions that requires a tenant-admin consent. In these scenarios, your application will need to utilize the admin-consent endpoint to provision both the TodoListSPA and the TodoListAPI before the users from that tenant are able to sign-in to your app.
+Often the user-based consent will be disabled in an Azure AD tenant or your application will be requesting permissions that requires a tenant-admin consent. In these scenarios, your application will need to utilize the `/adminconsent` endpoint to provision both the **TodoListSPA** and the **TodoListAPI** before the users from that tenant are able to sign-in to your app.
 
-When provisioning, you have to take care of the dependency in the topology where the TodoListSPA is dependent on TodoListAPI. So you would provision the TodoListAPI before the TodoListSPA.
+When provisioning, you have to take care of the dependency in the topology where the **TodoListSPA** is dependent on **TodoListAPI**. So you would provision the **TodoListAPI** before the **TodoListSPA**.
 
 ### Custom Token Validation Allowing only Registered Tenants
 
-By marking your application as multi-tenant, your application will be able to sign-in users from any Azure AD tenant out there. Now you would want to restrict the tenants you want to work with. For this, we will now extend token validation to only Azure AD tenants registered in the application database, the event handler `OnTokenValidated` was configured to grab the `tenantId` from the token claims and check if it has an entry on the database. If it doesn't, a custom exception `UnauthorizedTenantException` is thrown, canceling the authentication.
+By marking your application as multi-tenant, your application will be able to sign-in users from any Azure AD tenant out there. Now you would want to restrict the tenants you want to work with. For this, we will now extend token validation to only those Azure AD tenants registered in the application database. Below, the event handler `OnTokenValidated` was configured to grab the `tenantId` from the token claims and check if it has an entry on the database. If it doesn't, a custom exception `UnauthorizedTenantException` is thrown, canceling the authentication.
 
 To do this, we will implement token validation on both TodoListSPA and TodoListAPI
 
@@ -287,9 +288,11 @@ Learn more about using [.NET Core with Visual Studio Code](https://docs.microsof
 ## Learn more
 
 To learn more about single and multi-tenant apps, see:
+
 - [Multi-tenant SaaS database tenancy patterns](https://docs.microsoft.com/azure/sql-database/saas-tenancy-app-design-patterns)
 
 To learn more about token validation, see:
+
 - [Validating tokens](https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/wiki/ValidatingTokens)
 - [Validating an id_token](https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens#validating-an-id_token)
 
