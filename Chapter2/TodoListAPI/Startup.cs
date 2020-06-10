@@ -30,6 +30,20 @@ namespace TodoListAPI
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddProtectedWebApi(Configuration);
 
+            // Uncomment this section if you would like to validate ID tokens for allowed tenantIds
+            // services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+            // {
+            //     options.Events.OnTokenValidated = async context =>
+            //     {
+            //         string[] allowedTenants = { /* list of tenant IDs */ };
+            //         string tenantId = ((JwtSecurityToken)context.SecurityToken).Claims.FirstOrDefault(x => x.Type == "tid" || x.Type == "http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
+            //         if (!allowedTenants.Contains(tenantId))
+            //         {
+            //             throw new Exception("This tenant is not authorized");
+            //         }
+            //     };
+            // });
+
             // Creating policies that wraps the authorization requirements
             services.AddAuthorization();
 
