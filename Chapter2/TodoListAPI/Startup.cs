@@ -39,7 +39,7 @@ namespace TodoListAPI
             //         string tenantId = ((JwtSecurityToken)context.SecurityToken).Claims.FirstOrDefault(x => x.Type == "tid" || x.Type == "http://schemas.microsoft.com/identity/claims/tenantid")?.Value;
             //         if (!allowedTenants.Contains(tenantId))
             //         {
-            //             throw new Exception("This tenant is not authorized");
+            //             throw new UnauthorizedAccessException("This tenant is not authorized");
             //         }
             //     };
             // });

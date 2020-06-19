@@ -172,6 +172,8 @@ Open the project in your IDE (like Visual Studio) to configure the code.
      - In the **Delegated permissions** section, select the **access_as_user** in the list. Use the search box if necessary.
      - Click on the **Add permissions** button at the bottom.
 
+> :warning:the next step requires you to go back to your TodoListAPI registration.
+
 1. Now you need to leave the registration for `TodoListSPA` and **go back to your app registration** for `TodoListAPI`.
    - From the app's Overview page, select the Manifest section.
    - Find the entry for `KnownClientApplications`, and add the Application (client) ID of the `TodoListSPA` application copied from the Azure portal. i.e. `KnownClientApplications: [ "your-client-id-for-TodoListSPA" ]`
@@ -263,7 +265,7 @@ By marking your application as multi-tenant, your application will be able to si
 
          if (!allowedTenants.Contains(tenantId))
          {
-               throw new Exception("This tenant is not authorized!");
+               throw new UnauthorizedAccessException("This tenant is not authorized");
          }
       };
    });
