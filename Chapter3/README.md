@@ -33,7 +33,7 @@ In this guide, we will deploy our project components, **TodoListAPI** and **Todo
 
 ## Setup
 
-Using a command line interface such as VS Code integrated terminal, follow the steps below:
+We will use the same project, TodoListSPA and TodoListAPI from **Chapter 2**. Simply make a copy of the folder **Chapter2** and open it with VS Studio Code. Then, using a command line interface such as VS Code integrated terminal, follow the steps below:
 
 ### Step 1. Install .NET Core API dependencies
 
@@ -60,7 +60,7 @@ Use the same app registration credentials that you've obtained during **chapter 
 
 Use the same app registration credentials that you've obtained during **chapter 2**.
 
-> If you want to deploy just your SPA, you may also use the registration credentials that you've obtained during **chapter 1**.
+> If you want to deploy *just* your SPA, you may also use the registration credentials that you've obtained during **chapter 1**.
 
 ## Deployment
 
@@ -72,23 +72,27 @@ Using a command line interface such as VS Code integrated terminal, follow the s
 
 #### Step 1. Initialize a local Git
 
+If you don't have a folder initialized for Git already, type:
+
 ```console
     git init
 ```
 
 Once the initialization is done, commit all your files to your local Git. On Visual Studio Code, you can use the **Source Control** panel on the left bar for this.
 
-#### Step 2. Deploy your app
-
-Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to **App Service** section and you will see an upward-facing arrow icon. Click on it publish your local files to **Azure App Services**
-
-![publish](../Misc/ch3_publish.png)
-
-#### Step 3. Modify your launchSettings.json
+#### Step 2. Modify your launchSettings.json
 
 1. Open the `TodoListAPI\Properties\launchSettings.json` file.
 2. Find all app keys `applicationUrl` and replace it with the base address of your web API e.g. `my-web-api.azurewebsites.net`.
 3. Find the app key `launchUrl` and replace it with the API endpoint of your web API e.g. `my-web-api.azurewebsites.net/api/todolist`.
+
+#### Step 3. Deploy your app
+
+Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to **App Service** section and you will see an upward-facing arrow icon. Click on it publish your local files in the `TodoListAPI` folder to **Azure App Services**.
+
+Click "Add Config" if a popup dialog displays regarding configuration to deploy. Choose **Create new Web App** and give it a name, or choose an existing one from the options under **Select Web App**.
+
+![publish](../Misc/ch3_publish.png)
 
 #### Step 4. Configure your app
 
