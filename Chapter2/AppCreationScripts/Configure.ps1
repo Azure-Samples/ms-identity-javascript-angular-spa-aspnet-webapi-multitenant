@@ -7,8 +7,6 @@ param(
     [string] $azureEnvironmentName
 )
 
-#Requires -Modules AzureAD
-
 <#
  This script creates the Azure AD applications needed for this sample and updates the configuration files
  for the visual Studio projects from the data in the Azure AD applications.
@@ -200,7 +198,6 @@ Function ConfigureApplications
    Write-Host "Creating the AAD application (TodoListAPI)"
    # create the application 
    $serviceAadApplication = New-AzureADApplication -DisplayName "TodoListAPI" `
-                                                   -HomePage "https://localhost:44351/api/todolist" `
                                                    -AvailableToOtherTenants $True `
                                                    -PublicClient $False
    $serviceIdentifierUri = 'api://'+$serviceAadApplication.AppId
@@ -255,6 +252,18 @@ Function ConfigureApplications
    $servicePortalUrl = "https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationMenuBlade/CallAnAPI/appId/"+$serviceAadApplication.AppId+"/objectId/"+$serviceAadApplication.ObjectId+"/isMSAApp/"
    Add-Content -Value "<tr><td>service</td><td>$currentAppId</td><td><a href='$servicePortalUrl'>TodoListAPI</a></td></tr>" -Path createdApps.html
 
+   $requiredResourcesAccess = New-Object System.Collections.Generic.List[Microsoft.Open.AzureAD.Model.RequiredResourceAccess]
+
+   # Add Required Resources Access (from 'service' to 'Microsoft Graph')
+   Write-Host "Getting access from 'service' to 'Microsoft Graph'"
+   $requiredPermissions = GetRequiredPermissions -applicationDisplayName "Microsoft Graph" `
+                                                -requiredDelegatedPermissions "User.Read" `
+
+   $requiredResourcesAccess.Add($requiredPermissions)
+
+
+   Set-AzureADApplication -ObjectId $serviceAadApplication.ObjectId -RequiredResourceAccess $requiredResourcesAccess
+   Write-Host "Granted permissions."
 
    # Create the client AAD application
    Write-Host "Creating the AAD application (TodoListSPA)"
@@ -307,6 +316,14 @@ Function ConfigureApplications
    Set-AzureADApplication -ObjectId $clientAadApplication.ObjectId -RequiredResourceAccess $requiredResourcesAccess
    Write-Host "Granted permissions."
 
+   # Configure known client applications for service 
+   Write-Host "Configure known client applications for the 'service'"
+   $knowApplications = New-Object System.Collections.Generic.List[System.String]
+    $knowApplications.Add($clientAadApplication.AppId)
+   Set-AzureADApplication -ObjectId $serviceAadApplication.ObjectId -KnownClientApplications $knowApplications
+   Write-Host "Configured."
+
+
    # Update config file for 'service'
    $configFile = $pwd.Path + "\..\TodoListAPI\appsettings.json"
    Write-Host "Updating the sample code ($configFile)"
@@ -316,18 +333,16 @@ Function ConfigureApplications
    # Update config file for 'client'
    $configFile = $pwd.Path + "\..\TodoListSPA\src\app\app-config.json"
    Write-Host "Updating the sample code ($configFile)"
-   $dictionary = @{ "Enter the Client Id (aka 'Application ID')" = $clientAadApplication.AppId;"Enter the TodoList Web APIs base address, e.g. 'https://localhost:44351/api/todolist'" = $serviceAadApplication.HomePage;"Enter the API scopes as declared in the app registration 'Expose an Api' blade in the form of 'api://{clientId}/access_as_user'" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
+   $dictionary = @{ "Enter the Client Id (aka 'Application ID')" = $clientAadApplication.AppId;"Enter the API scopes as declared in the app registration 'Expose an Api' blade in the form of 'api://{clientId}/access_as_user'" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
    ReplaceInTextFile -configFilePath $configFile -dictionary $dictionary
    Write-Host ""
    Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
    Write-Host "IMPORTANT: Please follow the instructions below to complete a few manual step(s) in the Azure portal":
    Write-Host "- For 'service'"
    Write-Host "  - Navigate to '$servicePortalUrl'"
-   Write-Host "  - Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount' in the application manifest" -ForegroundColor Red 
    Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest" -ForegroundColor Red 
    Write-Host "- For 'client'"
    Write-Host "  - Navigate to '$clientPortalUrl'"
-   Write-Host "  - Navigate to the portal and change the 'signInAudeince' to 'AzureADandPersonalMicrosoftAccount'  in the application manifest" -ForegroundColor Red 
    Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest" -ForegroundColor Red 
    Write-Host "  - Navigate to the portal and add the clientID of TodoListSPA to the 'KnownClientApplications' array in the application manifest" -ForegroundColor Red 
 
