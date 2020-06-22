@@ -119,6 +119,9 @@ Using a command line interface such as VS Code integrated terminal, locate the `
     ng add @azure/ng-deploy
 ```
 
+> :warning: Known Issue: No Subscriptions Found
+> If your Azure subscription is tied to a personal Microsoft account or an Azure trial account, you may get an error stating **"You don't have any active subscriptions"**. This is a known issue with **azure/ng-deploy** package and a patch is on the roadmap. See the discussion [here](https://github.com/Azure/ng-deploy-azure/issues/55) for more details.
+
 #### Step 2. Build your app
 
 ```console
