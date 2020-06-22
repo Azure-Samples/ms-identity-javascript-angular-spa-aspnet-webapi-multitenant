@@ -111,9 +111,15 @@ Still on the **App Services** portal, click on the **Authentication/Authorizatio
 
 Since TodoListSPA is a single-page application, we will deploy it as a **static website** on [Azure Storage](https://azure.microsoft.com/services/storage/). To do so, we will **build** our Angular sample to create a `dist` folder with compiled resources. Then we will make use of the [@azure/ng-deploy](https://www.npmjs.com/package/@azure/ng-deploy) for deployment.
 
-Using a command line interface such as VS Code integrated terminal, follow the steps below:
+Using a command line interface such as VS Code integrated terminal, locate the `TodoListSPA folder`, then follow the steps below:
 
-#### Step 1. Build your app
+#### Step 1. Add ng-deploy
+
+```console
+    ng add @azure/ng-deploy
+```
+
+#### Step 2. Build your app
 
 ```console
     ng build --prod
