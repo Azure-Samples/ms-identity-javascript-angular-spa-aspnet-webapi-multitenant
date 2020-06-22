@@ -24,6 +24,7 @@ In this guide, we will deploy our project components, **TodoListAPI** and **Todo
 
 - [Node.js](https://nodejs.org/en/download/) must be installed to run this sample.
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
+- [Angular-CLI](https://cli.angular.io/) must be installed **globally** to run this sample.
 - *At least* **two** Azure Active Directory (Azure AD) tenants if you want to test deployment end-to-end. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 - On each tenant, *at least* **one** admin account and **one** non-admin/user account for testing purposes.
 - An **Azure subscription**. This sample uses **Azure App Services** and **Azure Storage**.

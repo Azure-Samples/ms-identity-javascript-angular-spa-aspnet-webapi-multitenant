@@ -49,6 +49,9 @@ In order to grasp the relevant aspects of **multi-tenancy** covered in the sampl
 - A modern browser. This sample uses **ES6** conventions and will not run on **Internet Explorer**.
 - We recommend [VS Code](https://code.visualstudio.com/download) for running and debugging this cross-platform application.
 
+> :warning: Popup Policy
+> This sample uses **MSAL.js** popup flow for authentication and consent. Due to your browser settings, popup windows might be blocked. In that case, please allow popups from in your browser's settings. You may also want to [verify your app publisher](https://docs.microsoft.com/azure/active-directory/develop/publisher-verification-overview) to mitigate issues due to *insecure content*.
+
 ## Setup
 
 Using a command line interface such as VS Code integrated terminal, follow the steps below:
