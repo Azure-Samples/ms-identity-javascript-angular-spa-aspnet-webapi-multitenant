@@ -13,13 +13,13 @@ function adminConsent() {
       const state = Math.floor(Math.random() * 90000) + 10000; // state parameter for anti token forgery
 
       // admin consent endpoint. visit X for more info
-      const adminConsetUri = "https://login.microsoftonline.com/" + 
+      const adminConsentUri = "https://login.microsoftonline.com/" + 
       `${loginResponse.idTokenClaims.tid}` + "/v2.0/adminconsent?client_id=" + 
       `${msalConfig.auth.clientId}` + "&state=" + `${state}` + "&redirect_uri=" + `${msalConfig.auth.redirectUri}` +
-      "&scope=https://graph.microsoft.com/.default";
+      "&scope=.default";
 
       // redirecting...
-      window.location.replace(adminConsetUri);
+      window.location.replace(adminConsentUri);
 
       if (myMSALObj.getAccount()) {
         showWelcomeMessage(myMSALObj.getAccount());

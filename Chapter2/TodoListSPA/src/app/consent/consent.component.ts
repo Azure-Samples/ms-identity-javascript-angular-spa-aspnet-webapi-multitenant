@@ -29,13 +29,13 @@ export class ConsentComponent implements OnInit {
       const state = Math.floor(Math.random() * 90000) + 10000; // state parameter for anti token forgery
 
       // admin consent endpoint. visit X for more info
-      const adminConsetUri = "https://login.microsoftonline.com/" + 
+      const adminConsentUri = "https://login.microsoftonline.com/" + 
       `${this.authService.getAccount().idTokenClaims.tid}` + "/v2.0/adminconsent?client_id=" + 
       `${config.auth.clientId}` + "&state=" + `${state}` + "&redirect_uri=" + `${config.auth.redirectUri}` +
-      "&scope=https://graph.microsoft.com/.default";
+      "&scope=.default";
   
       // redirecting...
-      window.location.replace(adminConsetUri);
+      window.location.replace(adminConsentUri);
       
     } else {
       alert('Please sign-in first.')
