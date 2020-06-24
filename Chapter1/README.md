@@ -127,15 +127,15 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 1. Open your browser and navigate to `http://localhost:3000`.
 
-    ![index.html](../Misc/ch1_login_screen.png)
+    ![index.html](../ReadmeFiles/ch1_login_screen.png)
 
 1. Sign-in using the button on top-right. If you haven't provided admin-consent yet, you will not be able to sign-in with a non-admin account from another tenant.
 
-    ![need-consent](../Misc/ch1_need_admin_approval.png)
+    ![need-consent](../ReadmeFiles/ch1_need_admin_approval.png)
 
 1. Click on the `who's in?` button at the center to see the other users in your tenant.
 
-    ![success](../Misc/ch1_success.png)
+    ![success](../ReadmeFiles/ch1_success.png)
 
 ## Discussion
 
@@ -173,15 +173,15 @@ To properly test this application, you need *at least* **2** tenants, and on eac
 
 Before each test, you should delete your **service principal** for the tenant you are about to test, in order to remove any previously given consents and start the **provisioning process** from scratch.
 
-> #### How to Delete Service Principals
+> #### How to delete Service Principals
 >
-> Steps for deleting a service principal differs with respect to whether the principal is in the **home tenant** of the application or in another tenant. If it is in the **home tenant**, you will find the entry for the application under the **App Registrations** blade. If it is another tenant, you will find the entry under the **Enterprise Applications** blade. The screenshot below shows how to access the service principal from a **home tenant**:
+> Steps for deleting a service principal differs with respect to whether the principal is in the **home tenant** of the application or in another tenant. If it is in the **home tenant**, you will find the entry for the application under the **App Registrations** blade. If it is another tenant, you will find the entry under the **Enterprise Applications** blade. Read more about these blades in the [How and why applications are added to Azure AD](https://docs.microsoft.com/azure/active-directory/develop/active-directory-how-applications-are-added).The screenshot below shows how to access the service principal from a **home tenant**:
 >
-> ![principal1](../Misc/ch1_service_principal1.png)
+> ![principal1](../ReadmeFiles/ch1_service_principal1.png)
 >
 > The rest of the process is the same for both cases. In the next screen, click on **Properties** and then the **Delete** button on the upper side.
 >
-> ![principal1](../Misc/ch1_service_principal2.png)
+> ![principal1](../ReadmeFiles/ch1_service_principal2.png)
 >
 > You have now deleted the service principal for that tenant. Next time, once a user successfully authenticates to your application, a new service principal will be created (i.e. *provisioning*) in the tenant from which *that* user belongs.
 
@@ -189,16 +189,18 @@ Before each test, you should delete your **service principal** for the tenant yo
 
 A service principal of your multi-tenant app is created via one of the following ways.
 
-1. When the first user signs-in your app for the first time in a tenant
-2. Manually or programmatically created by a tenant admin using the [`/adminconsent` endpoint](https://docs.microsoft.com/azure/active-directory/develop/v2-admin-consent) or [using the PowerShell command](https://docs.microsoft.com/powershell/azure/create-azure-service-principal-azureps).
+1. When the first user signs-in your app for the first time in a tenant.
+1. Manually or programmatically created by a tenant admin using one of the following
+   1. Using the [/adminconsent endpoint](https://docs.microsoft.com/azure/active-directory/develop/v2-admin-consent)
+   1. [Using the PowerShell command](https://docs.microsoft.com/powershell/azure/create-azure-service-principal-azureps).
 
-- **Consent on sign-in:**
+- **Consent during sign-in:**
 
-This method requires the most minimal setup. The only thing needed is a sign-in by an admin account and clicking on the "consent on behalf of your organization" in the AAD sign-in screen below:
+This method requires the most minimal setup. The only thing needed is that the tenant admin signs-in first and *optionally* choose to "consent on behalf of your organization" during the AAD sign-in as shown in the screen below:
 
-![consent](../Misc/ch1_consent_onbehalf.png)
+![consent](../ReadmeFiles/ch1_consent_onbehalf.png)
 
-- **Consent by using the `/adminconsent` endpoint**
+- **Consent using the `/adminconsent` endpoint**
 
 This method provides a programmatic control over the consent process. To be able to **consent as an admin** with this method, there are two steps your application needs to carry out:
 
@@ -238,17 +240,21 @@ This is demonstrated in the code snippet below:
       }
 ```
 
+You can try the `/adminconsent` endpoint on the home page of the sample by clicking on the blurb in the bottom right.
+
+![admin consent endpoint](../ReadmeFiles/ch1_admin_consent_endpoint.png)
+
 > #### The `.default` scope
 >
-> Did you notice the scope here is set to `https://graph.microsoft.com/.default`, as opposed to `https://graph.microsoft.com/User.Read.All` (or just `User.Read.All` for short)? This is a built-in scope for every application that refers to the static list of permissions configured on the application registration. Basically, it *bundles* all the permissions in one scope. The /.default scope can be used in any OAuth 2.0 flow, but is necessary when using the v2 admin consent endpoint to request application permissions.
-
+> Did you notice the scope here is set to `https://graph.microsoft.com/.default`, as opposed to `https://graph.microsoft.com/User.Read.All` (or just `User.Read.All` for short)? This is a built-in scope for every application that refers to the static list of permissions configured on the application registration. Basically, it *bundles* all the permissions in one scope. The /.default scope can be used in any OAuth 2.0 flow, but is necessary when using the v2 admin consent endpoint to request application permissions. Read about `scopes` usage at [Scopes and permissions in the Microsoft Identity Platform](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#scopes-and-permissions).  
+  
 When redirected to the `/adminconsent` endpoint, the tenant admin will see:
 
-![consent](../Misc/ch1_admin_redirect.png)
+![consent](../ReadmeFiles/ch1_admin_redirect.png)
 
 After you choose an admin account, it will lead to the following prompt:
 
-![consent](../Misc/ch1_admin_consent.png)
+![consent](../ReadmeFiles/ch1_admin_consent.png)
 
 Once it finishes, your application service principal will be provisioned in that tenant.
 
@@ -275,7 +281,7 @@ This means that the user will be prompted for consent during sign-in. However, s
 
 ### Custom Token Validation Allowing only Registered Tenants
 
-By marking your application as multi-tenant, your application will be able to sign-in users from **any** Azure AD tenant out there. Because of this, you may want to restrict the tenants you want to work with. That is, you need to check the `tenantId` in an ID token for a signed-in user, and see if it is one of the tenants you want to grant access to. Since a single-page application cannot or should not make this check securily, you would couple your SPA with a web API to carry out this in a real world scenario. In the next chapter, we cover this case.
+By marking your application as multi-tenant, your application will be able to sign-in users from **any** Azure AD tenant out there. Because of this, you may want to restrict the tenants you want to work with. That is, you need to check the `tenantId` in an ID token for a signed-in user, and see if it is one of the tenants you want to grant access to. Since a single-page application cannot or should not make this check securely, you might want to couple your SPA with a web API to carry out this in a real world scenario. In the next chapter, we cover this case.
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
@@ -283,8 +289,11 @@ By marking your application as multi-tenant, your application will be able to si
 
 To learn more about single and multi-tenant apps, see:
 
+- [Develop multi-tenant applications with Microsoft identity platform](https://www.youtube.com/watch?v=B416AxHoMJ4)
 - [National Clouds](https://docs.microsoft.com/azure/active-directory/develop/authentication-national-cloud)
 - [Endpoints](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols#endpoints)
+- [How and why applications are added to Azure AD](https://docs.microsoft.com/azure/active-directory/develop/active-directory-how-applications-are-added)
+- [Scopes and permissions in the Microsoft Identity Platform](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#scopes-and-permissions)
 
 To learn more about admin consent experiences, see:
 

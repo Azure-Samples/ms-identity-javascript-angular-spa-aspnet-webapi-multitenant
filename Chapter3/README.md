@@ -93,19 +93,19 @@ Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to *
 
 Click "Add Config" if a popup dialog displays regarding configuration to deploy. Choose **Create new Web App** and give it a name, or choose an existing one from the options under **Select Web App**.
 
-![publish](../Misc/ch3_publish.png)
+![publish](../ReadmeFiles/ch3_publish.png)
 
 #### Step 4. Configure your app
 
 On the **App Services** portal, click on the **Configuration** blade and set the **stack** property to **.NET Core**.
 
-![config](../Misc/ch3_config.png)
+![config](../ReadmeFiles/ch3_config.png)
 
 #### Step 5. Disabling Azure AD authentication
 
 Still on the **App Services** portal, click on the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as we are using our own authentication logic.  
 
-![auth1](../Misc/ch3_auth.png)
+![auth1](../ReadmeFiles/ch3_auth.png)
 
 ### TodoListSPA
 
@@ -119,7 +119,7 @@ Using a command line interface such as VS Code integrated terminal, locate the `
 
 On VS Code, click on the Azure Tools icon on the left bar. Then, find the Storage section, and click on one of your subscriptions to create a storage account.
 
-![storage-account](../Misc/ch3_storage_account.png)
+![storage-account](../ReadmeFiles/ch3_storage_account.png)
 
 #### Step 2. Build your app
 
@@ -131,7 +131,7 @@ On VS Code, click on the Azure Tools icon on the left bar. Then, find the Storag
 
 Right-click on the newly created `dist/<your-project-name>` folder and a context-menu will appear with the option "Deploy to static website".
 
-![deploy-static](../Misc/ch3_deploy_static.png)
+![deploy-static](../ReadmeFiles/ch3_deploy_static.png)
 
 You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page. Once deployment is done, a popup on the right corner of VS Code will appear to let you know the URL of the website you've just deployed.
 
@@ -185,7 +185,7 @@ In the previous chapter, we have set up our own [CORS](https://en.wikipedia.org/
 
 If you like, you could delegate the control of **CORS** policy to **Azure App Services**. To do so, navigate to **App Services** portal, and then click on the **CORS** blade:
 
-![cors](../Misc/ch3_cors.png)
+![cors](../ReadmeFiles/ch3_cors.png)
 
 Then, you can add the domain of your single-page application as an **Allowed Origin**. Of course, if you follow this approach, don't forget to remove the CORS configuration in the `TodoListAPI/Startup.cs` (i.e. the code snipped above), as you no longer need it once you set up **Azure App Services** to enforce the **CORS** policy.
 

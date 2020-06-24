@@ -27,7 +27,7 @@ In order to grasp the relevant aspects of **multi-tenancy** covered in the sampl
 - The access token is then used by the TodoListAPI to authorize the user.
 - TodoListAPI uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
 
-![Topology](../Misc/ch2_topology.png)
+![Topology](../ReadmeFiles/ch2_topology.png)
 
 ## Contents
 
@@ -215,21 +215,21 @@ In a separate console window, execute the following commands
 
 1. Sign-in using the button on top-right:
 
-![login](../Misc/ch2_login.png)
+![login](../ReadmeFiles/ch2_login.png)
 
 1. Click on the "Get my tasks" button to access your todo list.
 
 > If you have not provided **admin-consent** yet, you will get the following screen:
 >
-> ![error](../Misc/ch2_error_screen.png)
+> ![error](../ReadmeFiles/ch2_error_screen.png)
 >
 > To provide **admin-consent**, navigate to the consent page by clicking on the "Admin" button on the top-right corner.
 >
->![admin](../Misc/ch2_admin_consent_page.png)
+>![admin](../ReadmeFiles/ch2_admin_consent_page.png)
 
 1. When you create a new task, you will also have an option to assign it to any other user from your tenant:
 
-![assign](../Misc/ch2_user_list.png)
+![assign](../ReadmeFiles/ch2_user_list.png)
 
 ## Discussion
 

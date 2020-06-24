@@ -14,21 +14,21 @@ description: "An incremental multi-tenant tutorial demonstrating how to develop 
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant"
 ---
 
-# Developing Multi-tenant (SaaS) applications with Microsoft Identity Platform
+# Developing a Multi-tenant (SaaS) application with the Microsoft Identity Platform
 
-This is an incremental tutorial that teaches you how to develop a [multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps) application using the Microsoft Identity Platform. It'll demonstrate how to setup and configure your app, provision it in customer's tenant using admin consent and make it accessible for users. We will also cover the steps to deploy it on [Azure App Services](https://azure.microsoft.com/services/app-service/).
+This is an incremental chapter-wise tutorial that teaches you how to develop a [multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps) application using the Microsoft Identity Platform. It'll demonstrate how to setup and configure your app, provision it in customers tenants and make it available for end users. We will also cover the steps to deploy it on [Azure App Services](https://azure.microsoft.com/services/app-service/).
 
 ## How to Use this tutorial
 
-The aim of this tutorial is for you to understand aspects of **multi-tenancy** in Azure Active Directory from an *app developer perspective*. The assumption is that you will follow each chapter in a successive fashion, as the concepts involved are built on top of each other and explanations may not be repeated. Before proceeding to **Chapter 1**, read the [discussion below](##-discussion) to get familiar with some basic terminology.
+The aim of this tutorial is for you to understand aspects of **multi-tenancy** in Azure Active Directory (Azure AD) from an *app developer's perspective*. The assumption is that you will follow each chapter in a successive fashion, as the concepts involved are built on top of the previous topic and explanations may not be repeated. Before proceeding to **Chapter 1**, you might wish to go through  [Prerequisites below](##-Prerequisites) to get familiar with a few important terminologies.
 
 ## Contents
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `Chapter1`        | Multi-tenant vanillaJS SPA calling MS Graph API. |
-| `Chapter2`        | Multi-tenant Angular SPA calling MS Graph API and .NET Core web API. |
-| `Chapter3`        | Deployment with Azure App Services and Azure Storage. |
+| `Chapter1`        | A Multi-tenant `vanillaJS` SPA signing-in users and calling MS Graph API. |
+| `Chapter2`        | A Multi-tenant `Angular` SPA signing-in users and calling a protected .NET Core web API and the MS Graph API. |
+| `Chapter3`        | Deploying this solution to Azure App Services and Azure Storage. |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `README.md`       | This README file.                          |
@@ -36,15 +36,18 @@ The aim of this tutorial is for you to understand aspects of **multi-tenancy** i
 
 ## Prerequisites
 
-Please refer to each chapter's subfolder for prerequisites.
+Please refer to each chapter's sub-folder for prerequisites.
 
-We highly recommend getting familiar with the following *basic sign-in* examples and documents first in order to easily grasp the naunces that the **multi-tenant** app development scenario will present:
+We highly recommend you first getting familiar with the following *basic sign-in* examples and documents. This will help you easily grasp the various aspects that the **multi-tenant** app development scenario will present:
 
 1. [A JavaScript SPA calling the Microsoft Graph using msal.js](https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2)
 1. [An Angular SPA that signs-in  users with Azure AD and calls a protected ASP.NET Core web API](https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi)
 1. [Tenancy in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)
 1. [Applications and Service Principals](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
 1. [Azure Active Directory Consent Framework](https://docs.microsoft.com/azure/active-directory/develop/consent-framework)
+
+> A recording of a Microsoft Identity Platform developer session that covered this topic of developing a multi-tenant app with Azure Active Directory is available at [Develop multi-tenant applications with Microsoft identity platform](https://www.youtube.com/watch?v=B416AxHoMJ4).
+
 
 ## Setup
 
@@ -60,25 +63,21 @@ Using a command line interface such as VS Code integrated terminal, clone or dow
 
 ### Step 2
 
-Please refer to each chapter's sub-folder for setup instructions.
+#### Overview
 
-### Overview
-
-When it comes to developing apps, developers can choose to configure their app to be either single-tenant or multi-tenant during app registration in the [Azure portal](https://portal.azure.com).
+When it comes to integrate Azure AD authentication in their apps, developers can choose to configure their app to be either **single-tenant** or **multi-tenant** while registering their app in the [Azure portal](https://portal.azure.com).
 
 - `Single tenant` apps are only available in the tenant they were registered in, also known as their **home tenant**.
-- `Multi-tenant` apps are available to users in both their home tenant and other tenants where they are provisioned. Apps that allow users to sign-in using their personal accounts that they use to sign into services like Xbox and Skype are also multi-tenant apps.
+- `Multi-tenant` apps are available to users in both their home tenant and other tenants where they are **provisioned**. Apps that allow users to sign-in using their personal accounts that they use to sign into services like Xbox and Skype are also multi-tenant apps. We will cover provisioning of a multi-tenant app in other tenants using **admin-consent**, in [Chapter 1](./Chapter1/README.md).
 
-> A recording of a Microsoft Identity Platform developer session that covered this topic of developing a multi-tenant app with Azure Active Directory is available at [Develop multi-tenant applications with Microsoft identity platform](https://www.youtube.com/watch?v=B416AxHoMJ4).
-
-To see how to provision an app with **admin-consent**, continue to review the sample in [Chapter 1](./Chapter1).
+Now Lets start with [Chapter 1](./Chapter1/README.md).
 
 ## More information
 
 For more information, visit the following links:
 
 - Articles about the Microsoft identity platform are at [http://aka.ms/aaddevv2](http://aka.ms/aaddevv2), with a focus on:
-  - [Converting an Application to Multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant)
+  - [Converting an application to Multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant)
   - [Permissions and Consent](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent)
   - [Understanding Azure AD Application Consent Experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
   - [Understand User and Admin Consent](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant#understand-user-and-admin-consent)
