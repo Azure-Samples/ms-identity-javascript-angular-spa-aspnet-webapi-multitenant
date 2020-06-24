@@ -147,8 +147,8 @@ You now need to go back to your Azure AD **app registration** for `TodoListSPA`:
 #### Step 5. Modify app-config.json
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
-1. Find the key `todoListApi.redirectUri` and replace the existing value with the **Redirect Uri** that you've just registered in the previous step.
-1. Find the key `todoListApi.resourceScope` and replace the existing value with the **Redirect Uri** that you've just obtained in deploying TodoListAPI (e.g. my-web-api.azurewebsites.net)
+1. Find the key `auth.redirectUri` and replace the existing value with the **Redirect Uri** that you've just registered in the previous step.
+1. Find the key `todoListApi.resourceUri` and replace the existing value with the **Redirect Uri** that you've just obtained in deploying TodoListAPI (e.g. my-web-api.azurewebsites.net)
 1. Re-build and re-deploy your files:
 
 ```console

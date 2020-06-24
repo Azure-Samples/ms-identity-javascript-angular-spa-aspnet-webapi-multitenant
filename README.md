@@ -20,7 +20,7 @@ This is an incremental chapter-wise tutorial that teaches you how to develop a [
 
 ## How to Use this tutorial
 
-The aim of this tutorial is for you to understand aspects of **multi-tenancy** in Azure Active Directory (Azure AD) from an *app developer's perspective*. The assumption is that you will follow each chapter in a successive fashion, as the concepts involved are built on top of the previous topic and explanations may not be repeated. Before proceeding to **Chapter 1**, you might wish to go through  [Prerequisites below](##-Prerequisites) to get familiar with a few important terminologies.
+The aim of this tutorial is for you to understand aspects of **multi-tenancy** in Azure Active Directory (Azure AD) from an *app developer's perspective*. The assumption is that you will follow each chapter in a successive fashion, as the concepts involved are built on top of the previous topic and explanations may not be repeated. Before proceeding to **Chapter 1**, you might wish to go through [Prerequisites below](##-Prerequisites) to get familiar with a few important terms.
 
 ## Contents
 
@@ -48,7 +48,6 @@ We highly recommend you first getting familiar with the following *basic sign-in
 
 > A recording of a Microsoft Identity Platform developer session that covered this topic of developing a multi-tenant app with Azure Active Directory is available at [Develop multi-tenant applications with Microsoft identity platform](https://www.youtube.com/watch?v=B416AxHoMJ4).
 
-
 ## Setup
 
 ### Step 1
@@ -70,7 +69,7 @@ When it comes to integrate Azure AD authentication in their apps, developers can
 - `Single tenant` apps are only available in the tenant they were registered in, also known as their **home tenant**.
 - `Multi-tenant` apps are available to users in both their home tenant and other tenants where they are **provisioned**. Apps that allow users to sign-in using their personal accounts that they use to sign into services like Xbox and Skype are also multi-tenant apps. We will cover provisioning of a multi-tenant app in other tenants using **admin-consent**, in [Chapter 1](./Chapter1/README.md).
 
-Now Lets start with [Chapter 1](./Chapter1/README.md).
+Now let's start with [Chapter 1](./Chapter1/README.md).
 
 ## More information
 
