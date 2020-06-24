@@ -135,6 +135,8 @@ Right-click on the newly created `dist/<your-project-name>` folder and a context
 
 You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page. Once deployment is done, a popup on the right corner of VS Code will appear to let you know the URL of the website you've just deployed.
 
+> In case you miss the popup, simply navigate to the **Azure Portal** and find the **Storage** acccount that you've created earlier. Once you are in your account, click on the **Static Website** blade on the left menu bar, which will show you the URL. Alternatively, you may just re-deploy your `dist/<your-project-name>` again.
+
 #### Step 4. Register your new address as a redirect uri
 
 You now need to go back to your Azure AD **app registration** for `TodoListSPA`:
