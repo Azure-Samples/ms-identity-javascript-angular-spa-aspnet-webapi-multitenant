@@ -285,6 +285,10 @@ By marking your application as multi-tenant, your application will be able to si
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
+## Next step
+
+Let's now proceed to [Chapter 2](../Chapter2/README.md) of this tutorial where we extend this project to add a web API backend and more.
+
 ## Learn more
 
 To learn more about single and multi-tenant apps, see:
