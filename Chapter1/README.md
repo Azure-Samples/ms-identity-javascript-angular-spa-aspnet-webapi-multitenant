@@ -287,7 +287,7 @@ By marking your application as multi-tenant, your application will be able to si
 
 ## Next step
 
-Let's now proceed to [Chapter 2](../Chapter2/README.md) of this tutorial where we extend this project to add a web API backend and more.
+Let's now proceed to [Chapter 2](../Chapter2/README.md) of this tutorial where we demonstrate a multi-tenant Angular SPA working along with a NET Core multi-tenant web API backend and more.
 
 ## Learn more
 
