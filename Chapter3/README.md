@@ -84,8 +84,8 @@ Once the initialization is done, commit all your files to your local Git. On Vis
 #### Step 2. Modify your launchSettings.json
 
 1. Open the `TodoListAPI\Properties\launchSettings.json` file.
-2. Find all app keys `applicationUrl` and replace it with the base address of your web API e.g. `my-web-api.azurewebsites.net`.
-3. Find the app key `launchUrl` and replace it with the API endpoint of your web API e.g. `my-web-api.azurewebsites.net/api/todolist`.
+2. Find all app keys `applicationUrl` and replace it with the base address of your web API e.g. `https://my-web-api.azurewebsites.net`.
+3. Find the app key `launchUrl` and replace it with the API endpoint of your web API e.g. `https://my-web-api.azurewebsites.net/api/todolist`.
 
 #### Step 3. Deploy your app
 
@@ -148,7 +148,7 @@ You now need to go back to your Azure AD **app registration** for `TodoListSPA`:
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
 1. Find the key `auth.redirectUri` and replace the existing value with the **Redirect Uri** that you've just registered in the previous step.
-1. Find the key `todoListApi.resourceUri` and replace the existing value with the **Redirect Uri** that you've just obtained in deploying TodoListAPI (e.g. my-web-api.azurewebsites.net)
+1. Find the key `todoListApi.resourceUri` and replace the existing value with the **Resource Uri** that you've just obtained in deploying TodoListAPI on **App Service** (e.g. https://my-web-api.azurewebsites.net/api/todolist).
 1. Re-build and re-deploy your files:
 
 ```console
@@ -190,6 +190,11 @@ If you like, you could delegate the control of **CORS** policy to **Azure App Se
 ![cors](../ReadmeFiles/ch3_cors.png)
 
 Then, you can add the domain of your single-page application as an **Allowed Origin**. Of course, if you follow this approach, don't forget to remove the CORS configuration in the `TodoListAPI/Startup.cs` (i.e. the code snipped above), as you no longer need it once you set up **Azure App Services** to enforce the **CORS** policy.
+
+
+> Known Issues:
+> <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+> Popup re-render of home page
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
