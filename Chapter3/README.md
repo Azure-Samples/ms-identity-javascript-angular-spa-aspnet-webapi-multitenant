@@ -187,7 +187,7 @@ Then, you can add the domain of your single-page application as an **Allowed Ori
 
 - In case you recevive the `HTTP Error 500.30 - ANCM In-Process Start Failure` error for your Web API on **Azure App Services**, try adding this line to `TodoListAPI/TodoListAPI.csproj` and re-deploy your project:
 
- ```csharp
+ ```xml
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <UserSecretsId>aspnet-TodoListAPI-BA938C29-8BAB-4664-A688-8FD54049C1C3</UserSecretsId>
