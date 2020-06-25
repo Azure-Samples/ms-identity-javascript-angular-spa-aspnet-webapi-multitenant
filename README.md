@@ -1,33 +1,34 @@
 ---
 page_type: sample
+author: derisen
 languages:
+- javascript
+- typescript
 - csharp
 products:
-- dotnet
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
+- dotnet-core
+- angular
+- azure-active-directory
+- microsoft-graph-api
+description: "An incremental multi-tenant tutorial demonstrating how to develop and configure your app, provision using consent and deploy it on Azure App Services"
+urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant"
 ---
 
-# Official Microsoft Sample
+# Developing a Multi-tenant (SaaS) application with the Microsoft Identity Platform
 
-<!-- 
-Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
+This is an incremental chapter-wise tutorial that teaches you how to develop a [multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps) application using the Microsoft Identity Platform. It'll demonstrate how to setup and configure your app, provision it in customers tenants and make it available for end users. We will also cover the steps to deploy it on [Azure App Services](https://azure.microsoft.com/services/app-service/).
 
-Guidance on onboarding samples to docs.microsoft.com/samples: https://review.docs.microsoft.com/help/onboard/admin/samples/process/onboarding?branch=master
+## How to Use this tutorial
 
-Taxonomies for products and languages: https://review.docs.microsoft.com/new-hope/information-architecture/metadata/taxonomies?branch=master
--->
-
-Give a short description for your sample here. What does it do and why is it important?
+The aim of this tutorial is for you to understand aspects of **multi-tenancy** in Azure Active Directory (Azure AD) from an *app developer's perspective*. The assumption is that you will follow each chapter in a successive fashion, as the concepts involved are built on top of the previous topic and explanations may not be repeated. Before proceeding to **Chapter 1**, you might wish to go through [Prerequisites below](##-Prerequisites) to get familiar with a few important terms.
 
 ## Contents
 
-Outline the file contents of the repository. It helps users navigate the codebase, build configuration and any related assets.
-
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `src`             | Sample source code.                        |
-| `.gitignore`      | Define what to ignore at commit time.      |
+| `Chapter1`        | A Multi-tenant `vanillaJS` SPA signing-in users and calling MS Graph API. |
+| `Chapter2`        | A Multi-tenant `Angular` SPA signing-in users and calling a protected .NET Core web API and the MS Graph API. |
+| `Chapter3`        | Deploying this solution to Azure App Services and Azure Storage. |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `README.md`       | This README file.                          |
@@ -35,19 +36,66 @@ Outline the file contents of the repository. It helps users navigate the codebas
 
 ## Prerequisites
 
-Outline the required components and tools that a user might need to have on their machine in order to run the sample. This can be anything from frameworks, SDKs, OS versions or IDE releases.
+Please refer to each chapter's sub-folder for prerequisites.
+
+We highly recommend you first getting familiar with the following *basic sign-in* examples and documents. This will help you easily grasp the various aspects that the **multi-tenant** app development scenario will present:
+
+1. [A JavaScript SPA calling the Microsoft Graph using msal.js](https://github.com/Azure-Samples/active-directory-javascript-graphapi-v2)
+1. [An Angular SPA that signs-in  users with Azure AD and calls a protected ASP.NET Core web API](https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi)
+1. [Tenancy in Azure Active Directory](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps)
+1. [Applications and Service Principals](https://docs.microsoft.com/azure/active-directory/develop/app-objects-and-service-principals)
+1. [Azure Active Directory Consent Framework](https://docs.microsoft.com/azure/active-directory/develop/consent-framework)
+
+> A recording of a Microsoft Identity Platform developer session that covered this topic of developing a multi-tenant app with Azure Active Directory is available at [Develop multi-tenant applications with Microsoft identity platform](https://www.youtube.com/watch?v=B416AxHoMJ4).
 
 ## Setup
 
-Explain how to prepare the sample once the user clones or downloads the repository. The section should outline every step necessary to install dependencies and set up any settings (for example, API keys and output folders).
+### Step 1
 
-## Running the sample
+Using a command line interface such as VS Code integrated terminal, clone or download this repository:
 
-Outline step-by-step instructions to execute the sample and see its output. Include steps for executing the sample from the IDE, starting specific services in the Azure portal or anything related to the overall launch of the code.
+```console
+  git clone https://github.com/Azure-Samples/ms-identity-javascript-angular-spa-aspnetcore-webapi.git
+```
 
-## Key concepts
+> [!NOTE] Given that the name of the sample is quite long, and so are the names of the referenced NuGet packages, you might want to clone it in a folder close to the root of your hard drive, to avoid file size limitations on Windows.
 
-Provide users with more context on the tools and services used in the sample. Explain some of the code that is being used and how services interact with each other.
+### Step 2
+
+#### Overview
+
+When it comes to integrate Azure AD authentication in their apps, developers can choose to configure their app to be either **single-tenant** or **multi-tenant** while registering their app in the [Azure portal](https://portal.azure.com).
+
+- `Single tenant` apps are only available in the tenant they were registered in, also known as their **home tenant**.
+- `Multi-tenant` apps are available to users in both their home tenant and other tenants where they are **provisioned**. Apps that allow users to sign-in using their personal accounts that they use to sign into services like Xbox and Skype are also multi-tenant apps. We will cover provisioning of a multi-tenant app in other tenants using **admin-consent**, in [Chapter 1](./Chapter1/README.md).
+
+Now let's start with [Chapter 1](./Chapter1/README.md).
+
+## More information
+
+For more information, visit the following links:
+
+- Articles about the Microsoft identity platform are at [http://aka.ms/aaddevv2](http://aka.ms/aaddevv2), with a focus on:
+  - [Converting an application to Multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant)
+  - [Permissions and Consent](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent)
+  - [Understanding Azure AD Application Consent Experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
+  - [Understand User and Admin Consent](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant#understand-user-and-admin-consent)
+
+- To lean more about the application registration, see:
+  - [Quickstart: Set up a tenant](https://docs.microsoft.com/azure/active-directory/develop/quickstart-create-new-tenant)
+  - [Quickstart: Register an application with the Microsoft identity platform](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app)
+  - [Quickstart: Configure a client application to access web APIs](https://docs.microsoft.com/azure/active-directory/develop/quickstart-configure-app-access-web-apis)
+  - [Quickstart: Configure an application to expose web APIs](https://docs.microsoft.com/azure/active-directory/develop/quickstart-configure-app-expose-web-apis)
+
+## Community Help and Support
+
+Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get support from the community.
+Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
+Make sure that your questions or comments are tagged with [`msal` `dotnet` `angular` `azure-active-directory`].
+
+If you find a bug in the sample, please raise the issue on [GitHub Issues](../../issues).
+
+To provide a recommendation, visit the following [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
 
 ## Contributing
 
@@ -59,6 +107,8 @@ When you submit a pull request, a CLA bot will automatically determine whether y
 a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
 provided by the bot. You will only need to do this once across all repos using our CLA.
 
+## Code of Conduct
+
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
 For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments
