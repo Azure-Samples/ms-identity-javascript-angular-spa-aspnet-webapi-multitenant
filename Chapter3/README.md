@@ -61,8 +61,6 @@ Use the same app registration credentials that you've obtained during **chapter 
 
 Use the same app registration credentials that you've obtained during **chapter 2**.
 
-> If you want to deploy *just* your SPA, you may also use the registration credentials that you've obtained during **chapter 1**.
-
 ## Deployment
 
 ### TodoListAPI
@@ -81,13 +79,7 @@ If you don't have a folder initialized for Git already, type:
 
 Once the initialization is done, commit all your files to your local Git. On Visual Studio Code, you can use the **Source Control** panel on the left bar for this.
 
-#### Step 2. Modify your launchSettings.json
-
-1. Open the `TodoListAPI\Properties\launchSettings.json` file.
-2. Find all app keys `applicationUrl` and replace it with the base address of your web API e.g. `https://my-web-api.azurewebsites.net`.
-3. Find the app key `launchUrl` and replace it with the API endpoint of your web API e.g. `https://my-web-api.azurewebsites.net/api/todolist`.
-
-#### Step 3. Deploy your app
+#### Step 2. Deploy your app
 
 Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to **App Service** section and you will see an upward-facing arrow icon. Click on it publish your local files in the `TodoListAPI` folder to **Azure App Services**.
 
@@ -95,13 +87,13 @@ Click "Add Config" if a popup dialog displays regarding configuration to deploy.
 
 ![publish](../ReadmeFiles/ch3_publish.png)
 
-#### Step 4. Configure your app
+#### Step 3. Configure your app
 
 On the **App Services** portal, click on the **Configuration** blade and set the **stack** property to **.NET Core**.
 
 ![config](../ReadmeFiles/ch3_config.png)
 
-#### Step 5. Disabling Azure AD authentication
+#### Step 4. Disabling Azure AD authentication
 
 Still on the **App Services** portal, click on the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as we are using our own authentication logic.  
 
@@ -191,10 +183,20 @@ If you like, you could delegate the control of **CORS** policy to **Azure App Se
 
 Then, you can add the domain of your single-page application as an **Allowed Origin**. Of course, if you follow this approach, don't forget to remove the CORS configuration in the `TodoListAPI/Startup.cs` (i.e. the code snipped above), as you no longer need it once you set up **Azure App Services** to enforce the **CORS** policy.
 
+## Known Issues
 
-> Known Issues:
-> <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
-> Popup re-render of home page
+- In case you recevive the `HTTP Error 500.30 - ANCM In-Process Start Failure` error for your Web API on **Azure App Services**, try adding this line to TodoListAPI.csproj and re-deploy your project:
+
+ ```csharp
+    <PropertyGroup>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <UserSecretsId>aspnet-TodoListAPI-BA938C29-8BAB-4664-A688-8FD54049C1C3</UserSecretsId>
+        <WebProject_DirectoryAccessLevelKey>1</WebProject_DirectoryAccessLevelKey>
+        <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel> // Add this line
+    </PropertyGroup>
+ ```
+
+- On **Microsoft Edge**, you might run into an issue where the page reloads in a popup window. In that case, please refer to the [FAQ item here](https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki/FAQs#how-to-avoid-page-reloads-when-acquiring-and-renewing-tokens-silently) for alternative ways to mitigate this issue.
 
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 

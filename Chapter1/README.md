@@ -137,7 +137,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
     ![success](../ReadmeFiles/ch1_success.png)
 
-## Discussion
+## About the Code
 
 Here we discuss some of the more important aspects of multi-tenant single-page applications.
 
@@ -215,9 +215,7 @@ In your app, to send a tenant admin to the `/adminconsent` endpoint you would co
     client_id=6731de76-14a6-49ae-97bc-6eba6914391e
     &state=12345
     &redirect_uri=http://localhost/myapp/permissions
-    &scope=
-    https://graph.microsoft.com/calendars.read
-    https://graph.microsoft.com/mail.send
+    &scope=calendars.read
 ```
 
 This is demonstrated in the code snippet below:
@@ -233,7 +231,7 @@ This is demonstrated in the code snippet below:
          const adminConsetUri = "https://login.microsoftonline.com/" +
          `${loginResponse.idTokenClaims.tid}` + "/v2.0/adminconsent?client_id=" +
          `${msalConfig.auth.clientId}` + "&state=" + `${state}` + "&redirect_uri=" + `${msalConfig.auth.redirectUri}` +
-         "&scope=https://graph.microsoft.com/.default";
+         "&scope=.default";
 
          // redirecting...
          window.location.replace(adminConsetUri);
@@ -246,7 +244,7 @@ You can try the `/adminconsent` endpoint on the home page of the sample by click
 
 > #### The `.default` scope
 >
-> Did you notice the scope here is set to `https://graph.microsoft.com/.default`, as opposed to `https://graph.microsoft.com/User.Read.All` (or just `User.Read.All` for short)? This is a built-in scope for every application that refers to the static list of permissions configured on the application registration. Basically, it *bundles* all the permissions in one scope. The /.default scope can be used in any OAuth 2.0 flow, but is necessary when using the v2 admin consent endpoint to request application permissions. Read about `scopes` usage at [Scopes and permissions in the Microsoft Identity Platform](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#scopes-and-permissions).  
+> Did you notice the scope here is set to `.default`, as opposed to `User.Read.All`? This is a built-in scope for every application that refers to the static list of permissions configured on the application registration. Basically, it *bundles* all the permissions in one scope. The /.default scope can be used in any OAuth 2.0 flow, but is necessary when using the v2 admin consent endpoint to request application permissions. Read about `scopes` usage at [Scopes and permissions in the Microsoft Identity Platform](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#scopes-and-permissions).  
   
 When redirected to the `/adminconsent` endpoint, the tenant admin will see:
 
@@ -287,7 +285,7 @@ By marking your application as multi-tenant, your application will be able to si
 
 ## Next step
 
-Let's now proceed to [Chapter 2](../Chapter2/README.md) of this tutorial where we demonstrate a multi-tenant Angular SPA working along with a NET Core multi-tenant web API backend and more.
+Let's now proceed to [Chapter 2](../Chapter2/README.md) of this tutorial where we demonstrate a multi-tenant Angular SPA working along with a NET Core multi-tenant web API and more.
 
 ## Learn more
 

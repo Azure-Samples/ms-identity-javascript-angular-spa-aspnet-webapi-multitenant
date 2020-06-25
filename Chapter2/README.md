@@ -182,7 +182,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
    - In the **Delegated permissions** section, select the **User.Read**, **User.Read.All** in the list. Use the search box if necessary.
    - Click on the **Add permissions** button at the bottom.
 
-> :warning: the next step requires you to go back to your TodoListAPI registration.
+> :warning: The next step requires you to go back to your TodoListAPI registration.
 
 1. Now you need to leave the registration for `TodoListSPA` and **go back to your app registration** for `TodoListAPI`.
    - From the app's Overview page, select the Manifest section.
@@ -238,7 +238,7 @@ In a separate console window, execute the following commands
 
 ![assign](../ReadmeFiles/ch2_user_list.png)
 
-## Discussion
+## About the Code
 
 We have just finished testing this deployment topology in our single-tenant. Now we will discuss what you need to do further to deploy (i.e. provision) the apps into another tenant and let the users from other tenants sign-in.
 
@@ -281,6 +281,10 @@ By marking your application as multi-tenant, your application will be able to si
    });
 ```
 
+## Next step
+
+Let's now proceed to [Chapter 3](../Chapter3/README.md) of this tutorial where we demonstrate how to deploy this project on Azure Storage (for SPA) and Azure App Service (for Web API).
+
 > [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
 
 ## Debugging the sample
@@ -298,7 +302,7 @@ To learn more about single and multi-tenant apps, see:
 To learn more about token validation, see:
 
 - [Validating tokens](https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/wiki/ValidatingTokens)
-- [Validating an id_token](https://docs.microsoft.com/en-us/azure/active-directory/develop/id-tokens#validating-an-id_token)
+- [Validating an id_token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens#validating-an-id_token)
 
 ## Contributing
 
