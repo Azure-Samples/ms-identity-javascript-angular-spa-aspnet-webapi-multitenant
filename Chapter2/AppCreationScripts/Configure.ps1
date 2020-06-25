@@ -7,6 +7,8 @@ param(
     [string] $azureEnvironmentName
 )
 
+#Requires -Modules AzureAD
+
 <#
  This script creates the Azure AD applications needed for this sample and updates the configuration files
  for the visual Studio projects from the data in the Azure AD applications.
@@ -200,6 +202,7 @@ Function ConfigureApplications
    $serviceAadApplication = New-AzureADApplication -DisplayName "TodoListAPI" `
                                                    -AvailableToOtherTenants $True `
                                                    -PublicClient $False
+
    $serviceIdentifierUri = 'api://'+$serviceAadApplication.AppId
    Set-AzureADApplication -ObjectId $serviceAadApplication.ObjectId -IdentifierUris $serviceIdentifierUri
 
@@ -288,6 +291,13 @@ Function ConfigureApplications
         Write-Host "'$($user.UserPrincipalName)' added as an application owner to app '$($clientServicePrincipal.DisplayName)'"
    }
 
+    # Configure known client applications for service 
+    Write-Host "Configure known client applications for the 'service'"
+    $knownApplications = New-Object System.Collections.Generic.List[System.String]
+    $knownApplications.Add($clientAadApplication.AppId)
+    
+    Set-AzureADApplication -ObjectId $serviceAadApplication.ObjectId -KnownClientApplications $knownApplications
+    Write-Host "Configured known client applications."
 
    Write-Host "Done creating the client application (TodoListSPA)"
 
@@ -341,10 +351,6 @@ Function ConfigureApplications
    Write-Host "- For 'service'"
    Write-Host "  - Navigate to '$servicePortalUrl'"
    Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest" -ForegroundColor Red 
-   Write-Host "- For 'client'"
-   Write-Host "  - Navigate to '$clientPortalUrl'"
-   Write-Host "  - Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest" -ForegroundColor Red 
-   Write-Host "  - Navigate to the portal and add the clientID of TodoListSPA to the 'KnownClientApplications' array in the application manifest" -ForegroundColor Red 
 
    Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
      

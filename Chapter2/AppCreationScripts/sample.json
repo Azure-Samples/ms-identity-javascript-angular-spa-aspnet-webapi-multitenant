@@ -1,7 +1,7 @@
 {
     "Sample": {
       "Title": "Demonstrates a multi-tenant Angular single-page application calling a .NET Core Web API secured with Azure Active Directory",
-      "Level": 200,
+      "Level": 300,
       "Client": "TodoListSPA",
       "Service": "TodoListAPI",
       "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter2",
@@ -40,14 +40,6 @@
           {
             "Resource": "Microsoft Graph",
             "DelegatedPermissions": [ "User.Read", "User.Read.All" ]
-          }
-        ],
-        "ManualSteps": [
-          {
-            "Comment":  "Navigate to the portal and set the 'accessTokenAcceptedVersion' to '2'  in the application manifest"
-          },
-          {
-            "Comment":  "Navigate to the portal and add the clientID of TodoListSPA to the 'KnownClientApplications' array in the application manifest"
           }
         ]
       }

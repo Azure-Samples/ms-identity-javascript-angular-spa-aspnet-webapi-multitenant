@@ -16,7 +16,7 @@ urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapt
 
 # A Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core Web API
 
-This sample demonstrates how to develop a multi-tenant, cross-platform application suite comprising of an Angular SPA (*TodoListSPA*) calling an ASP.NET Core Web API (*TodoListAPI*) secured with Azure Active Directory. Due to the topology of this application suite, additional steps are needed for making it available to users in other tenants.
+This sample demonstrates how to develop a multi-tenant, cross-platform application suite comprising of an Angular SPA (*TodoListSPA*) calling an ASP.NET Core Web API (*TodoListAPI*) secured with Azure Active Directory. Due to the topology of this application suite, additional steps are needed for making the apps available to users in other tenants.
 
 In order to grasp the relevant aspects of **multi-tenancy** covered in the sample, please follow the [discussion](##discussion) section below.
 
@@ -93,14 +93,14 @@ There are two projects in this sample. Each needs to be separately registered in
   <summary>Expand this section if you want to use this automation:</summary>
 
 1. On Windows, run PowerShell and navigate to the root of the cloned directory
-2. In PowerShell run:
+1. In PowerShell run:
 
    ```PowerShell
    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process -Force
    ```
 
-3. Run the script to create your Azure AD application and configure the code of the sample application accordingly.
-4. In PowerShell run:
+1. Run the script to create your Azure AD application and configure the code of the sample application accordingly.
+1. In PowerShell run:
 
    ```PowerShell
    cd .\AppCreationScripts\
@@ -122,6 +122,12 @@ There are two projects in this sample. Each needs to be separately registered in
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. Select **Save** to save your changes.
+1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
+   - Click the **Add a permission** button and then,
+   - Ensure that the **Microsoft APIs** tab is selected.
+   - In the *Commonly used Microsoft APIs* section, click on **Microsoft Graph**
+   - In the **Delegated permissions** section, select the **User.Read** in the list. Use the search box if necessary.
+   - Click on the **Add permissions** button at the bottom.
 1. In the app's registration screen, click on the **Expose an API** blade to the left to open the page where you can declare the parameters to expose this app as an Api for which client applications can obtain [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for.
 The first thing that we need to do is to declare the unique [resource](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-auth-code-flow) URI that the clients will be using to obtain access tokens for this Api. To declare an resource URI, follow the following steps:
    - Click `Set` next to the **Application ID URI** to generate a URI that is unique for this app.
@@ -153,7 +159,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `TodoListSPA`.
    - Under **Supported account types**, select **Accounts in any organizational directory and personal Microsoft accounts**.
-   - In the **Redirect URI** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200/`.
+   - In the **Redirect URI** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
@@ -165,15 +171,16 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. Select **Save** to save your changes.
 1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the APIs that your application needs.
    - Click the **Add a permission** button and then,
-     - Ensure that the **Microsoft APIs** tab is selected
-     - In the list of APIs, select the API **Microsoft Graph**.
-     - In the **Delegated permissions** section, select the **User.Read.All** in the list. Use the search box if necessary.
-     - Click on the **Add permissions** button at the bottom.
-   - Click the **Add a permission** button again and then,
      - Ensure that the **My APIs** tab is selected.
      - In the list of APIs, select the API `TodoListAPI`.
      - In the **Delegated permissions** section, select the **access_as_user** in the list. Use the search box if necessary.
      - Click on the **Add permissions** button at the bottom.
+   - Click the **Add a permission** button and then:
+
+   - Ensure that the **Microsoft APIs** tab is selected.
+   - In the *Commonly used Microsoft APIs* section, click on **Microsoft Graph**
+   - In the **Delegated permissions** section, select the **User.Read**, **User.Read.All** in the list. Use the search box if necessary.
+   - Click on the **Add permissions** button at the bottom.
 
 > :warning: the next step requires you to go back to your TodoListAPI registration.
 
@@ -239,7 +246,7 @@ We have just finished testing this deployment topology in our single-tenant. Now
 
 Consider the application suite in this chapter: **TodoListAPI** and **TodoListSPA**. From one perspective, they are two different applications (two different projects), each represented with their own **app registration** on Azure AD, but from another perspective, they really constitute one application together i.e. a todo list application. In practice, an application can have a many such components: one component for the front-end, another for a REST API, another for a database and etc. While these components should have their own separate representation on Azure AD, they should also somehow know one another.
 
-From the perspective of **multi-tenancy**, the main challenge with such applications is with providing admin-consent. This is due to the fact that some of their components, such as a web API or a background micro-service, do not have a front-end, and as such, has no user-interaction capability. The solution for this is to allow the user (in this case, an admin-user) to consent to web API at the same time they consent to the front-end application i.e. give a **combined consent**. In **Chapter 1**, we have seen that the `/.default` scope can be used to this effect, allowing you to consent to many different scopes at one step. However, unlike **Chapter 1**, our application suite here also has a back-end/web API component. But how could the web API know that the consent comes from a recognized front-end application, as opposed to some foreign application? The answer is to use the **KnownClientApplications** feature.
+From the perspective of **multi-tenancy**, the main challenge with such topologies is with providing admin-consent. This is due to the fact that some of their components, such as a web API or a background micro-service, do not have a front-end, and as such, has no user-interaction capability. The solution for this is to allow the user (in this case, an admin-user) to consent to web API at the same time they consent to the front-end application i.e. give a **combined consent**. In **Chapter 1**, we have seen that the `/.default` scope can be used to this effect, allowing you to consent to many different scopes at one step. However, unlike **Chapter 1**, our application suite here also has a back-end/web API component. But how could the web API know that the consent comes from a recognized front-end application, as opposed to some foreign application? The answer is to use the **KnownClientApplications** feature.
 
 > #### KnownClientApplications
 >
