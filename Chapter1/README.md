@@ -6,6 +6,7 @@ languages:
 products:
 - azure-active-directory
 - microsoft-graph-api
+- msal
 description: "A Multi-tenant (SaaS) JavaScript Single-Page Application (SPA) using MSAL.js to sign-in users and calling MS Graph API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1"
 ---
@@ -96,10 +97,7 @@ To register this project, you can:
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
    - If you don't have a platform added, select **Add a platform** and select the **Single-page application** option.
-   - In the **Implicit grant** section, check the **Access tokens** and **ID tokens** option as this sample requires
-     the [Implicit grant flow](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow) to be enabled to
-     sign-in the user, and call an API.
-
+   - In the **Redirect URI** section, enter the following redirect URI: `http://localhost:3000`.
 1. Select **Save** to save your changes.
 1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
    - Click the **Add a permission** button and then,

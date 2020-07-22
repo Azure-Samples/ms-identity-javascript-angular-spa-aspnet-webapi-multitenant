@@ -9,12 +9,13 @@ const profileDiv = document.getElementById("profile-div");
 
 // a little JQuery to enable bootstrap toasts
 $(document).ready(function() {
-  if (!myMSALObj.getAccount()) {
+  if (!myMSALObj.getAccountByUsername(username)) {
     $(".toast").toast("show");
   }
 });
 
 function showWelcomeMessage(account) {
+  console.log(account)
     // Reconfiguring DOM elements
     cardDiv.classList.remove('d-none');
     welcomeDiv.innerHTML = `Welcome ${account.name}`;
