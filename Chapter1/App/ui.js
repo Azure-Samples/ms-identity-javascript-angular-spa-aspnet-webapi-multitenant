@@ -14,14 +14,13 @@ $(document).ready(function() {
   }
 });
 
-function showWelcomeMessage(account) {
-  console.log(account)
+function showWelcomeMessage(response) {
     // Reconfiguring DOM elements
     cardDiv.classList.remove('d-none');
-    welcomeDiv.innerHTML = `Welcome ${account.name}`;
+    welcomeDiv.innerHTML = `Welcome ${response.account.username}`;
     welcomeDiv.classList.remove('alert-secondary');
     welcomeDiv.classList.add('alert-success');
-    infoDiv.innerHTML = `You belong to the tenant: ${account.idTokenClaims.tid}`
+    infoDiv.innerHTML = `You belong to the tenant: ${response.idTokenClaims.tid}`
     infoDiv.classList.remove('d-none');
     signInButton.classList.add('d-none');
     signOutButton.classList.remove('d-none');

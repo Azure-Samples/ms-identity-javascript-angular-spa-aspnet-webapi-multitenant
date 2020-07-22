@@ -6,7 +6,7 @@ $('.toast').toast({})
 const myMSALObj = new msal.PublicClientApplication(msalConfig);
 let username = "";
 
-function loadPage() {
+const loadPage = () => {
   /**
    * See here for more info on account retrieval: 
    * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
@@ -23,13 +23,11 @@ function loadPage() {
   }
 }
 
-function adminConsent() {
+const adminConsent = () => {
   myMSALObj.loginPopup(loginRequest)
     .then(loginResponse => {
-      console.log(loginRequest)
       console.log("id_token acquired at: " + new Date().toString());
 
-      username = loginResponse.account.username;
       const state = Math.floor(Math.random() * 90000) + 10000; // state parameter for anti token forgery
 
       // admin consent endpoint. visit X for more info
@@ -40,17 +38,12 @@ function adminConsent() {
 
       // redirecting...
       window.location.replace(adminConsentUri);
-
-      if (myMSALObj.getAccountByUsername(username)) {
-        showWelcomeMessage(loginResponse);
-      }
-
     }).catch(error => {
       console.log(error);
     });
 }
 
-function handleResponse(response) {
+const handleResponse = (response) => {
   if (response !== null) {
       username = response.account.username;
       showWelcomeMessage(response);
@@ -59,13 +52,13 @@ function handleResponse(response) {
   }
 }
 
-function signIn() {
+const signIn = () => {
   myMSALObj.loginPopup(loginRequest).then(handleResponse).catch(error => {
       console.error(error);
   });
 }
 
-function signOut() {
+const signOut = () => {
   const logoutRequest = {
       account: myMSALObj.getAccountByUsername(username)
   };
@@ -73,7 +66,7 @@ function signOut() {
   myMSALObj.logout(logoutRequest);
 }
 
-function getTokenPopup(request) {
+const getTokenPopup = (request) => {
   /**
    * See here for more info on account retrieval: 
    * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
@@ -83,11 +76,7 @@ function getTokenPopup(request) {
       console.warn("silent token acquisition fails. acquiring token using redirect");
       if (error instanceof msal.InteractionRequiredAuthError) {
           // fallback to interaction when silent call fails
-          return myMSALObj.acquireTokenPopup(request).then(tokenResponse => {
-              console.log(tokenResponse);
-              
-              return tokenResponse;
-          }).catch(error => {
+          return myMSALObj.acquireTokenPopup(request).then(handleResponse).catch(error => {
               console.error(error);
           });
       } else {
@@ -96,14 +85,16 @@ function getTokenPopup(request) {
   });
 }
 
-function seeProfiles() {
-  getTokenPopup(tokenRequest)
+const seeProfiles = () => {
+  if (myMSALObj.getAccountByUsername(username)) {
+    getTokenPopup(tokenRequest)
     .then(response => {
       callMSGraph(graphConfig.graphUsersEndpoint, response.accessToken, updateUI);
       profileButton.classList.add("d-none");
     }).catch(error => {
       console.log(error);
     });
+  }
 }
 
 loadPage();
