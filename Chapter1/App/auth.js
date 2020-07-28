@@ -7,7 +7,6 @@ const myMSALObj = new msal.PublicClientApplication(msalConfig);
 let username = "";
 
 const loadPage = () => {
-
   /**
    * See here for more info on account retrieval: 
    * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
@@ -28,7 +27,6 @@ const loadPage = () => {
 const adminConsent = () => {
   myMSALObj.loginPopup(loginRequest)
     .then(loginResponse => {
-      console.log(loginRequest)
       console.log("id_token acquired at: " + new Date().toString());
 
       username = loginResponse.account.username;
@@ -43,10 +41,6 @@ const adminConsent = () => {
 
       // redirecting...
       window.location.replace(adminConsentUri);
-
-      // if (myMSALObj.getAccountByUsername(username)) {
-      //   showWelcomeMessage(loginResponse.account);
-      // }
 
     }).catch(error => {
       console.log(error);
@@ -88,11 +82,7 @@ const getTokenPopup = (request) => {
       console.warn("silent token acquisition fails. acquiring token using redirect");
       if (error instanceof msal.InteractionRequiredAuthError) {
           // fallback to interaction when silent call fails
-          return myMSALObj.acquireTokenPopup(request).then(tokenResponse => {
-              console.log(tokenResponse);
-              
-              return tokenResponse;
-          }).catch(error => {
+          return myMSALObj.acquireTokenPopup(request).then(handleResponse).catch(error => {
               console.error(error);
           });
       } else {
@@ -109,6 +99,7 @@ const seeProfiles = () => {
     }).catch(error => {
       console.log(error);
     });
+  }
 }
 
 loadPage();
