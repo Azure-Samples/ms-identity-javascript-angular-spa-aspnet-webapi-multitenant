@@ -100,6 +100,5 @@ const seeProfiles = () => {
       console.log(error);
     });
   }
-}
 
 loadPage();
