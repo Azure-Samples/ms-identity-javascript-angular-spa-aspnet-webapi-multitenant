@@ -8,19 +8,19 @@ const profileButton = document.getElementById("seeProfiles");
 const profileDiv = document.getElementById("profile-div");
 
 // a little JQuery to enable bootstrap toasts
-$(document).ready(function() {
-  if (!myMSALObj.getAccount()) {
+$(document).ready(() => {
+  if (!myMSALObj.getAccountByUsername(username)) {
     $(".toast").toast("show");
   }
 });
 
-function showWelcomeMessage(account) {
+const showWelcomeMessage = (account) => {
     // Reconfiguring DOM elements
     cardDiv.classList.remove('d-none');
-    welcomeDiv.innerHTML = `Welcome ${account.name}`;
+    welcomeDiv.innerHTML = `Welcome ${account.username}`;
     welcomeDiv.classList.remove('alert-secondary');
     welcomeDiv.classList.add('alert-success');
-    infoDiv.innerHTML = `You belong to the tenant: ${account.idTokenClaims.tid}`
+    infoDiv.innerHTML = `You belong to the tenant: ${account.tenantId}`
     infoDiv.classList.remove('d-none');
     signInButton.classList.add('d-none');
     signOutButton.classList.remove('d-none');
@@ -28,7 +28,7 @@ function showWelcomeMessage(account) {
     $(".toast").toast("hide");
 }
 
-function updateUI(data) {
+const updateUI = (data) => {
   console.log('Graph API responded at: ' + new Date().toString());
   $(".toast").toast("hide");
 
