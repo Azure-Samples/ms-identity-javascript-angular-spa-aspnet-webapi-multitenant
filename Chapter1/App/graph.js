@@ -1,6 +1,6 @@
 // Helper function to call MS Graph API endpoint 
 // using authorization bearer token scheme
-function callMSGraph(endpoint, token, callback) {
+const callMSGraph = (endpoint, token, callback) => {
   const headers = new Headers();
   const bearer = `Bearer ${token}`;
 

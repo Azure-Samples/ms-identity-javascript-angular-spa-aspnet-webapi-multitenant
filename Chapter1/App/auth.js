@@ -6,7 +6,8 @@ $('.toast').toast({})
 const myMSALObj = new msal.PublicClientApplication(msalConfig);
 let username = "";
 
-function loadPage() {
+const loadPage = () => {
+
   /**
    * See here for more info on account retrieval: 
    * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
@@ -20,16 +21,18 @@ function loadPage() {
       console.warn("Multiple accounts detected.");
   } else if (currentAccounts.length === 1) {
       username = currentAccounts[0].username;
+      showWelcomeMessage(currentAccounts[0]);
   }
 }
 
-function adminConsent() {
+const adminConsent = () => {
   myMSALObj.loginPopup(loginRequest)
     .then(loginResponse => {
       console.log(loginRequest)
       console.log("id_token acquired at: " + new Date().toString());
 
       username = loginResponse.account.username;
+
       const state = Math.floor(Math.random() * 90000) + 10000; // state parameter for anti token forgery
 
       // admin consent endpoint. visit X for more info
@@ -41,31 +44,33 @@ function adminConsent() {
       // redirecting...
       window.location.replace(adminConsentUri);
 
-      if (myMSALObj.getAccountByUsername(username)) {
-        showWelcomeMessage(loginResponse);
-      }
+      // if (myMSALObj.getAccountByUsername(username)) {
+      //   showWelcomeMessage(loginResponse.account);
+      // }
 
     }).catch(error => {
       console.log(error);
     });
 }
 
-function handleResponse(response) {
+const handleResponse = (response) => {
   if (response !== null) {
       username = response.account.username;
-      showWelcomeMessage(response);
+      showWelcomeMessage(response.account);
   } else {
       loadPage();
   }
 }
 
-function signIn() {
-  myMSALObj.loginPopup(loginRequest).then(handleResponse).catch(error => {
-      console.error(error);
-  });
+const signIn = () => {
+  myMSALObj.loginPopup(loginRequest)
+    .then(handleResponse)
+    .catch(error => {
+        console.error(error);
+    });
 }
 
-function signOut() {
+const signOut = () => {
   const logoutRequest = {
       account: myMSALObj.getAccountByUsername(username)
   };
@@ -73,7 +78,7 @@ function signOut() {
   myMSALObj.logout(logoutRequest);
 }
 
-function getTokenPopup(request) {
+const getTokenPopup = (request) => {
   /**
    * See here for more info on account retrieval: 
    * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
@@ -96,7 +101,7 @@ function getTokenPopup(request) {
   });
 }
 
-function seeProfiles() {
+const seeProfiles = () => {
   getTokenPopup(tokenRequest)
     .then(response => {
       callMSGraph(graphConfig.graphUsersEndpoint, response.accessToken, updateUI);
