@@ -6,7 +6,7 @@ languages:
 products:
 - azure-active-directory
 - microsoft-graph-api
-- msal
+- microsoft-authentication-library
 description: "A Multi-tenant (SaaS) JavaScript Single-Page Application (SPA) using MSAL.js to sign-in users and calling MS Graph API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1"
 ---
