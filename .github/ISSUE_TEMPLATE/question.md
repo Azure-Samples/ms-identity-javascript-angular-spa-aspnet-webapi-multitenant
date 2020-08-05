@@ -10,6 +10,7 @@ assignees: derisen
 Please follow the issue template below. Failure to do so will result in a delay in answering your question.
 
 ## Library
+
 - [ ] `msal@1.x.x` or `@azure/msal@1.x.x`
 - [ ] `@azure/msal-browser@2.x.x`
 - [ ] `@azure/msal-angular@0.x.x`
@@ -17,9 +18,10 @@ Please follow the issue template below. Failure to do so will result in a delay 
 - [ ] `@azure/msal-angularjs@1.x.x`
 
 ## Description
+
 Please provide your question here, including as much relevant details as possible.
 
-Examples: 
+Examples:
 > "How do I use MSAL with Vue.js"
 > "How do I SSO between tabs?"
 > "How do I use MSAL to protect my custom Web API?"
