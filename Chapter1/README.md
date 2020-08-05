@@ -1,12 +1,11 @@
 ---
 page_type: sample
-author: derisen
 languages:
 - javascript
 products:
 - azure-active-directory
-- microsoft-graph-api
 - microsoft-authentication-library
+- ms-graph
 description: "A Multi-tenant (SaaS) JavaScript Single-Page Application (SPA) using MSAL.js to sign-in users and calling MS Graph API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1"
 ---

@@ -2,8 +2,8 @@
     "Sample": {
       "Title": "Demonstrates a multi-tenant Angular single-page application calling a .NET Core Web API secured with Azure Active Directory",
       "Level": 300,
-      "Client": "TodoListSPA",
-      "Service": "TodoListAPI",
+      "Client": "Angular SPA",
+      "Service": ".NET Core Web API",
       "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter2",
       "Endpoint": "AAD v2.0"
     },

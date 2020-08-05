@@ -1,17 +1,17 @@
 ---
 page_type: sample
-author: derisen
 languages:
 - javascript
 - typescript
 - csharp
 products:
-- angular
-- dotnet
 - azure-active-directory
-- microsoft-graph-api
-- azure-app-services
+- azure-app-service-web
+- azure-app-service-static
 - azure-storage
+- ms-graph
+- dotnet-core
+- angular
 description: "Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core web API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter3"
 ---
