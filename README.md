@@ -1,6 +1,5 @@
 ---
 page_type: sample
-author: derisen
 languages:
 - javascript
 - typescript
@@ -9,7 +8,7 @@ products:
 - dotnet-core
 - angular
 - azure-active-directory
-- microsoft-graph-api
+- ms-graph
 description: "An incremental multi-tenant tutorial demonstrating how to develop and configure your app, provision using consent and deploy it on Azure App Services"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant"
 ---

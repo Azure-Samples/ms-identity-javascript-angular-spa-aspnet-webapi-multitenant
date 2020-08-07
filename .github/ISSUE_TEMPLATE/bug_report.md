@@ -10,6 +10,7 @@ assignees: derisen
 >> Please follow the issue template below. Failure to do so will result in a delay in answering your question.
 
 ## Library
+
 - [ ] `msal@1.x.x` or `@azure/msal@1.x.x`
 - [ ] `@azure/msal-browser@2.x.x`
 - [ ] `@azure/msal-angular@0.x.x`
@@ -25,10 +26,13 @@ assignees: derisen
 ## Error Message
 
 ## Security
+
 - [ ] Is this issue security related?
 
 ## Regression
-- [ ] Did this behavior work before? 
+
+- [ ] Did this behavior work before?
+
 Version:
 
 ## MSAL Configuration
@@ -39,6 +43,7 @@ Version:
 ```
 
 ## Reproduction steps
+
 ```js
 // Provide relevant code snippets here.
 // For Azure B2C issues, please include your policies.
@@ -47,6 +52,7 @@ Version:
 ## Expected behavior
 
 ## Browsers/Environment
+
 - [ ] Chrome
 - [ ] Firefox
 - [ ] Edge

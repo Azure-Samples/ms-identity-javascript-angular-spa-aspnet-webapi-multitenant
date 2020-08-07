@@ -2,7 +2,7 @@
     "Sample": {
       "Title": "A multi-tenant JavaScript single-page application calling Microsoft Graph API using msal.js (w/ AAD v2 endpoint)",
       "Level": 100,
-      "Client": "SinglePageApplication",
+      "Client": "Vanilla JavaScript SPA",
       "Service": "Microsoft Graph",
       "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1",
       "Endpoint": "AAD v2.0"
