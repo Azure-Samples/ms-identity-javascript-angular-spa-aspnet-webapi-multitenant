@@ -28,7 +28,7 @@ namespace TodoListAPI
         {
             // Setting configuration for protected web api
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddProtectedWebApi(Configuration);
+                .AddMicrosoftIdentityWebApi(Configuration);
 
             // Uncomment this section if you would like to validate ID tokens for allowed tenantIds
             // services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
