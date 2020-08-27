@@ -291,13 +291,6 @@ Function ConfigureApplications
         Write-Host "'$($user.UserPrincipalName)' added as an application owner to app '$($clientServicePrincipal.DisplayName)'"
    }
 
-    # Configure known client applications for service 
-    Write-Host "Configure known client applications for the 'service'"
-    $knownApplications = New-Object System.Collections.Generic.List[System.String]
-    $knownApplications.Add($clientAadApplication.AppId)
-    
-    Set-AzureADApplication -ObjectId $serviceAadApplication.ObjectId -KnownClientApplications $knownApplications
-    Write-Host "Configured known client applications."
 
    Write-Host "Done creating the client application (TodoListSPA)"
 

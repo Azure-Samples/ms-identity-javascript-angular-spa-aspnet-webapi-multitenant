@@ -79,7 +79,7 @@ const getTokenPopup = (request) => {
    */
   request.account = myMSALObj.getAccountByUsername(username);
   return myMSALObj.acquireTokenSilent(request).catch(error => {
-      console.warn("silent token acquisition fails. acquiring token using redirect");
+      console.warn("silent token acquisition fails. acquiring token using popup");
       if (error instanceof msal.InteractionRequiredAuthError) {
           // fallback to interaction when silent call fails
           return myMSALObj.acquireTokenPopup(request).then(handleResponse).catch(error => {
