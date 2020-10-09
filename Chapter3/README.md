@@ -198,7 +198,9 @@ Then, you can add the domain of your single-page application as an **Allowed Ori
 
 - On **Microsoft Edge**, you might run into an issue where the page reloads in a popup window. In that case, please refer to the [FAQ item here](https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki/FAQs#how-to-avoid-page-reloads-when-acquiring-and-renewing-tokens-silently) for alternative ways to mitigate this issue.
 
-> [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../issues) page.
+
+> :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUOE9NQjZCMEs4NEtZQ0JFMzBDSTU2WUtBMSQlQCN0PWcu)
 
 ## More information
 
