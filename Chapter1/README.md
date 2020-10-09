@@ -133,6 +133,8 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. Click on the `who's in?` button at the center to see the other users in your tenant.
 
     ![success](../ReadmeFiles/ch1_success.png)
+    
+> :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUOE9NQjZCMEs4NEtZQ0JFMzBDSTU2WUtBMSQlQCN0PWcu)
 
 ## About the Code
 
