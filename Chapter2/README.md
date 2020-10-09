@@ -237,6 +237,8 @@ In a separate console window, execute the following commands
 
 ![assign](../ReadmeFiles/ch2_user_list.png)
 
+> :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUOE9NQjZCMEs4NEtZQ0JFMzBDSTU2WUtBMSQlQCN0PWcu)
+
 ## About the Code
 
 We have just finished testing this deployment topology in our single-tenant. Now we will discuss what you need to do further to deploy (i.e. provision) the apps into another tenant and let the users from other tenants sign-in.
