@@ -4,7 +4,7 @@ languages:
 - javascript
 products:
 - azure-active-directory
-- microsoft-authentication-library
+- microsoft-identity-platform
 - ms-graph
 description: "A Multi-tenant (SaaS) JavaScript Single-Page Application (SPA) using MSAL.js to sign-in users and calling MS Graph API"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1"
@@ -31,7 +31,6 @@ In order to grasp the important aspects of **multi-tenancy** in this sample, ple
 | `CODE_OF_CONDUCT.md` | Code of Conduct information.            |
 | `LICENSE`         | The license for the sample.                |
 | `package.json`    | Package manifest for npm.                  |
-| `README.md`       | This README file.                          |
 | `SECURITY.md`     | Security disclosures.                      |
 | `index.js`        | Implements a simple Node server to serve index.html. |
 
@@ -133,7 +132,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. Click on the `who's in?` button at the center to see the other users in your tenant.
 
     ![success](../ReadmeFiles/ch1_success.png)
-    
+
 > :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUOE9NQjZCMEs4NEtZQ0JFMzBDSTU2WUtBMSQlQCN0PWcu)
 
 ## About the Code
