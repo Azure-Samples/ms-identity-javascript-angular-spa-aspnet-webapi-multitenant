@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 10/23/2020
+
+* Chapter 1 sample updated to MSAL.js 2.4.0.
+* Chapter 2 sample updated to MSAL.js 1.4.2 and M.I.W to 1.2
+
 ## 08/27/2020
 
 * Chapter 1 sample updated to MSAL.js 2.1.0.
