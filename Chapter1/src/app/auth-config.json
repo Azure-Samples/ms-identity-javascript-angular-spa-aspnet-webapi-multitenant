@@ -1,0 +1,16 @@
+{
+  "credentials": {
+    "clientId": "2679b7ef-bc97-4ed5-af30-855a3096940e",
+    "tenantId": "organizations"
+  },
+  "configuration": {
+    "redirectUri": "http://localhost:4200",
+    "postLogoutRedirectUri": "http://localhost:4200"
+  },
+  "resources": {
+    "graphApi": {
+      "resourceUri": "https://graph.microsoft.com/v1.0/users",
+      "resourceScopes": [ "User.Read.All" ]
+    }
+  }     
+}

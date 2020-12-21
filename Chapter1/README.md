@@ -1,42 +1,47 @@
----
-page_type: sample
-languages:
-- javascript
-products:
-- azure-active-directory
-- microsoft-identity-platform
-- ms-graph
-description: "A Multi-tenant (SaaS) JavaScript Single-Page Application (SPA) using MSAL.js to sign-in users and calling MS Graph API"
-urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1"
----
+# A multi-tenant (SaaS) Angular single-page application using MSAL Angular to sign-in users from any tenant
 
-# A Multi-tenant (SaaS) JavaScript Single-Page Application (SPA) using MSAL.js to sign-in users and calling MS Graph API
+ 1. [Overview](#overview)
+ 1. [Scenario](#scenario)
+ 1. [Contents](#contents)
+ 1. [Prerequisites](#prerequisites)
+ 1. [Setup](#setup)
+ 1. [Registration](#registration)
+ 1. [Running the sample](#running-the-sample)
+ 1. [Explore the sample](#explore-the-sample)
+ 1. [About the code](#about-the-code)
+ 1. [More information](#more-information)
+ 1. [Community Help and Support](#community-help-and-support)
+ 1. [Contributing](#contributing)
 
-A multi-tenant vanilla JavaScript single-page application which demonstrates how to use [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) to sign-in, consent, provision, and acquire [Access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for a protected resource like [Microsoft Graph API](https://developer.microsoft.com/graph).
+## Overview
 
-In order to grasp the important aspects of **multi-tenancy** in this sample, please read the [discussion](##discussion) section below.
+A multi-tenant Angular single-page application (SPA) which demonstrates how to use [the Microsoft Authentication Library for Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) (MSAL Angular) to sign-in, consent, provision, and acquire [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for a protected resource like [Microsoft Graph API](https://developer.microsoft.com/graph).
+
+In order to grasp the important aspects of **multi-tenancy** in this sample, please read [About the code](#about-the-code) section below.
+
+## Scenario
+
+1. The client Angular SPA uses MSAL Angular to sign-in and obtain a JWT access token from **Azure AD**.
+2. The access token is used as a bearer token to authorize the user to call Microsoft Graph.
 
 ## Contents
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `App`             | Contains sample source files.              |
-| `auth.js`         | Main authentication logic resides here.    |
-| `authConfig.js`   | Contains configuration parameters for the sample. |
-| `graph.js`        | Provides a helper function for calling MS Graph API. |
-| `graphConfig.js`  | Configures API endpoints for MS Graph.       |
-| `ui.js`           | Contains UI logic.                         |
-| `index.html`      |  Contains the UI of the sample.            |
+| `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
+| `ReadmeFiles`     | Sample readme files.                       |
+| `src`             | Source code of the Angular SPA.            |
+| `src/app/auth-config.json` | Authentication configuration parameters. |
 | `CHANGELOG.md`    | List of changes to the sample.             |
-| `CODE_OF_CONDUCT.md` | Code of Conduct information.            |
+| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
+| `README.md`       | This README file.                          |
 | `LICENSE`         | The license for the sample.                |
-| `package.json`    | Package manifest for npm.                  |
-| `SECURITY.md`     | Security disclosures.                      |
-| `index.js`        | Implements a simple Node server to serve index.html. |
 
 ## Prerequisites
 
-- [Node](https://nodejs.org/en/) must be installed to run this sample.
+- [Node.js](https://nodejs.org/en/) must be installed to run this sample.
+- [Angular-CLI](https://cli.angular.io/) must be installed **globally** to run this sample.
+- [Visual Studio Code](https://code.visualstudio.com/download) is recommended for running and editing this sample.
 - You would need *at least* **two** Azure Active Directory (Azure AD) tenants to successfully run this sample. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 - On each tenant, *at least* **one** admin account and **one** non-admin/user account should be present for testing purposes.
 - A modern browser. This sample uses **ES6** conventions and will not run on **Internet Explorer**.
@@ -90,12 +95,12 @@ To register this project, you can:
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `multitenant-spa`.
    - Under **Supported account types**, select **Accounts in any organizational directory and personal Microsoft accounts**.
-   - In the **Redirect URI (optional)** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:3000`.
+   - In the **Redirect URI (optional)** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
    - If you don't have a platform added, select **Add a platform** and select the **Single-page application** option.
-   - In the **Redirect URI** section, enter the following redirect URI: `http://localhost:3000`.
+   - In the **Redirect URI** section, enter the following redirect URI: `http://localhost:4200`.
 1. Select **Save** to save your changes.
 1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
    - Click the **Add a permission** button and then,
@@ -110,8 +115,8 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 > In the steps below, "clientId" is the same as "Application ID" or "AppId".
 
-1. Open the `App/authConfig.js` file
-1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the `multitenant-spa` application copied from the Azure portal.
+1. Open the `src/app/auth-config.json` file
+1. Find the key `clientId` and replace the existing value with the application ID (clientId) of the `multitenant-spa` application copied from the Azure portal.
 
 ## Explore the sample
 
@@ -121,7 +126,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
   npm start
 ```
 
-1. Open your browser and navigate to `http://localhost:3000`.
+1. Open your browser and navigate to `http://localhost:4200`.
 
     ![index.html](../ReadmeFiles/ch1_login_screen.png)
 
@@ -129,7 +134,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
     ![need-consent](../ReadmeFiles/ch1_need_admin_approval.png)
 
-1. Click on the `who's in?` button at the center to see the other users in your tenant.
+1. Click on the `Get sers` button at the center to see the other users in your tenant.
 
     ![success](../ReadmeFiles/ch1_success.png)
 
@@ -151,13 +156,15 @@ When registering an application with the Microsoft identity platform for develop
 
 Your MSAL configuration will reflect your choice audience in the `authority` parameter. For instance, an application that targets  **accounts in this directory only** will have a configuration similar to:
 
-```JavaScript
-const msalConfig = {
-  auth: {
-    clientId: "<your-client-id>",
-    authority: "https://login.microsoftonline.com/<your-tenant-id>",
-    redirectUri: "http://localhost:3000/",
-  }
+```typescript
+export function MSALInstanceFactory(): IPublicClientApplication {
+  return new PublicClientApplication({
+    auth: {
+        clientId: "<your-client-id>",
+        authority: "https://login.microsoftonline.com/<your-tenant-id>",
+        redirectUri: "http://localhost:4200/",
+    },
+  });
 }
 ```
 
@@ -187,7 +194,7 @@ Before each test, you should delete your **service principal** for the tenant yo
 
 A service principal of your multi-tenant app is created via one of the following ways.
 
-1. When the first user signs-in your app for the first time in a tenant.
+1. When the first user signs-in to your app for the first time in a tenant.
 1. Manually or programmatically created by a tenant admin using one of the following
    1. Using the [/adminconsent endpoint](https://docs.microsoft.com/azure/active-directory/develop/v2-admin-consent)
    1. [Using the PowerShell command](https://docs.microsoft.com/powershell/azure/create-azure-service-principal-azureps).
@@ -218,22 +225,28 @@ In your app, to send a tenant admin to the `/adminconsent` endpoint you would co
 
 This is demonstrated in the code snippet below:
 
-```JavaScript
-   myMSALObj.loginPopup(loginRequest)
-      .then(loginResponse => {
-         console.log("id_token acquired at: " + new Date().toString());
+```typescript
+  adminConsent() {
 
-         const state = Math.floor(Math.random() * 90000) + 10000; // state parameter for anti token forgery
+    // if you want to work with multiple accounts, add your account selection logic below
+    let account = this.authService.instance.getAllAccounts()[0];
 
-         // admin consent endpoint. visit X for more info
-         const adminConsetUri = "https://login.microsoftonline.com/" +
-         `${loginResponse.idTokenClaims.tid}` + "/v2.0/adminconsent?client_id=" +
-         `${msalConfig.auth.clientId}` + "&state=" + `${state}` + "&redirect_uri=" + `${msalConfig.auth.redirectUri}` +
-         "&scope=.default";
-
-         // redirecting...
-         window.location.replace(adminConsetUri);
-      }
+    if (account) {
+      const state = Math.floor(Math.random() * 90000) + 10000; // state parameter for anti token forgery
+      
+        // admin consent endpoint. visit X for more info
+        const adminConsentUri = "https://login.microsoftonline.com/" + 
+        `${account.tenantId}` + "/v2.0/adminconsent?client_id=" + 
+        `${auth.credentials.clientId}` + "&state=" + `${state}` + "&redirect_uri=" + `${auth.configuration.redirectUri}` +
+        "&scope=https://graph.microsoft.com/.default";
+  
+      // redirecting...
+      window.location.replace(adminConsentUri);
+      
+    } else {
+      window.alert('Please sign-in first.')
+    }
+  }
 ```
 
 You can try the `/adminconsent` endpoint on the home page of the sample by clicking on the blurb in the bottom right.
@@ -242,7 +255,7 @@ You can try the `/adminconsent` endpoint on the home page of the sample by click
 
 > #### The `.default` scope
 >
-> Did you notice the scope here is set to `.default`, as opposed to `User.Read.All`? This is a built-in scope for every application that refers to the static list of permissions configured on the application registration. Basically, it *bundles* all the permissions in one scope. The /.default scope can be used in any OAuth 2.0 flow, but is necessary when using the v2 admin consent endpoint to request application permissions. Read about `scopes` usage at [Scopes and permissions in the Microsoft Identity Platform](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#scopes-and-permissions).  
+> Did you notice the scope here is set to `.default`, as opposed to `User.Read.All`? This is a built-in scope for every application that refers to the static list of permissions configured on the application registration. Basically, it *bundles* all the permissions in one scope. The /.default scope can be used in any OAuth 2.0 flow. Read about `scopes` usage at [Scopes and permissions in the Microsoft Identity Platform](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#scopes-and-permissions).  
   
 When redirected to the `/adminconsent` endpoint, the tenant admin will see:
 
@@ -254,64 +267,63 @@ After you choose an admin account, it will lead to the following prompt:
 
 Once it finishes, your application service principal will be provisioned in that tenant.
 
-### Scopes and Sign-in Differences
+### Scopes and sign-in Differences
 
 The main scope of interest in this sample is `User.Read.All`. This is a MS Graph API scope, and it allows a user to read every user in the tenant. This scope requires a tenant admin to consent.
 
 Remember that the first time you were not able to sign-in with a non-admin account before providing admin consent for that tenant.
-To see why this was so, notice, in `App/authConfig.js`, the current request objects:
+To see why this was so, notice, in `src/app/app-module.ts`, how the MSAL Guard is setup:
 
 ```JavaScript
-    // scopes here will be used with loginPopup() method
-    const loginRequest = {
-      scopes: ["openid", "profile", "User.Read.All"]
-    };
-
-    // scopes here will be used with acquireTokenPopup() method
-    const tokenRequest = {
-      scopes: ["User.Read.All"]
-    };
+export function MSALGuardConfigFactory(): MsalGuardConfiguration {
+  return { 
+    interactionType: InteractionType.Redirect,
+    authRequest: {
+      scopes: [...auth.resources.graphApi.resourceScopes],
+    },
+  };
+}
 ```
 
 This means that the user will be prompted for consent during sign-in. However, since only an admin can consent to the scope `User.Read.All`, a non-admin account will simply not be able to login! (unless consented prior by a tenant admin). For best end-user experience, please have the tenant admin consent to your app before a user from the tenant tries to sign-in.
 
-### Custom Token Validation Allowing only Registered Tenants
+### Custom token validation allowing only registered tenants
 
 By marking your application as multi-tenant, your application will be able to sign-in users from **any** Azure AD tenant out there. Because of this, you may want to restrict the tenants you want to work with. That is, you need to check the `tenantId` in an ID token for a signed-in user, and see if it is one of the tenants you want to grant access to. Since a single-page application cannot or should not make this check securely, you might want to couple your SPA with a web API to carry out this in a real world scenario. In the next chapter, we cover this case.
 
-> [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../issues) page.
+> [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../../issues) page.
 
 ## Next step
 
-Let's now proceed to [Chapter 2](../Chapter2/README.md) of this tutorial where we demonstrate a multi-tenant Angular SPA working along with a NET Core multi-tenant web API and more.
+Let's now proceed to [Chapter 2](../Chapter2/README.md) of this tutorial where we demonstrate a multi-tenant Angular SPA working along with a multi-tenant .NET Core web API and more.
 
 ## Learn more
 
 To learn more about single and multi-tenant apps, see:
 
 - [Develop multi-tenant applications with Microsoft identity platform](https://www.youtube.com/watch?v=B416AxHoMJ4)
-- [National Clouds](https://docs.microsoft.com/azure/active-directory/develop/authentication-national-cloud)
-- [Endpoints](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols#endpoints)
 - [How and why applications are added to Azure AD](https://docs.microsoft.com/azure/active-directory/develop/active-directory-how-applications-are-added)
 - [Scopes and permissions in the Microsoft Identity Platform](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent#scopes-and-permissions)
+- [National Clouds](https://docs.microsoft.com/azure/active-directory/develop/authentication-national-cloud)
+- [Endpoints](https://docs.microsoft.com/azure/active-directory/develop/active-directory-v2-protocols#endpoints)
 
 To learn more about admin consent experiences, see:
 
 - [Understanding Azure AD application consent experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
 - [Understand user and admin consent](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant#understand-user-and-admin-consent)
 
+## Community Help and Support
+
+Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get support from the community.
+Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
+Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `adal` `msal`].
+
+If you find a bug in the sample, raise the issue on [GitHub Issues](../../../issues).
+
+To provide feedback on or suggest features for Azure Active Directory, visit [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
+
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+If you'd like to contribute to this sample, see [CONTRIBUTING.MD](/CONTRIBUTING.md).
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-## Code of Conduct
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
