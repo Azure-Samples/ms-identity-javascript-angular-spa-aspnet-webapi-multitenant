@@ -1,27 +1,26 @@
----
-page_type: sample
-languages:
-- javascript
-- typescript
-- csharp
-products:
-- azure-active-directory
-- dotnet-core
-- angular
-- ms-graph
-description: "A Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core Web API"
-urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter2"
----
 
-# A Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core Web API
+# A multi-tenant (SaaS) Angular single-page application (SPA) that authenticates users with Azure AD and calls a protected ASP.NET Core web API
 
-This sample demonstrates how to develop a multi-tenant, cross-platform application suite comprising of an Angular SPA (*TodoListSPA*) calling an ASP.NET Core Web API (*TodoListAPI*) secured with Azure Active Directory. Due to the topology of this application suite, additional steps are needed for making the apps available to users in other tenants.
+ 1. [Overview](#overview)
+ 1. [Scenario](#scenario)
+ 1. [Contents](#contents)
+ 1. [Prerequisites](#prerequisites)
+ 1. [Setup](#setup)
+ 1. [Registration](#registration)
+ 1. [Running the sample](#running-the-sample)
+ 1. [Explore the sample](#explore-the-sample)
+ 1. [About the code](#about-the-code)
+ 1. [More information](#more-information)
+ 1. [Community Help and Support](#community-help-and-support)
+ 1. [Contributing](#contributing)
 
-In order to grasp the relevant aspects of **multi-tenancy** covered in the sample, please follow the [discussion](##discussion) section below.
+This sample demonstrates how to develop a multi-tenant, cross-platform application suite comprising of an Angular SPA (*TodoListSPA*) calling an ASP.NET Core web API (*TodoListAPI*) secured with Azure Active Directory (Azure AD). Due to the topology of this application suite, additional steps are needed for making the apps available to users in other tenants.
+
+In order to grasp the relevant aspects of **multi-tenancy** covered in the sample, please follow the [About the code](#about-the-code) section below.
 
 ## Scenario
 
-- TodoListSPA uses [MSAL.js](https://github.com/AzureAD/microsoft-authentication-library-for-js) and [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
+- TodoListSPA uses [MSAL-Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) to authenticate a user.
 - The app then obtains an [access token](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) from Azure Active Directory (Azure AD) on behalf of the authenticated user for the TodoListAPI.
 - The access token is then used by the TodoListAPI to authorize the user.
 - TodoListAPI uses [MSAL.NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) and [Microsoft.Identity.Web](https://github.com/AzureAD/microsoft-identity-web) to protect its endpoint and accept authorized calls.
@@ -163,10 +162,6 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
 1. In the app's registration screen, select **Authentication** in the menu.
    - If you don't have a platform added, select **Add a platform** and select the **Single-page application** option.
-   - In the **Implicit grant** section, check the **Access tokens** and **ID tokens** option as this sample requires
-     the [Implicit grant flow](https://docs.microsoft.com/azure/active-directory/develop/v2-oauth2-implicit-grant-flow) to be enabled to
-     sign-in the user, and call an API.
-
 1. Select **Save** to save your changes.
 1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the APIs that your application needs.
    - Click the **Add a permission** button and then,
@@ -305,18 +300,18 @@ To learn more about token validation, see:
 - [Validating tokens](https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/wiki/ValidatingTokens)
 - [Validating an id_token](https://docs.microsoft.com/azure/active-directory/develop/id-tokens#validating-an-id_token)
 
+## Community Help and Support
+
+Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get support from the community.
+Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
+Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `adal` `msal`].
+
+If you find a bug in the sample, raise the issue on [GitHub Issues](../../../issues).
+
+To provide feedback on or suggest features for Azure Active Directory, visit [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
+
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+If you'd like to contribute to this sample, see [CONTRIBUTING.MD](/CONTRIBUTING.md).
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-## Code of Conduct
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.

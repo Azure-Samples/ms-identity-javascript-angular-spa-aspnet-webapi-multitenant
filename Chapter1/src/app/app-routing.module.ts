@@ -10,7 +10,6 @@ const routes: Routes = [
     component: ConsentComponent,
   },
   {
-    // Needed for hash routing
     path: 'tenant',
     component: TenantComponent
   },
