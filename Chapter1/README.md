@@ -15,7 +15,7 @@
 
 ## Overview
 
-A multi-tenant Angular single-page application (SPA) which demonstrates how to use [the Microsoft Authentication Library for Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) (MSAL Angular) to sign-in, consent, provision, and acquire [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for a protected resource like [Microsoft Graph API](https://developer.microsoft.com/graph).
+A multi-tenant Angular single-page application (SPA) which demonstrates how to use the [Microsoft Authentication Library for Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) (MSAL Angular) to sign-in, consent, provision, and acquire [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for a protected resource like [Microsoft Graph API](https://developer.microsoft.com/graph).
 
 In order to grasp the important aspects of **multi-tenancy** in this sample, please read [About the code](#about-the-code) section below.
 
@@ -29,7 +29,6 @@ In order to grasp the important aspects of **multi-tenancy** in this sample, ple
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
 | `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
-| `ReadmeFiles`     | Sample readme files.                       |
 | `src`             | Source code of the Angular SPA.            |
 | `src/app/auth-config.json` | Authentication configuration parameters. |
 | `CHANGELOG.md`    | List of changes to the sample.             |
@@ -95,19 +94,15 @@ To register this project, you can:
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `multitenant-spa`.
    - Under **Supported account types**, select **Accounts in any organizational directory and personal Microsoft accounts**.
-   - In the **Redirect URI (optional)** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200`.
+   - In the **Redirect URI** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
-1. In the app's registration screen, select **Authentication** in the menu.
-   - If you don't have a platform added, select **Add a platform** and select the **Single-page application** option.
-   - In the **Redirect URI** section, enter the following redirect URI: `http://localhost:4200`.
-1. Select **Save** to save your changes.
-1. In the app's registration screen, click on the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
+1. In the app's registration screen, select the **API permissions** blade in the left to open the page where we add access to the Apis that your application needs.
    - Click the **Add a permission** button and then,
    - Ensure that the **Microsoft APIs** option is selected.
    - In the list of APIs, select the API `Microsoft Graph`.
    - In the **Delegated permissions** section, select the **User.Read.All** in the list. Use the search box if necessary.
-   - Click on the **Add permissions** button at the bottom.
+   - Select the **Add permissions** button at the bottom.
 
 ### Configure the application
 
@@ -130,11 +125,11 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
     ![index.html](../ReadmeFiles/ch1_login_screen.png)
 
-1. Sign-in using the button on top-right. If you haven't provided admin-consent yet, you will not be able to sign-in with a non-admin account from another tenant.
+1. Sign-in using the button on top-right. If you haven't provided **admin-consent** yet, you will not be able to sign-in with a non-admin account from another tenant.
 
     ![need-consent](../ReadmeFiles/ch1_need_admin_approval.png)
 
-1. Click on the `Get sers` button at the center to see the other users in your tenant.
+1. Select the `Get users` button at the center to see the other users in your tenant.
 
     ![success](../ReadmeFiles/ch1_success.png)
 
@@ -184,7 +179,7 @@ Before each test, you should delete your **service principal** for the tenant yo
 >
 > ![principal1](../ReadmeFiles/ch1_service_principal1.png)
 >
-> The rest of the process is the same for both cases. In the next screen, click on **Properties** and then the **Delete** button on the upper side.
+> The rest of the process is the same for both cases. In the next screen, select **Properties** and then the **Delete** button on the upper side.
 >
 > ![principal1](../ReadmeFiles/ch1_service_principal2.png)
 >
@@ -249,7 +244,7 @@ This is demonstrated in the code snippet below:
   }
 ```
 
-You can try the `/adminconsent` endpoint on the home page of the sample by clicking on the blurb in the bottom right.
+You can try the `/adminconsent` endpoint on the "Admin" page of the sample by clicking on the link on the navbar.
 
 ![admin consent endpoint](../ReadmeFiles/ch1_admin_consent_endpoint.png)
 

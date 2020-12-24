@@ -10,7 +10,12 @@ import { Todo } from '../todo';
 })
 export class TodoEditComponent implements OnInit {
 
-  todo!: Todo;
+  todo: Todo = {
+    id: 1,
+    description: "",
+    user: "",
+    status: true,
+  }
 
   users: string[] = [];
 

@@ -46,7 +46,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
-  protectedResourceMap.set(auth.resources.graphApi.resourceUri, auth.resources.graphApi.resourceScopes);
+  protectedResourceMap.set(auth.resources.graphApi.resourceUri, auth.resources.graphApi.resourceScopes)
+    .set(auth.resources.todoListApi.resourceUri, auth.resources.todoListApi.resourceScopes);
 
   return {
     interactionType: InteractionType.Redirect,
@@ -58,7 +59,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return { 
     interactionType: InteractionType.Redirect,
     authRequest: {
-      scopes: [...auth.resources.graphApi.resourceScopes],
+      scopes: [...auth.resources.todoListApi.resourceScopes],
     },
   };
 }

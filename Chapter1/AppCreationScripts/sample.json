@@ -12,6 +12,7 @@
         "Id": "spa",
         "Name": "multitenant-spa",
         "Kind" :  "SinglePageApplication",
+        "Audience": "AzureADMultipleOrgs",
         "HomePage": "http://localhost:4200/",
         "ReplyUrls":"http://localhost:4200/",
         "RequiredResourcesAccess": [

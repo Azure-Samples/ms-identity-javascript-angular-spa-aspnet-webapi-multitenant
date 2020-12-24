@@ -1,7 +1,6 @@
 import { TodoService } from './../todo.service';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MsalService } from '@azure/msal-angular';
 import { Todo } from '../todo';
 
 @Component({
@@ -11,7 +10,12 @@ import { Todo } from '../todo';
 })
 export class TodoViewComponent implements OnInit {
   
-  todo!: Todo
+  todo: Todo = {
+    id: 1,
+    description: "",
+    user: "",
+    status: true,
+  }
   
   todos: Todo[] = [];
 
@@ -19,7 +23,7 @@ export class TodoViewComponent implements OnInit {
 
   displayedColumns = ['status', 'description', 'user', 'edit', 'remove'];
   
-  constructor(private authService: MsalService, private service: TodoService) { }
+  constructor(private service: TodoService) { }
 
   ngOnInit(): void {
     this.getTodos();
