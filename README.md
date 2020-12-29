@@ -8,16 +8,16 @@ products:
 - dotnet-core
 - angular
 - msal-angular
+- ms-graph
 - microsoft-identity-web
 - azure-active-directory
-- ms-graph
 description: "An incremental multi-tenancy tutorial demonstrating how to develop and configure your app, provision using consent and deploy it on Azure"
 urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant"
 ---
 
 # Developing a multi-tenant (SaaS) application on Microsoft identity platform
 
-This is an incremental chapterwise tutorial that teaches you how to develop a [multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps) application using the Microsoft Identity Platform. It'll demonstrate how to setup and configure your app, provision it in customers tenants and make it available for end users. We will also cover the steps to deploy it on **Azure** using [Azure Storage](https://docs.microsoft.com/azure/storage/blobs/storage-blobs-overview) and [Azure App Services](https://azure.microsoft.com/services/app-service/).
+This is an incremental chapterwise tutorial that teaches you how to develop a [multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/single-and-multi-tenant-apps) application using the Microsoft identity platform. It'll demonstrate how to setup and configure your app, provision it in customers tenants and make it available for end users. We will also cover the steps to deploy it on **Azure** using [Azure Storage](https://docs.microsoft.com/azure/storage/blobs/storage-blobs-overview) and [Azure App Services](https://azure.microsoft.com/services/app-service/).
 
 ## How to Use this tutorial
 
@@ -27,12 +27,11 @@ The aim of this tutorial is for you to understand aspects of **multi-tenancy** i
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `Chapter1`        | A multi-tenant `vanillaJS` SPA signing-in users and calling MS Graph API. |
-| `Chapter2`        | A multi-tenant `Angular` SPA signing-in users and calling a protected .NET Core web API and the MS Graph API. |
+| `Chapter1`        | A multi-tenant Angular SPA signing-in users and calling MS Graph. |
+| `Chapter2`        | A multi-tenant Angular SPA signing-in users and calling a protected .NET Core web API and MS Graph. |
 | `Chapter3`        | Deploying this solution to Azure App Services and Azure Storage. |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
 | `LICENSE`         | The license for the sample.                |
 
 ## Prerequisites
@@ -78,7 +77,7 @@ For more information, visit the following links:
   - [Understanding Azure AD Application Consent Experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
   - [Understand User and Admin Consent](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant#understand-user-and-admin-consent)
 
-- To lean more about the application registration, see:
+- To learn more about the application registration, see:
   - [Quickstart: Set up a tenant](https://docs.microsoft.com/azure/active-directory/develop/quickstart-create-new-tenant)
   - [Quickstart: Register an application with the Microsoft identity platform](https://docs.microsoft.com/azure/active-directory/develop/quickstart-register-app)
   - [Quickstart: Configure a client application to access web APIs](https://docs.microsoft.com/azure/active-directory/develop/quickstart-configure-app-access-web-apis)

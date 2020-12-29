@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { MSAL_INSTANCE, MSAL_GUARD_CONFIG, MsalService, MsalGuardConfiguration, MsalBroadcastService } from '@azure/msal-angular';
+import { MSAL_INSTANCE, MSAL_GUARD_CONFIG, MsalGuardConfiguration, MsalService, MsalBroadcastService } from '@azure/msal-angular';
 import { IPublicClientApplication, PublicClientApplication, InteractionType } from '@azure/msal-browser';
 
 import * as auth from './auth-config.json';
@@ -16,13 +16,8 @@ function MSALInstanceFactory(): IPublicClientApplication {
   });
 }
 
-export function MSALGuardConfigFactory(): MsalGuardConfiguration {
-  return { 
-    interactionType: InteractionType.Redirect,
-    authRequest: {
-      scopes: [...auth.resources.graphApi.resourceScopes],
-    },
-  };
+function MSALGuardConfigFactory(): MsalGuardConfiguration {
+  return { interactionType: InteractionType.Redirect };
 }
 
 describe('AppComponent', () => {

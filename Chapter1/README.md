@@ -15,14 +15,14 @@
 
 ## Overview
 
-A multi-tenant Angular single-page application (SPA) which demonstrates how to use the [Microsoft Authentication Library for Angular](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) (MSAL Angular) to sign-in, consent, provision, and acquire [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for a protected resource like [Microsoft Graph API](https://developer.microsoft.com/graph).
+A multi-tenant Angular single-page application (SPA) which demonstrates how to use the [Microsoft Authentication Library for Angular (Preview)](https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/lib/msal-angular) (MSAL Angular) to sign-in, consent, provision, and acquire [access tokens](https://docs.microsoft.com/azure/active-directory/develop/access-tokens) for a protected resource like [Microsoft Graph API](https://developer.microsoft.com/graph).
 
 In order to grasp the important aspects of **multi-tenancy** in this sample, please read [About the code](#about-the-code) section below.
 
 ## Scenario
 
-1. The client Angular SPA uses MSAL Angular to sign-in and obtain a JWT access token from **Azure AD**.
-2. The access token is used as a bearer token to authorize the user to call Microsoft Graph.
+1. The client Angular SPA uses **MSAL Angular** to sign-in and obtain a JWT access token from **Azure AD**.
+2. The access token is used as a bearer token to authorize the user to call **Microsoft Graph**.
 
 ## Contents
 
@@ -31,15 +31,10 @@ In order to grasp the important aspects of **multi-tenancy** in this sample, ple
 | `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
 | `src`             | Source code of the Angular SPA.            |
 | `src/app/auth-config.json` | Authentication configuration parameters. |
-| `CHANGELOG.md`    | List of changes to the sample.             |
-| `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
-| `README.md`       | This README file.                          |
-| `LICENSE`         | The license for the sample.                |
 
 ## Prerequisites
 
 - [Node.js](https://nodejs.org/en/) must be installed to run this sample.
-- [Angular-CLI](https://cli.angular.io/) must be installed **globally** to run this sample.
 - [Visual Studio Code](https://code.visualstudio.com/download) is recommended for running and editing this sample.
 - You would need *at least* **two** Azure Active Directory (Azure AD) tenants to successfully run this sample. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
 - On each tenant, *at least* **one** admin account and **one** non-admin/user account should be present for testing purposes.
@@ -93,7 +88,7 @@ To register this project, you can:
 1. Select **New registration**.
 1. In the **Register an application page** that appears, enter your application's registration information:
    - In the **Name** section, enter a meaningful application name that will be displayed to users of the app, for example `multitenant-spa`.
-   - Under **Supported account types**, select **Accounts in any organizational directory and personal Microsoft accounts**.
+   - Under **Supported account types**, select **Accounts in any organizational directory**.
    - In the **Redirect URI** section, select **Single-page application** in the combo-box and enter the following redirect URI: `http://localhost:4200`.
 1. Select **Register** to create the application.
 1. In the app's registration screen, find and note the **Application (client) ID**. You use this value in your app's configuration file(s) later in your code.
@@ -269,7 +264,7 @@ The main scope of interest in this sample is `User.Read.All`. This is a MS Graph
 Remember that the first time you were not able to sign-in with a non-admin account before providing admin consent for that tenant.
 To see why this was so, notice, in `src/app/app-module.ts`, how the MSAL Guard is setup:
 
-```JavaScript
+```typescript
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return { 
     interactionType: InteractionType.Redirect,

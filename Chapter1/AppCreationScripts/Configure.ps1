@@ -167,6 +167,7 @@ Function ConfigureApplications
                                                -HomePage "http://localhost:4200/" `
                                                -ReplyUrls "http://localhost:4200/" `
                                                -IdentifierUris "https://$tenantName/multitenant-spa" `
+                                               -AvailableToOtherTenants $True `
                                                -PublicClient $False
 
    # create the service principal of the newly created application 
@@ -194,7 +195,7 @@ Function ConfigureApplications
    # Add Required Resources Access (from 'spa' to 'Microsoft Graph')
    Write-Host "Getting access from 'spa' to 'Microsoft Graph'"
    $requiredPermissions = GetRequiredPermissions -applicationDisplayName "Microsoft Graph" `
-                                                -requiredDelegatedPermissions "User.Read|User.Read.All" `
+                                                -requiredDelegatedPermissions "User.Read.All" `
 
    $requiredResourcesAccess.Add($requiredPermissions)
 

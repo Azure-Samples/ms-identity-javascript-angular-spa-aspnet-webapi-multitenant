@@ -18,7 +18,10 @@ export class ConsentComponent {
       if (account) {
         const state = Math.floor(Math.random() * 90000) + 10000; // state parameter for anti token forgery
         
-          // admin consent endpoint. visit X for more info
+          /**
+           * Construct URL for admin consent endpoint. For more info,
+           * visit: https://docs.microsoft.com/azure/active-directory/develop/v2-admin-consent
+           */
           const adminConsentUri = "https://login.microsoftonline.com/" + 
           `${account.tenantId}` + "/v2.0/adminconsent?client_id=" + 
           `${auth.credentials.clientId}` + "&state=" + `${state}` + "&redirect_uri=" + `${auth.configuration.redirectUri}` +

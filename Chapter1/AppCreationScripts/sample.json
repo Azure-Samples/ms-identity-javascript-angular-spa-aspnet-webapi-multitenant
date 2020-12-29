@@ -4,7 +4,7 @@
       "Level": 100,
       "Client": "Angular SPA",
       "Service": "Microsoft Graph",
-      "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1",
+      "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant",
       "Endpoint": "AAD v2.0"
     },
     "AADApps": [
@@ -18,7 +18,7 @@
         "RequiredResourcesAccess": [
           {
             "Resource": "Microsoft Graph",
-            "DelegatedPermissions": [ "User.Read", "User.Read.All" ]
+            "DelegatedPermissions": [ "User.Read.All" ]
           }
         ], 
         "ManualSteps": [
@@ -28,7 +28,6 @@
         ]
       }
     ],
-  
     "CodeConfiguration": [
       {
         "App": "spa",

@@ -3,8 +3,8 @@
       "Title": "A multi-tenant Angular single-page application calling a .NET Core web API secured with Azure Active Directory",
       "Level": 300,
       "Client": "Angular SPA",
-      "Service": ".NET Core Web API",
-      "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter2",
+      "Service": ".NET Core web API",
+      "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant",
       "Endpoint": "AAD v2.0"
     },
     "AADApps": [

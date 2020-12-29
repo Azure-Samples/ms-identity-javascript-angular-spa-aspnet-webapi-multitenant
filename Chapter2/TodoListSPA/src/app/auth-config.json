@@ -1,7 +1,7 @@
 {
   "credentials": {
     "clientId": "5a79a9db-fcdb-4044-ba40-e7a5da647bde",
-    "tenantId": "common"
+    "tenantId": "organizations"
   },
   "configuration": {
     "redirectUri": "http://localhost:4200",
