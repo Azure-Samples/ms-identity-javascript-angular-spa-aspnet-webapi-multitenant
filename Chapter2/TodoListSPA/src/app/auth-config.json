@@ -1,6 +1,6 @@
 {
   "credentials": {
-    "clientId": "5a79a9db-fcdb-4044-ba40-e7a5da647bde",
+    "clientId": "Enter the Client Id (aka 'Application ID')",
     "tenantId": "organizations"
   },
   "configuration": {
@@ -14,7 +14,7 @@
     },
     "todoListApi": {
       "resourceUri": "https://localhost:44351/api/todolist",
-      "resourceScopes": [ "api://f22578be-e2f8-4a0d-8286-a3d4982f7013/.default" ]
+      "resourceScopes": [ "Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of api://{clientId}/.default" ]
     }
   }     
 }

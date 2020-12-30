@@ -245,6 +245,23 @@ Often the user-based consent will be disabled in an Azure AD tenant or your appl
 
 When provisioning, you have to take care of the dependency in the topology where the **TodoListSPA** is dependent on **TodoListAPI**. So in such a case, you would provision the **TodoListAPI** before the **TodoListSPA**.
 
+### Consent at different stages of application flow
+
+This application requires an **admin-user** to consent to scope `api://{clientId-of-TodoListAPI}/.default` in order to provision the **TodoListAPI** web API to a tenant. Right now, this is done via the **Admin** page. If you would like the user to be prompted for **admin-consent** during initial login, instead of explicitly consenting via **Admin** page, you can modify the [app.module.ts](./TodoListSPA/src/app/app.module.ts) as follows:
+
+```typescript
+export function MSALGuardConfigFactory(): MsalGuardConfiguration {
+  return { 
+    interactionType: InteractionType.Redirect,
+    authRequest: {
+      scopes: [...auth.resources.todoListApi.resourceScopes],
+    },
+  };
+}
+```
+
+This means **Azure AD** will check if **admin-consent** is provided to the aforementioned scope during the initial sign-in. As such, only a user with admin privileges will be able to sign-in for the **first time**. After that, any user from that admin's tenant can sign-in and use the application. This allows you to control whether an ordinary users can provision a **multi-tenant** app into their tenants.
+
 ### Custom token validation allowing only registered tenants
 
 By marking your application as multi-tenant, your application will be able to sign-in users from any Azure AD tenant out there. Now you would want to restrict the tenants you want to work with. For this, we will now extend token validation to only those Azure AD tenants registered in the application database. Below, the event handler `OnTokenValidated` was configured to grab the `tenantId` from the token claims and check if it has an entry on the records. If it doesn't, an exception is thrown, canceling the authentication. (See: [Startup.cs](./TodoListAPI/Startup.cs))

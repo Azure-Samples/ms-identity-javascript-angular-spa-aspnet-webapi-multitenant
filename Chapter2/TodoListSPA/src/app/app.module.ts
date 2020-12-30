@@ -71,9 +71,15 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return { 
     interactionType: InteractionType.Redirect,
-    authRequest: {
-      scopes: [...auth.resources.todoListApi.resourceScopes],
-    },
+
+    /**
+     * If you would like the user to be prompted for admin consent during initial login, 
+     * instead of explicitly consenting via "Admin" page, uncomment the section below.
+     */
+
+    // authRequest: {
+    //   scopes: [...auth.resources.todoListApi.resourceScopes],
+    // },
   };
 }
 
