@@ -25,7 +25,7 @@ In this guide, we will deploy our project components, **TodoListAPI** and **Todo
 
 ## Setup
 
-We will use the same project, TodoListSPA and TodoListAPI from **Chapter 2**. Simply make a copy of the folder **Chapter2** and open it with VS Studio Code. Then, using a command line interface such as VS Code integrated terminal, follow the steps below:
+We will use the same project, **TodoListSPA** and **TodoListAPI** from **Chapter 2**. Simply make a copy of the folder **Chapter2** and open it with VS Studio Code. Then, using a command line interface such as VS Code integrated terminal, follow the steps below:
 
 ### Step 1. Install .NET Core API dependencies
 
@@ -92,11 +92,11 @@ Still on the **App Services** portal, select the **Authentication/Authorization*
 
 ### TodoListSPA
 
-Since TodoListSPA is a single-page application, we will deploy it as a **static website** on [Azure Storage](https://azure.microsoft.com/services/storage/). To do so, we will **build** our Angular sample to create a `dist/<your-project-name>` folder with the compiled resources. Once done, We will upload this `dist/<your-project-name>` folder only (and not the entire `dist/` folder).
+Since **TodoListSPA** is a single-page application, we will deploy it as a **static website** on [Azure Storage](https://azure.microsoft.com/services/storage/). To do so, we will **build** our Angular sample to create a `dist/<your-project-name>` folder with the compiled resources. Once done, We will upload this `dist/<your-project-name>` folder only (and not the entire `dist/` folder).
 
 > A video tutorial covering this process can be found [here](https://docs.microsoft.com/azure/javascript/tutorial-vscode-static-website-node-01).
 
-Using a command line interface such as VS Code integrated terminal, locate the `TodoListSPA folder`, then follow the steps below:
+Using a command line interface such as VS Code integrated terminal, locate the `TodoListSPA` folder, then follow the steps below:
 
 #### Step 1. Create storage account
 
@@ -118,7 +118,7 @@ Right-select the newly created `dist/<your-project-name>` folder and a context-m
 
 You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page. Once deployment is done, a popup on the right corner of VS Code will appear to let you know the URL of the website you've just deployed.
 
-> In case you miss the popup, simply navigate to the **Azure Portal** and find the **Storage** acccount that you've created earlier. Once you are in your account, select the **Static Website** blade on the left menu bar, which will show you the URL. Alternatively, you may just re-deploy your `dist/<your-project-name>` again.
+> In case you miss the popup, simply navigate to the **Azure Portal** and find the **Storage** account that you've created earlier. Once you are in your account, select the **Static Website** blade on the left menu bar, which will show you the URL. Alternatively, you may just re-deploy your `dist/<your-project-name>` again.
 
 #### Step 4. Register your new address as a redirect uri
 
@@ -166,7 +166,7 @@ In the previous chapter, we have set up our own [CORS](https://en.wikipedia.org/
         }
 ```
 
-> [!NOTE] In a real-world scenario, you should be selective with allowed origins i.e. you should allow only trusted domains. For production, you would specify the url of the production client app: for instance, if your client app is hosted at "http://example.com" then the configuration would be: `builder.WithOrigins("http://example.com")`
+> :warning: In a real-world scenario, you should be selective with allowed origins i.e. you should allow only trusted domains. For production, you would specify the url of the production client app: for instance, if your client app is hosted at "http://example.com" then the configuration would be: `builder.WithOrigins("http://example.com")`
 
 If you like, you could delegate the control of **CORS** policy to **Azure App Services**. To do so, navigate to **App Services** portal, and then select the **CORS** blade:
 
@@ -189,7 +189,7 @@ Then, you can add the domain of your single-page application as an **Allowed Ori
 
 - On **Microsoft Edge**, you might run into an issue where the page reloads in a popup window. In that case, please refer to the [FAQ item here](https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki/FAQs#how-to-avoid-page-reloads-when-acquiring-and-renewing-tokens-silently) for alternative ways to mitigate this issue.
 
-> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../issues) page.
+> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../issues) page.
 
 > :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUOE9NQjZCMEs4NEtZQ0JFMzBDSTU2WUtBMSQlQCN0PWcu)
 
@@ -204,7 +204,7 @@ Then, you can add the domain of your single-page application as an **Allowed Ori
 
 Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get support from the community.
 Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
-Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `adal` `msal`].
+Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `msal`].
 
 If you find a bug in the sample, raise the issue on [GitHub Issues](../../../issues).
 

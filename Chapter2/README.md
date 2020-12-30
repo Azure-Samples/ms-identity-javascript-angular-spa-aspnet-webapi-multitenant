@@ -31,9 +31,7 @@ In order to grasp the relevant aspects of **multi-tenancy** covered in the sampl
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
 | `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
-| `TodoListAPI` | Source code of the TodoList API.               |
 | `TodoListAPI/appsettings.json` | Authentication configuration parameters. |
-| `TodoListSPA` | Source code of the TodoList client SPA.        |
 | `TodoListSPA/src/app/auth-config.json` | Authentication configuration parameters. |
 
 ## Prerequisites
@@ -182,7 +180,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 1. Open the `TodoListSPA\src\app\auth-config.json` file
 1. Find the app key `clientId` and replace the existing value with the application ID (clientId) of the **TodoListSPA** application copied from the Azure portal.
 1. Find the app key `webApi.resourceUri` and replace the existing value with the endpoint of the **TodoListAPI** (by default `https://localhost:44351/api/todolist`).
-1. Find the app key `webApi.resourceScope` and replace the existing value with *scope* you created earlier e.g. `api://{clientId-of-TodoListAPI}/.default`.
+1. Find the app key `webApi.resourceScopes` and replace the existing value with *scope* you created earlier e.g. `api://{clientId-of-TodoListAPI}/.default`.
 
 ## Run the sample
 

@@ -29,7 +29,6 @@ In order to grasp the important aspects of **multi-tenancy** in this sample, ple
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
 | `AppCreationScripts` | Contains Powershell scripts to automate app registrations. |
-| `src`             | Source code of the Angular SPA.            |
 | `src/app/auth-config.json` | Authentication configuration parameters. |
 
 ## Prerequisites
@@ -224,7 +223,6 @@ This is demonstrated in the code snippet below:
     if (account) {
       const state = Math.floor(Math.random() * 90000) + 10000; // state parameter for anti token forgery
       
-        // admin consent endpoint. visit X for more info
         const adminConsentUri = "https://login.microsoftonline.com/" + 
         `${account.tenantId}` + "/v2.0/adminconsent?client_id=" + 
         `${auth.credentials.clientId}` + "&state=" + `${state}` + "&redirect_uri=" + `${auth.configuration.redirectUri}` +
@@ -281,7 +279,7 @@ This means that the user will be prompted for consent during sign-in. However, s
 
 By marking your application as multi-tenant, your application will be able to sign-in users from **any** Azure AD tenant out there. Because of this, you may want to restrict the tenants you want to work with. That is, you need to check the `tenantId` in an ID token for a signed-in user, and see if it is one of the tenants you want to grant access to. Since a single-page application cannot or should not make this check securely, you might want to couple your SPA with a web API to carry out this in a real world scenario. In the next chapter, we cover this case.
 
-> [!NOTE] Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../../issues) page.
+> :information_source: Did the sample not work for you as expected? Did you encounter issues trying this sample? Then please reach out to us using the [GitHub Issues](../../../issues) page.
 
 ## Next step
 
