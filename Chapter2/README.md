@@ -39,7 +39,7 @@ In order to grasp the relevant aspects of **multi-tenancy** covered in the sampl
 - [Node.js](https://nodejs.org/en/download/) must be installed to run this sample.
 - [Dotnet Core SDK](https://dotnet.microsoft.com/download) must be installed to run this sample.
 - You would need *at least* **two** Azure Active Directory (Azure AD) tenants to successfully run this sample. For more information on how to get an Azure AD tenant, see [How to get an Azure AD tenant](https://azure.microsoft.com/documentation/articles/active-directory-howto-tenant/).
-- On each tenant, *at least* **one** admin account and **one** non-admin/user account should be present for testing purposes.
+- On each tenant, *at least* **one** admin account (:warning: i.e. global admin) and **one** non-admin/user account should be present for testing purposes.
 - A modern browser. This sample uses **ES6** conventions and will not run on **Internet Explorer**.
 - We recommend [VS Code](https://code.visualstudio.com/download) for running and debugging this cross-platform application.
 
@@ -141,7 +141,7 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 1. Open the `TodoListAPI\appsettings.json` file.
 1. Find the app key `Domain` and replace the existing value with your Azure AD tenant name.
-1. Find the app key `ClientId` and replace the existing value with the application ID (clientId) of the `TodoListAPI` application copied from the Azure portal.
+1. Find the app key `ClientId` and replace the existing value with the application ID (clientId) of the **TodoListAPI** application copied from the Azure portal.
 
 ### Register the client app (TodoListSPA)
 
@@ -167,9 +167,9 @@ Open the project in your IDE (like Visual Studio) to configure the code.
 
 > :warning: The next step requires you to go back to your TodoListAPI registration.
 
-1. Now you need to leave the registration for `TodoListSPA` and **go back to your app registration** for `TodoListAPI`.
+1. Now you need to leave the registration for **TodoListSPA** and *go back to your app registration* for **TodoListAPI**.
    - From the app's Overview page, select the Manifest section.
-   - Find the entry for `KnownClientApplications`, and add the Application (client) ID of the `TodoListSPA` application copied from the Azure portal. i.e. `KnownClientApplications: [ "your-client-id-for-TodoListSPA" ]`
+   - Find the entry for `KnownClientApplications`, and add the Application (client) ID of the `TodoListSPA` application copied from the Azure portal. i.e. `KnownClientApplications: [ "your_client_id_for_TodoListSPA" ]`
 
 #### Configure the client app (TodoListSPA) to use your app registration
 
@@ -207,17 +207,17 @@ In a separate console window, execute the following commands
 
 ![login](../ReadmeFiles/ch2_login.png)
 
-1. Select the "Get my tasks" button to access your todo list.
+Regular users won't be able to sign-in, until an **admin-user** provides **admin-consent** to application permissions.
 
-> If you have not provided **admin-consent** yet, you will get the following screen:
->
-> ![error](../ReadmeFiles/ch2_error_screen.png)
->
-> To provide **admin-consent**, navigate to the consent page by clicking on the "Admin" button on the top-right corner.
->
->![admin](../ReadmeFiles/ch2_admin_consent_page.png)
+![admin](../ReadmeFiles/ch2_error.png)
 
-1. When you create a new task, you will also have an option to assign it to any other user from your tenant:
+You can either consent as admin during initial sign-in, or if you miss this step, via the **Admin** page
+
+![admin](../ReadmeFiles/ch2_admin_prompt.png)
+
+![admin](../ReadmeFiles/ch2_admin.png)
+
+1. Once **admin-consent** is provided, users can select the **Get my tasks** button to access the todo list. When you create a new task, you will also have an option to assign it to any other user from your tenant:
 
 ![assign](../ReadmeFiles/ch2_user_list.png)
 
@@ -245,22 +245,22 @@ Often the user-based consent will be disabled in an Azure AD tenant or your appl
 
 When provisioning, you have to take care of the dependency in the topology where the **TodoListSPA** is dependent on **TodoListAPI**. So in such a case, you would provision the **TodoListAPI** before the **TodoListSPA**.
 
-### Consent at different stages of application flow
+### Admin consent at different stages of application flow
 
-This application requires an **admin-user** to consent to scope `api://{clientId-of-TodoListAPI}/.default` in order to provision the **TodoListAPI** web API to a tenant. Right now, this is done via the **Admin** page. If you would like the user to be prompted for **admin-consent** during initial login, instead of explicitly consenting via **Admin** page, you can modify the [app.module.ts](./TodoListSPA/src/app/app.module.ts) as follows:
+This application requires an **admin-user** to consent to scope `api://{clientId-of-TodoListAPI}/.default` in order to provision the **TodoListAPI** web API to a tenant. This means **Azure AD** will check if **admin-consent** is provided to the aforementioned scope during the initial sign-in. As such, only a user with admin privileges will be able to sign-in for the **first time**. After that, any user from that admin's tenant can sign-in and use the application. This allows you to control whether an ordinary users can provision a **multi-tenant** app into their tenants.
+
+If you would like to change this behavior i.e. allow regular users to sign-in to the app before *admin-consent* you can modify the [app.module.ts](./TodoListSPA/src/app/app.module.ts) as below. Bear in mind, until *admin-consent* is provided, users won't be able to access the **TodoListAPI**, resulting in bad user experience.
 
 ```typescript
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return { 
     interactionType: InteractionType.Redirect,
-    authRequest: {
-      scopes: [...auth.resources.todoListApi.resourceScopes],
-    },
+   //  authRequest: {
+   //    scopes: [...auth.resources.todoListApi.resourceScopes],
+   //  },
   };
 }
 ```
-
-This means **Azure AD** will check if **admin-consent** is provided to the aforementioned scope during the initial sign-in. As such, only a user with admin privileges will be able to sign-in for the **first time**. After that, any user from that admin's tenant can sign-in and use the application. This allows you to control whether an ordinary users can provision a **multi-tenant** app into their tenants.
 
 ### Custom token validation allowing only registered tenants
 

@@ -58,10 +58,19 @@ export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   };
 }
 
-// set your default interaction type for MSALGuard here
+/**
+ * Set your default interaction type for MSALGuard here. If you have any
+ * additional scopes you want the user to consent upon login, add them here as well.
+ */
 export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   return { 
     interactionType: InteractionType.Redirect,
+
+    /**
+     * If you would like the admin-user to explicitly consent via "Admin" page, instead of 
+     * being prompted for admin consent during initial login, comment the section below.
+     */
+    
     authRequest: {
       scopes: [...auth.resources.graphApi.resourceScopes],
     },

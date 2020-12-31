@@ -73,13 +73,13 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     interactionType: InteractionType.Redirect,
 
     /**
-     * If you would like the user to be prompted for admin consent during initial login, 
-     * instead of explicitly consenting via "Admin" page, uncomment the section below.
+     * If you would like the admin-user to explicitly consent via "Admin" page, instead of 
+     * being prompted for admin consent during initial login, comment the section below.
      */
 
-    // authRequest: {
-    //   scopes: [...auth.resources.todoListApi.resourceScopes],
-    // },
+    authRequest: {
+      scopes: [...auth.resources.todoListApi.resourceScopes],
+    },
   };
 }
 
