@@ -335,7 +335,7 @@ Function ConfigureApplications
    # Update config file for 'client'
    $configFile = $pwd.Path + "\..\TodoListSPA\src\app\auth-config.json"
    Write-Host "Updating the sample code ($configFile)"
-   $dictionary = @{ "Enter the Client Id (aka 'Application ID')" = $clientAadApplication.AppId;"Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of api://{clientId}/.default" = ("api://"+$serviceAadApplication.AppId+"/access_as_user") };
+   $dictionary = @{ "Enter the Client Id (aka 'Application ID')" = $clientAadApplication.AppId;"Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of api://{clientId}/.default" = ("api://"+$serviceAadApplication.AppId+"/.default") };
    ReplaceInTextFile -configFilePath $configFile -dictionary $dictionary
    Write-Host ""
    Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
