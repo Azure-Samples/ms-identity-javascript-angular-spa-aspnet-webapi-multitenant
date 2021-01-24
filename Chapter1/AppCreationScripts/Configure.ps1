@@ -7,7 +7,7 @@ param(
     [string] $azureEnvironmentName
 )
 
-#Requires -Modules AzureAD
+#Requires -Modules AzureAD -RunAsAdministrator
 
 <#
  This script creates the Azure AD applications needed for this sample and updates the configuration files
@@ -164,11 +164,10 @@ Function ConfigureApplications
    Write-Host "Creating the AAD application (multitenant-spa)"
    # create the application 
    $spaAadApplication = New-AzureADApplication -DisplayName "multitenant-spa" `
-                                               -HomePage "http://localhost:3000/" `
-                                               -ReplyUrls "http://localhost:3000/" `
+                                               -HomePage "http://localhost:4200/" `
+                                               -ReplyUrls "http://localhost:4200/" `
                                                -IdentifierUris "https://$tenantName/multitenant-spa" `
                                                -AvailableToOtherTenants $True `
-                                               -Oauth2AllowImplicitFlow $true `
                                                -PublicClient $False
 
    # create the service principal of the newly created application 
@@ -196,7 +195,7 @@ Function ConfigureApplications
    # Add Required Resources Access (from 'spa' to 'Microsoft Graph')
    Write-Host "Getting access from 'spa' to 'Microsoft Graph'"
    $requiredPermissions = GetRequiredPermissions -applicationDisplayName "Microsoft Graph" `
-                                                -requiredDelegatedPermissions "User.Read|User.Read.All" `
+                                                -requiredDelegatedPermissions "User.Read.All" `
 
    $requiredResourcesAccess.Add($requiredPermissions)
 
@@ -205,11 +204,19 @@ Function ConfigureApplications
    Write-Host "Granted permissions."
 
    # Update config file for 'spa'
-   $configFile = $pwd.Path + "\..\App\authConfig.js"
+   $configFile = $pwd.Path + "\..\src\app\auth-config.json"
    Write-Host "Updating the sample code ($configFile)"
    $dictionary = @{ "Enter_the_Application_Id_Here" = $spaAadApplication.AppId };
    ReplaceInTextFile -configFilePath $configFile -dictionary $dictionary
-  
+   Write-Host ""
+   Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
+   Write-Host "IMPORTANT: Please follow the instructions below to complete a few manual step(s) in the Azure portal":
+   Write-Host "- For 'spa'"
+   Write-Host "  - Navigate to '$spaPortalUrl'"
+   Write-Host "  - Navigate to the portal and set the 'replyUrlsWithType' to 'Spa' in the application manifest" -ForegroundColor Red 
+
+   Write-Host -ForegroundColor Green "------------------------------------------------------------------------------------------------" 
+     
    Add-Content -Value "</tbody></table></body></html>" -Path createdApps.html  
 }
 

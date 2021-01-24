@@ -1,34 +1,38 @@
 {
     "Sample": {
-      "Title": "A multi-tenant JavaScript single-page application calling Microsoft Graph API using msal.js (w/ AAD v2 endpoint)",
+      "Title": "A multi-tenant Angular single-page application calling Microsoft Graph API using MSAL Angular",
       "Level": 100,
-      "Client": "Vanilla JavaScript SPA",
+      "Client": "Angular SPA",
       "Service": "Microsoft Graph",
-      "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter1",
+      "RepositoryUrl": "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant",
       "Endpoint": "AAD v2.0"
     },
-
     "AADApps": [
       {
         "Id": "spa",
         "Name": "multitenant-spa",
         "Kind" :  "SinglePageApplication",
-        "HomePage": "http://localhost:3000/",
-        "ReplyUrls":"http://localhost:3000/",
+        "Audience": "AzureADMultipleOrgs",
+        "HomePage": "http://localhost:4200/",
+        "ReplyUrls":"http://localhost:4200/",
         "RequiredResourcesAccess": [
           {
             "Resource": "Microsoft Graph",
-            "DelegatedPermissions": [ "User.Read", "User.Read.All" ]
+            "DelegatedPermissions": [ "User.Read.All" ]
+          }
+        ], 
+        "ManualSteps": [
+          {
+            "Comment":  "Navigate to the portal and set the 'replyUrlsWithType' to 'Spa' in the application manifest"
           }
         ]
       }
     ],
-  
     "CodeConfiguration": [
       {
         "App": "spa",
         "SettingKind": "Replace",
-        "SettingFile": "\\..\\App\\authConfig.js",
+        "SettingFile": "\\..\\src\\app\\auth-config.json",
         "Mappings": [
           {
             "key": "Enter_the_Application_Id_Here",

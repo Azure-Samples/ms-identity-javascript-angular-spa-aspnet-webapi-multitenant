@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 12/23/2020
+
+* Chapter 1 vanilla JavaScript sample replaced with Angular 11 sample.
+* Chapter 2 Angular 9 sample using msal-angular 1.x replaced with Angular 11 sample using msal-angular 2.x.
+* Chapter 2 sample updated to M.I.W 1.4.
+
 ## 10/23/2020
 
 * Chapter 1 sample updated to MSAL.js 2.4.0.

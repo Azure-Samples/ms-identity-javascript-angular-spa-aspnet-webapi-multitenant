@@ -1,22 +1,13 @@
----
-page_type: sample
-languages:
-- javascript
-- typescript
-- csharp
-products:
-- azure-active-directory
-- azure-app-service-web
-- azure-app-service-static
-- azure-storage
-- ms-graph
-- dotnet-core
-- angular
-description: "Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core web API"
-urlFragment: "ms-identity-javascript-angular-spa-aspnet-webapi-multitenant/Chapter3"
----
-
 # Deploying a Multi-tenant (SaaS) Angular Single-page Application (SPA) that Authenticates users with Azure AD and calls a protected ASP.NET Core web API
+
+ 1. [Overview](#overview)
+ 1. [Prerequisites](#prerequisites)
+ 1. [Setup](#setup)
+ 1. [Registration](#registration)
+ 1. [About the code](#about-the-code)
+ 1. [More information](#more-information)
+ 1. [Community Help and Support](#community-help-and-support)
+ 1. [Contributing](#contributing)
 
 In this guide, we will deploy our project components, **TodoListAPI** and **TodoListSPA**, to Azure Cloud. For **TodoListAPI**, we will use **Azure App Services**, while for **TodoListSPA**, we will generate a static website and upload it to **Azure Storage**.
 
@@ -34,7 +25,7 @@ In this guide, we will deploy our project components, **TodoListAPI** and **Todo
 
 ## Setup
 
-We will use the same project, TodoListSPA and TodoListAPI from **Chapter 2**. Simply make a copy of the folder **Chapter2** and open it with VS Studio Code. Then, using a command line interface such as VS Code integrated terminal, follow the steps below:
+We will use the same project, **TodoListSPA** and **TodoListAPI** from **Chapter 2**. Simply make a copy of the folder **Chapter2** and open it with VS Studio Code. Then, using a command line interface such as VS Code integrated terminal, follow the steps below:
 
 ### Step 1. Install .NET Core API dependencies
 
@@ -81,7 +72,7 @@ Once the initialization is done, commit all your files to your local Git. On Vis
 
 #### Step 2. Deploy your app
 
-Click on the Azure icon on the left bar in VS Code. Hover your mouse cursor to **App Service** section and you will see an upward-facing arrow icon. Click on it publish your local files in the `TodoListAPI` folder to **Azure App Services**.
+Select the Azure icon on the left bar in VS Code. Hover your mouse cursor to **App Service** section and you will see an upward-facing arrow icon. Select it publish your local files in the `TodoListAPI` folder to **Azure App Services**.
 
 Click "Add Config" if a popup dialog displays regarding configuration to deploy. Choose **Create new Web App** and give it a name, or choose an existing one from the options under **Select Web App**.
 
@@ -89,27 +80,27 @@ Click "Add Config" if a popup dialog displays regarding configuration to deploy.
 
 #### Step 3. Configure your app
 
-On the **App Services** portal, click on the **Configuration** blade and set the **stack** property to **.NET Core**.
+On the **App Services** portal, select the **Configuration** blade and set the **stack** property to **.NET Core**.
 
 ![config](../ReadmeFiles/ch3_config.png)
 
 #### Step 4. Disabling Azure AD authentication
 
-Still on the **App Services** portal, click on the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as we are using our own authentication logic.  
+Still on the **App Services** portal, select the **Authentication/Authorization** blade. There, make sure that the **App Services Authentication** is switched off (and nothing else is checked), as we are using our own authentication logic.  
 
 ![auth1](../ReadmeFiles/ch3_auth.png)
 
 ### TodoListSPA
 
-Since TodoListSPA is a single-page application, we will deploy it as a **static website** on [Azure Storage](https://azure.microsoft.com/services/storage/). To do so, we will **build** our Angular sample to create a `dist/<your-project-name>` folder with the compiled resources. Once done, We will upload this `dist/<your-project-name>` folder only (and not the entire `dist/` folder).
+Since **TodoListSPA** is a single-page application, we will deploy it as a **static website** on [Azure Storage](https://azure.microsoft.com/services/storage/). To do so, we will **build** our Angular sample to create a `dist/<your-project-name>` folder with the compiled resources. Once done, We will upload this `dist/<your-project-name>` folder only (and not the entire `dist/` folder).
 
 > A video tutorial covering this process can be found [here](https://docs.microsoft.com/azure/javascript/tutorial-vscode-static-website-node-01).
 
-Using a command line interface such as VS Code integrated terminal, locate the `TodoListSPA folder`, then follow the steps below:
+Using a command line interface such as VS Code integrated terminal, locate the `TodoListSPA` folder, then follow the steps below:
 
 #### Step 1. Create storage account
 
-On VS Code, click on the Azure Tools icon on the left bar. Then, find the Storage section, and click on one of your subscriptions to create a storage account.
+On VS Code, select the Azure Tools icon on the left bar. Then, find the Storage section, and select one of your subscriptions to create a storage account.
 
 ![storage-account](../ReadmeFiles/ch3_storage_account.png)
 
@@ -121,39 +112,39 @@ On VS Code, click on the Azure Tools icon on the left bar. Then, find the Storag
 
 #### Step 3. Deploy static website
 
-Right-click on the newly created `dist/<your-project-name>` folder and a context-menu will appear with the option "Deploy to static website".
+Right-select the newly created `dist/<your-project-name>` folder and a context-menu will appear with the option "Deploy to static website".
 
 ![deploy-static](../ReadmeFiles/ch3_deploy_static.png)
 
 You may be prompted you to sign in to Azure, providing a link to open in your browser and a code to paste in the login page. Once deployment is done, a popup on the right corner of VS Code will appear to let you know the URL of the website you've just deployed.
 
-> In case you miss the popup, simply navigate to the **Azure Portal** and find the **Storage** acccount that you've created earlier. Once you are in your account, click on the **Static Website** blade on the left menu bar, which will show you the URL. Alternatively, you may just re-deploy your `dist/<your-project-name>` again.
+> In case you miss the popup, simply navigate to the **Azure Portal** and find the **Storage** account that you've created earlier. Once you are in your account, select the **Static Website** blade on the left menu bar, which will show you the URL. Alternatively, you may just re-deploy your `dist/<your-project-name>` again.
 
 #### Step 4. Register your new address as a redirect uri
 
 You now need to go back to your Azure AD **app registration** for `TodoListSPA`:
 
-   1. Click on the **Authentication** blade.
+   1. Select the **Authentication** blade.
    2. Add your website's address (e.g. `https://angular9-todo-app52.z22.web.core.windows.net/`) as a new **Redirect URI**.
 
 #### Step 5. Modify app-config.json
 
 1. Open the `TodoListSPA\src\app\app-config.json` file
 1. Find the key `auth.redirectUri` and replace the existing value with the **Redirect Uri** that you've just registered in the previous step.
-1. Find the key `todoListApi.resourceUri` and replace the existing value with the **Resource Uri** that you've just obtained in deploying TodoListAPI on **App Service** (e.g. https://my-web-api.azurewebsites.net/api/todolist).
+1. Find the key `todoListApi.resourceUri` and replace the existing value with the **Resource Uri** that you've just obtained in deploying TodoListAPI on **App Service** (e.g. `https://my-web-api.azurewebsites.net/api/todolist`).
 1. Re-build and re-deploy your files:
 
 ```console
     ng build --prod
 ```
 
-Right-click on the newly created `dist/<your-project-name>` folder and select "Deploy to static website" from the context-menu. You should now be able to authenticate to your SPA and call your web API.
+Right-select the newly created `dist/<your-project-name>` folder and select **Deploy to static website** from the context-menu. You should now be able to authenticate to your SPA and call your web API.
 
-## Discussion
+## About the code
 
 Here we discuss some of the more important aspects of deploying multi-tenant application suites.
 
-### CORS Configuration
+### CORS configuration
 
 In the previous chapter, we have set up our own [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing) configuration in the **TodoListAPI** (`TodoListAPI/Startup.cs`):
 
@@ -175,15 +166,15 @@ In the previous chapter, we have set up our own [CORS](https://en.wikipedia.org/
         }
 ```
 
-> [!NOTE] In a real-world scenario, you should be selective with allowed origins i.e. you should allow only trusted domains. For production, you would specify the url of the production client app: for instance, if your client app is hosted at "http://example.com" then the configuration would be: `builder.WithOrigins("http://example.com")`
+> :warning: In a real-world scenario, you should be selective with allowed origins i.e. you should allow only trusted domains. For production, you would specify the url of the production client app: for instance, if your client app is hosted at "http://example.com" then the configuration would be: `builder.WithOrigins("http://example.com")`
 
-If you like, you could delegate the control of **CORS** policy to **Azure App Services**. To do so, navigate to **App Services** portal, and then click on the **CORS** blade:
+If you like, you could delegate the control of **CORS** policy to **Azure App Services**. To do so, navigate to **App Services** portal, and then select the **CORS** blade:
 
 ![cors](../ReadmeFiles/ch3_cors.png)
 
 Then, you can add the domain of your single-page application as an **Allowed Origin**. Of course, if you follow this approach, don't forget to remove the CORS configuration in the `TodoListAPI/Startup.cs` (i.e. the code snipped above), as you no longer need it once you set up **Azure App Services** to enforce the **CORS** policy.
 
-## Known Issues
+## Known issues
 
 - In case you recevive the `HTTP Error 500.30 - ANCM In-Process Start Failure` error for your Web API on **Azure App Services**, try adding this line to `TodoListAPI/TodoListAPI.csproj` and re-deploy your project:
 
@@ -198,7 +189,7 @@ Then, you can add the domain of your single-page application as an **Allowed Ori
 
 - On **Microsoft Edge**, you might run into an issue where the page reloads in a popup window. In that case, please refer to the [FAQ item here](https://github.com/AzureAD/microsoft-authentication-library-for-js/wiki/FAQs#how-to-avoid-page-reloads-when-acquiring-and-renewing-tokens-silently) for alternative ways to mitigate this issue.
 
-> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../issues) page.
+> :information_source: Did the sample not work for you as expected? Then please reach out to us using the [GitHub Issues](../../../issues) page.
 
 > :information_source: Consider taking a moment to [share your experience with us](https://forms.office.com/Pages/ResponsePage.aspx?id=v4j5cvGGr0GRqy180BHbR73pcsbpbxNJuZCMKN0lURpUOE9NQjZCMEs4NEtZQ0JFMzBDSTU2WUtBMSQlQCN0PWcu)
 
@@ -209,8 +200,18 @@ Then, you can add the domain of your single-page application as an **Allowed Ori
 - [Authentication and authorization in Azure App Service and Azure Functions](https://docs.microsoft.com/azure/app-service/overview-authentication-authorization)
 - [Configure your App Service or Azure Functions app to use Azure AD login](https://docs.microsoft.com/azure/app-service/configure-authentication-provider-aad)
 
-## Code of Conduct
+## Community Help and Support
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+Use [Stack Overflow](http://stackoverflow.com/questions/tagged/msal) to get support from the community.
+Ask your questions on Stack Overflow first and browse existing issues to see if someone has asked your question before.
+Make sure that your questions or comments are tagged with [`azure-active-directory` `azure-ad-b2c` `ms-identity` `msal`].
+
+If you find a bug in the sample, raise the issue on [GitHub Issues](../../../issues).
+
+To provide feedback on or suggest features for Azure Active Directory, visit [User Voice page](https://feedback.azure.com/forums/169401-azure-active-directory).
+
+## Contributing
+
+If you'd like to contribute to this sample, see [CONTRIBUTING.MD](/CONTRIBUTING.md).
+
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information, see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
