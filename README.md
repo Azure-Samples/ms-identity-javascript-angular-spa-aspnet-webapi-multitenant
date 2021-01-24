@@ -27,9 +27,9 @@ The aim of this tutorial is for you to understand aspects of **multi-tenancy** i
 
 | File/folder       | Description                                |
 |-------------------|--------------------------------------------|
-| `Chapter1`        | A multi-tenant Angular SPA signing-in users and calling MS Graph. |
-| `Chapter2`        | A multi-tenant Angular SPA signing-in users and calling a protected .NET Core web API and MS Graph. |
-| `Chapter3`        | Deploying this solution to Azure App Services and Azure Storage. |
+| [Chapter 1](./Chapter1) | A multi-tenant Angular SPA signing-in users and calling MS Graph. |
+| [Chapter 2](./Chapter2) | A multi-tenant Angular SPA signing-in users and calling a protected .NET Core web API and MS Graph. |
+| [Chapter 3](./Chapter3) | Deploying this solution to Azure App Services and Azure Storage. |
 | `CHANGELOG.md`    | List of changes to the sample.             |
 | `CONTRIBUTING.md` | Guidelines for contributing to the sample. |
 | `LICENSE`         | The license for the sample.                |
@@ -71,7 +71,7 @@ Now let's start with [Chapter 1](./Chapter1/README.md).
 
 For more information, visit the following links:
 
-- Articles about the Microsoft identity platform are at [http://aka.ms/aaddevv2](http://aka.ms/aaddevv2), with a focus on:
+- See the [Microsoft identity platform documentation](https://docs.microsoft.com/azure/active-directory/develop/), with a focus on:
   - [Converting an application to Multi-tenant](https://docs.microsoft.com/azure/active-directory/develop/howto-convert-app-to-be-multi-tenant)
   - [Permissions and Consent](https://docs.microsoft.com/azure/active-directory/develop/v2-permissions-and-consent)
   - [Understanding Azure AD Application Consent Experiences](https://docs.microsoft.com/azure/active-directory/develop/application-consent-experience)
