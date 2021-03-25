@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MsalGuard } from '@azure/msal-angular';
+import { AuthComponent } from './auth/auth.component';
 import { ConsentComponent } from './consent/consent.component';
 import { HomeComponent } from './home/home.component';
+import { MigrationViewComponent } from './migration-view/migration-view.component';
 import { TodoEditComponent } from './todo-edit/todo-edit.component';
 import { TodoViewComponent } from './todo-view/todo-view.component';
 
@@ -22,6 +24,20 @@ const routes: Routes = [
   {
     path: 'todo-view',
     component: TodoViewComponent,
+    canActivate: [
+      MsalGuard
+    ]
+  },
+  {
+    path: 'auth',
+    component: AuthComponent,
+    canActivate: [
+      MsalGuard
+    ]
+  },
+  {
+    path: 'migration-view',
+    component: MigrationViewComponent,
     canActivate: [
       MsalGuard
     ]
@@ -55,7 +71,7 @@ const isIframe = window !== window.parent && !window.opener;
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    useHash: true,
+    //useHash: true,
     // Don't perform initial navigation in iframes
     initialNavigation: !isIframe ? 'enabled' : 'disabled'
   })],

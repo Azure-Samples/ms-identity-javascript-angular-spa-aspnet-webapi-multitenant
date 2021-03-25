@@ -3,6 +3,10 @@ import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfigur
 import { EventMessage, EventType, InteractionType, PopupRequest, RedirectRequest } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { ActivatedRoute, Router, RouterStateSnapshot } from '@angular/router';
+import { AuthService } from './auth.servive';
+import { AuthCode } from './models/authcode';
+
 
 @Component({
   selector: 'app-root',
@@ -10,7 +14,7 @@ import { filter, takeUntil } from 'rxjs/operators';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'Microsoft identity platform';
+  title = 'Zoom to Microsoft Teams Migration tool';
   isIframe = false;
   loggedIn = false;
   private readonly _destroying$ = new Subject<void>();
@@ -18,10 +22,10 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
+    private msalBroadcastService: MsalBroadcastService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
     this.isIframe = window !== window.parent && !window.opener;
 
     this.checkAccount();

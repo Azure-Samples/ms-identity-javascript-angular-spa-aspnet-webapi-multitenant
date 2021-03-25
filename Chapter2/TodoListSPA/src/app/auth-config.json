@@ -1,10 +1,10 @@
 {
   "credentials": {
-    "clientId": "Enter the Client Id (aka 'Application ID')",
+    "clientId": "fc9c3f24-62b3-4c2c-8eca-39bd17ab5b05",
     "tenantId": "organizations"
   },
   "configuration": {
-    "redirectUri": "http://localhost:4200",
+    "redirectUri": "https://localhost:4200",
     "postLogoutRedirectUri": "http://localhost:4200"
   },
   "resources": {
@@ -14,7 +14,15 @@
     },
     "todoListApi": {
       "resourceUri": "https://localhost:44351/api/todolist",
-      "resourceScopes": [ "Enter the API scopes as declared in the app registration 'Expose an API' blade in the form of api://{clientId}/.default" ]
+      "resourceScopes": [ "api://6d8d39e8-ccb1-498d-99a0-955a57bd344d/.default" ]
+    },
+    "getConfigApi": {
+      "resourceUri": "https://localhost:44351/api/configurations",
+      "resourceScopes": [ "api://6d8d39e8-ccb1-498d-99a0-955a57bd344d/.default" ]
+    },
+    "authApi": {
+      "resourceUri": "https://localhost:44351/api/auth",
+      "resourceScopes": [ "api://6d8d39e8-ccb1-498d-99a0-955a57bd344d/.default" ]
     }
   }     
 }

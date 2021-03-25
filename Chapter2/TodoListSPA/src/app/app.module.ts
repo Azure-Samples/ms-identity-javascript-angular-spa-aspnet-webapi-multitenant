@@ -27,6 +27,11 @@ import { TodoEditComponent } from './todo-edit/todo-edit.component';
 import { TodoService } from './todo.service';
 
 import * as auth from './auth-config.json';
+import { CommonModule } from '@angular/common';
+import { MigrationViewComponent } from './migration-view/migration-view.component';
+import { ConfigurationsService } from './configurations.service';
+import { AuthComponent } from './auth/auth.component';
+import { AuthService } from './auth.servive';
 
 const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
 
@@ -56,7 +61,9 @@ export function MSALInstanceFactory(): IPublicClientApplication {
 export function MSALInterceptorConfigFactory(): MsalInterceptorConfiguration {
   const protectedResourceMap = new Map<string, Array<string>>();
   protectedResourceMap.set(auth.resources.graphApi.resourceUri, auth.resources.graphApi.resourceScopes)
-    .set(auth.resources.todoListApi.resourceUri, auth.resources.todoListApi.resourceScopes);
+    .set(auth.resources.todoListApi.resourceUri, auth.resources.todoListApi.resourceScopes)
+    .set(auth.resources.getConfigApi.resourceUri, auth.resources.getConfigApi.resourceScopes)
+    .set(auth.resources.authApi.resourceUri, auth.resources.authApi.resourceScopes);
 
   return {
     interactionType: InteractionType.Redirect,
@@ -90,6 +97,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     ConsentComponent,
     TodoViewComponent,
     TodoEditComponent,
+    MigrationViewComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
@@ -107,7 +116,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MatCheckboxModule,
     MatIconModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    CommonModule,
   ],
   providers: [
     {
@@ -130,7 +140,9 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     MsalService,
     MsalGuard,
     MsalBroadcastService,
-    TodoService
+    TodoService,
+    ConfigurationsService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

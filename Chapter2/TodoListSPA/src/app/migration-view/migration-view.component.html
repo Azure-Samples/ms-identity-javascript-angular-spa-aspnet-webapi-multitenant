@@ -1,0 +1,28 @@
+<label>Sign in into Zoom and grant consent/access : </label> 
+<button mat-raised-button (click)="onSignInToZoomsClickEvent()">Sign in and grant access to Zoom</button>
+<br>
+<br>
+<label>Sign in into Microsoft 365 and grant consent/access to Microsoft Teams: </label> 
+<button mat-raised-button (click)="onSignInToTeamsClickEvent()">Sign in and grant access Teams</button>
+<br>
+<br>
+<label for="Calendar">Choose your calendar for scheduling your meetings : </label>
+<select name="Calendar" id="Calendar" [(ngModel)]="calendar">
+  <option value="google">Google Calendar</option>
+  <option value="outlook">Outlook</option>
+</select>
+<br>
+<br>
+
+<div *ngIf="calendar == 'google'">
+    <label>Sign in into your org google account and grant access to calendar: </label> 
+    <button mat-raised-button>Sign in to Google</button>
+</div>
+
+<div *ngIf="calendar == 'outlook'">
+    <label>Sign in into Microsoft 365 and grant consent/access to Microsoft Teams: </label> 
+    <button mat-raised-button>Sign in to Outlook</button>
+</div>
+<br>
+<br>
+<button mat-raised-button>Start Migration</button>

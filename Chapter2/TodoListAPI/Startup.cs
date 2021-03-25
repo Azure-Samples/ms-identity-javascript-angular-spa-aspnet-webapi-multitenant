@@ -11,6 +11,8 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Web;
 using TodoListAPI.Models;
+using TodoListAPI.Services;
+using TodoListAPI.Repository;
 
 namespace TodoListAPI
 {
@@ -25,11 +27,12 @@ namespace TodoListAPI
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {            
             // Setting configuration for protected web api
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddMicrosoftIdentityWebApi(Configuration);
 
+            services.AddSingleton<IConfiguration>(Configuration);
             // Uncomment this section if you would like to validate ID tokens for allowed tenantIds
             // services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
             // {
@@ -58,6 +61,10 @@ namespace TodoListAPI
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
+
+            services.AddHttpClient<IZoomAuthService, ZoomAuthService>();
+            
+            services.AddSingleton<IUserRepository>(new InMemoryUserRepository());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
